@@ -18,10 +18,20 @@ public class Game {
 		}
 	}
 	class Guard extends Entity{
+                char pattern[] = {'a', 's', 's', 's', 's', 'a', 'a', 'a', 'a', 'a', 'a', 's', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'w', 'w', 'w', 'w', 'w'};
+                int currentPosition;
 		public Guard(int x, int y){
 			super(x,y);
 			this.setSymbol('G');
+			this.currentPosition = 0;
 		}
+		public char[] getPattern(){ return this.pattern; }
+		public int getCurrentPosition(){ return this.currentPosition; }
+		public void incCurrentPosition(){
+                    this.currentPosition++;
+                    if(currentPosition > pattern.length-1)
+                        this.currentPosition = 0;
+                    }
 	}
 	class Hero extends Entity{
 		public Hero(int x, int y){
@@ -29,7 +39,75 @@ public class Game {
 			symbol = 'H';
 		}
 	}
+	public boolean moveHero(Hero hero){
+            int dx = 0, dy = 0;
+            input = sc.nextLine();
 
+		switch(input){
+			case "w":
+			dx--;
+			break;
+			case "a":
+                	dy--;
+			break;
+			case "s":
+			dx++;
+			break;
+			case "d":
+			dy++;
+			break;
+			default:
+			break;
+                    }
+                    
+                int x = hero.getX()+dx;
+		int y = hero.getY()+dy;
+		
+		char symbol = map[x][y];
+		if(symbol != ' ') return false;;
+		
+		if(x < 0 || x > map.length -1)return false;
+		if(y < 0 || y > map.length -1) return false;
+
+		hero.setX(x);
+                hero.setY(y);
+		return true;
+	}
+	
+	public boolean moveGuard(Guard guard){
+            int dx = 0, dy = 0;
+            
+            switch(guard.getPattern()[guard.currentPosition]){
+			case 'w':
+			dx--;
+			break;
+			case 'a':
+                	dy--;
+			break;
+			case 's':
+			dx++;
+			break;
+			case 'd':
+			dy++;
+			break;
+			default:
+                        System.out.println("Simbolo invalido");
+			break;
+                }
+                
+                int x = guard.getX()+dx;
+                int y = guard.getY()+dy;
+                
+                if(x < 0 || x > map.length -1) return false;
+                if(y < 0 || y > map.length -1) return false;
+                
+                guard.setX(x);
+                guard.setY(y);
+                
+                guard.incCurrentPosition();
+                return true;
+	}
+	
 	Scanner sc;
 	String input;
 	boolean gameOver = false;
@@ -79,38 +157,23 @@ public void play(){
 	while(!gameOver){
 		printMap();
 		System.out.print("Direction[wasd]: ");
-		input = sc.nextLine();
 
-		int dx = 0, dy = 0;
-		switch(input){
-			case "w":
-			dx--;
-			break;
-			case "a":
-			dy--;
-			break;
-			case "s":
-			dx++;
-			break;
-			case "d":
-			dy++;
-			break;
-			default:
-			continue;
+		moveHero(hero);
+		
+		int x = hero.getX();
+		int y = hero.getY();
+		
+		if(map[x+1][y] == 'i' ||
+                   map[x-1][y] == 'i' ||
+                   map[x][y+1] == 'i' ||
+                   map[x][y-1] == 'i'){
+                gameOver = true;
+                continue;
+                }
+		
+		for(int i = 0; i < guards.size(); i++){
+                    moveGuard(guards.get(i));
 		}
-
-		int x = hero.getX()+dx;
-		int y = hero.getY()+dy;
-
-		if(x < 0 || x > map.length -1) continue;
-		if(y < 0 || y > map.length -1) continue;
-
-		char symbol = map[x][y];
-		if(symbol == 'i') gameOver = true;
-		if(symbol != ' ') continue;
-
-		hero.setX(x);
-	  hero.setY(y);
 
 		for(int i = 0; i < guards.size(); i++)
 		if(
@@ -133,7 +196,5 @@ public void play(){
 		}
 	}
 	System.out.print("Venho por este meio parabeniza-lo(a) pelo desempenho que demonstrou neste jogo.\n");
-}
-
-
+    }
 }
