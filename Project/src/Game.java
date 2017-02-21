@@ -1,17 +1,18 @@
 package gamelogic;
+
 import userinteraction.Input;
 import java.io.*;
 import java.util.*;
 
 public class Game {
-	
+
 	char empty_map[][] = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
 			{ 'X', ' ', ' ', ' ', 'I', ' ', 'X', ' ', ' ', 'X' }, { 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
 			{ 'X', ' ', 'I', ' ', 'I', ' ', 'X', ' ', ' ', 'X' }, { 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
 			{ 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
 			{ 'X', 'X', 'X', ' ', 'X', 'X', 'X', 'X', ' ', 'X' }, { 'X', ' ', 'I', ' ', 'I', ' ', 'X', 'k', ' ', 'X' },
 			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
-	
+
 	Map map = new Map(empty_map);
 	boolean gameOver = false;
 	Input userInput = new Input();
@@ -19,8 +20,7 @@ public class Game {
 	ArrayList<Guard> guards = new ArrayList<Guard>();
 	String gameOverMessage = "Venho por este meio parabeniza-lo(a) pelo desempenho que demonstrou neste jogo.\n";
 
-	
-	public boolean moveHero(Hero hero) {         
+	public boolean moveHero(Hero hero) {
 		int dx = 0, dy = 0;
 
 		switch (userInput.getUserInput()) {
@@ -94,21 +94,18 @@ public class Game {
 		return true;
 	}
 
-
-
-	
 	public Game() {
 		hero = new Hero(1, 1);
 		guards.add(new Guard(this, 1, 8));
 		userInput = new Input();
-	}	
+	}
 
 	public void printMap() {
 
 		map.cleanCurrentMap();
 
-		map.setSymbol(hero.getX(),hero.getY() , hero.getSymbol());
-		
+		map.setSymbol(hero.getX(), hero.getY(), hero.getSymbol());
+
 		for (int i = 0; i < guards.size(); i++)
 			map.setSymbol(guards.get(i).getX(), guards.get(i).getY(), guards.get(i).getSymbol());
 
@@ -126,17 +123,21 @@ public class Game {
 			System.out.print("Direction[wasd]: ");
 
 			moveHero(hero);
-			
+
 			int x = hero.getX();
 			int y = hero.getY();
-			
 
-			if (map.getMapElement(x + 1, y) == 'i' || map.getMapElement(x - 1, y) == 'i' || map.getMapElement(x, y + 1) == 'i' || map.getMapElement(x, y - 1) == 'i') {
-				gameOver = true;
-				continue;
+			if (    
+				map.getMapElement(x + 1, y) == 'i' || 
+				map.getMapElement(x - 1, y) == 'i' ||
+				map.getMapElement(x, y + 1) == 'i' ||
+				map.getMapElement(x, y - 1) == 'i'
+				) 
+			{
+			gameOver = true;
+			continue;
 			}
-			
-		
+
 			for (int i = 0; i < guards.size(); i++) {
 				moveGuard(guards.get(i));
 			}
@@ -151,11 +152,14 @@ public class Game {
 			if (gameOver)
 				continue;
 
-			if (map.getMapElement(x + 1, y) == 'k' || map.getMapElement(x - 1, y) == 'k' || map.getMapElement(x, y + 1) == 'k' || map.getMapElement(x, y - 1) == 'k') {
-				for (int i = 0; i < map.getXMapLength(); i++)
-					for (int j = 0; j < map.getYMapLength(); j++)
-						if (map.getMapElement(i, j) == 'I')
-							map.setSymbol(i, j, 'i');
+			if (
+				map.getMapElement(x + 1, y) == 'k' || 
+				map.getMapElement(x - 1, y) == 'k' ||
+				map.getMapElement(x, y + 1) == 'k' || 
+				map.getMapElement(x, y - 1) == 'k'
+				) 
+			{
+				map.openDoors();
 			}
 		}
 		printMap();

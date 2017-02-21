@@ -24,6 +24,22 @@ public class Map {
 	}
 	
 	public void setSymbol(int x, int y, char symbol){ current_map[x][y] = symbol; }
+	public void openDoors(){
+		for(int i = 0; i < this.getXMapLength(); i++ )
+			for(int j = 0; j < this.getYMapLength(); j++){
+				if(current_map[i][j] == 'I'){
+					current_map[i][j] = 'i';
+				}
+			}
+		for(int i = 0; i < this.getXMapLength(); i++ )
+			for(int j = 0; j < this.getYMapLength(); j++){
+				if(empty_map[i][j] == 'I'){
+					empty_map[i][j] = 'i';
+				}
+			}
+		
+	}
+	
 	
 	public char getMapElement(int x, int y){ return current_map[x][y]; }
 	public int getXMapLength(){ return current_map.length; }
