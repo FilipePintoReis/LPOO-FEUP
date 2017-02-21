@@ -1,3 +1,6 @@
+package userinteraction;
+import gamelogic.Game;
+
 public class Main {
 
 	public static void main(String[] args) {
