@@ -1,7 +1,6 @@
 package gamelogic;
 
 import userinteraction.Input;
-import java.io.*;
 import java.util.*;
 
 public class Game {
@@ -95,8 +94,10 @@ public class Game {
 	}
 
 	public Game() {
+		char[] guard_pattern = { 'a', 's', 's', 's', 's', 'a', 'a', 'a', 'a', 'a', 'a', 's', 'd', 'd', 'd', 'd', 'd', 'd',
+				'd', 'w', 'w', 'w', 'w', 'w' };
 		hero = new Hero(1, 1);
-		guards.add(new Guard(this, 1, 8));
+		guards.add(new Guard(1, 8, guard_pattern));
 		userInput = new Input();
 	}
 
@@ -153,6 +154,7 @@ public class Game {
 				continue;
 
 			if (
+				map.getMapElement(8,8) == 'H'      ||
 				map.getMapElement(x + 1, y) == 'k' || 
 				map.getMapElement(x - 1, y) == 'k' ||
 				map.getMapElement(x, y + 1) == 'k' || 

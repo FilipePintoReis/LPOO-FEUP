@@ -2,19 +2,36 @@ package gamelogic;
 import gamelogic.Entity;
 
 class Guard extends Entity {
-	/**
-	 * 
-	 */
-	private final Game Guard;
-	char pattern[] = { 'a', 's', 's', 's', 's', 'a', 'a', 'a', 'a', 'a', 'a', 's', 'd', 'd', 'd', 'd', 'd', 'd',
+	
+	char pattern[];
+			/*
+			= { 'a', 's', 's', 's', 's', 'a', 'a', 'a', 'a', 'a', 'a', 's', 'd', 'd', 'd', 'd', 'd', 'd',
 			'd', 'w', 'w', 'w', 'w', 'w' };
+			*/
+			
 	int currentPosition;
 
-	public Guard(Game game, int x, int y) {
+	public Guard(int x, int y, char[] pattern) {
 		super(x, y);
-		Guard = game;
 		this.setSymbol('G');
 		this.currentPosition = 0;
+		this.pattern = new char[pattern.length];
+		for(int i=0; i < this.pattern.length; i++){
+			this.pattern[i] = pattern[i];
+		}
+	}
+	
+	public Guard(int x, int y) {
+		super(x, y);
+		this.setSymbol('G');
+		this.currentPosition = 0;
+		pattern = new char[24];
+	}
+	
+	public void setPattern(char[] pattern){
+		for(int i=0; i < pattern.length; i++){
+			this.pattern[i] = pattern[i];
+		}
 	}
 
 	public char[] getPattern() {
