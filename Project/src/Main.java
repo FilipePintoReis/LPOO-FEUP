@@ -1,5 +1,5 @@
 package userinteraction;
-import gamelogic.Game;
+import gamelogic.*;
 
 public class Main {
 
@@ -9,3 +9,5 @@ public class Main {
 	}
 
 }
+
+//test so I can do a git commit
