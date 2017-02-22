@@ -33,4 +33,10 @@ class Entity {
 		this.x = x;
 		this.y = y;
 	}
+	
+	public Entity(int x, int y, char symbol){
+		this.x = x;
+		this.y = y;
+		this.symbol = symbol;
+	}
 }

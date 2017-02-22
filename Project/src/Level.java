@@ -2,11 +2,9 @@ package gamelogic;
 
 import userinteraction.Input;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Level {
-
-	
-
 	//class attributes
 	boolean levelOver = false;
 	Input userInput = new Input();
@@ -18,25 +16,35 @@ public class Level {
 	
 	public Level() {
 		char empty_map[][] = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
-				{ 'X', ' ', ' ', ' ', 'I', ' ', 'X', ' ', ' ', 'X' },
-				{ 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
-				{ 'X', ' ', 'I', ' ', 'I', ' ', 'X', ' ', ' ', 'X' },
-				{ 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
-				{ 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-				{ 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-				{ 'X', 'X', 'X', ' ', 'X', 'X', 'X', 'X', ' ', 'X' },
-				{ 'X', ' ', 'I', ' ', 'I', ' ', 'X', 'k', ' ', 'X' },
-				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
+							   { 'X', ' ', ' ', ' ', 'I', ' ', 'X', ' ', ' ', 'X' },
+							   { 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
+							   { 'X', ' ', 'I', ' ', 'I', ' ', 'X', ' ', ' ', 'X' },
+							   { 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
+							   { 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+							   { 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+							   { 'X', 'X', 'X', ' ', 'X', 'X', 'X', 'X', ' ', 'X' },
+							   { 'X', ' ', 'I', ' ', 'I', ' ', 'X', 'k', ' ', 'X' },
+							   { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
+		
+		char empty_map2[][] = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
+							    { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+							    { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+							    { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+							    { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+							    { 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+							    { 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+							    { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+							    { 'X', ' ', ' ', ' ', ' ', ' ', ' ', 'k', ' ', 'X' },
+							    { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 		char[] guard_pattern = { 'a', 's', 's', 's', 's', 'a', 'a', 'a', 'a', 'a', 'a', 's', 'd', 'd', 'd', 'd', 'd',
 				'd', 'd', 'w', 'w', 'w', 'w', 'w' };
 		hero = new Hero(1, 1);
-		map = new Map(empty_map);
-		guards.add(new Guard(1, 8, guard_pattern));
-		ogres.add(new Ogre(8, 1, guard_pattern));
+		//map = new Map(empty_map);
+		map = new Map(empty_map2);
+		//guards.add(new Guard(1, 8, guard_pattern));
+		ogres.add(new Ogre(5, 5));
 		userInput = new Input();
 	}
-	
-	
 	
 	public Level(Hero hero, Map map, ArrayList<Guard> guards, ArrayList<Ogre> ogres){
 		this.hero = hero;
@@ -44,17 +52,7 @@ public class Level {
 		this.guards = guards;
 		this.ogres = ogres;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	//Game stuff
-	
-	
+
 	public boolean moveHero(Hero hero) {
 		int dx = 0, dy = 0;
 
@@ -81,7 +79,6 @@ public class Level {
 		char symbol = map.getMapElement(x, y);
 		if (symbol != ' ')
 			return false;
-		;
 
 		/*if (x < 0 || x > map.getXMapLength() - 1)
 			return false;
@@ -93,7 +90,7 @@ public class Level {
 		return true;
 	}
 
-	//O switch procura na pattern do guarda a sua nova posicao 
+	//moves Guard according to its pattern
 	public boolean moveGuard(Guard guard) {
 		int dx = 0, dy = 0;
 
@@ -133,17 +130,19 @@ public class Level {
 	public boolean moveOgre(Ogre ogre) {
 		int dx = 0, dy = 0;
 
-		switch (ogre.getPattern()[ogre.currentPosition]) {
-		case 'w':
+		int randomNumber = ThreadLocalRandom.current().nextInt(0, 4);
+		
+		switch (randomNumber) {
+		case 0:
 			dx--;
 			break;
-		case 'a':
+		case 1:
 			dy--;
 			break;
-		case 's':
+		case 2:
 			dx++;
 			break;
-		case 'd':
+		case 3:
 			dy++;
 			break;
 		default:
@@ -153,6 +152,10 @@ public class Level {
 
 		int x = ogre.getX() + dx;
 		int y = ogre.getY() + dy;
+		
+		char symbol = map.getMapElement(x, y);
+		if (symbol != ' ')
+			return false;
 
 		if (x < 0 || x > map.getXMapLength() - 1)
 			return false;
@@ -161,22 +164,22 @@ public class Level {
 
 		ogre.setX(x);
 		ogre.setY(y);
-
-		ogre.incCurrentPosition();
 		return true;
 	}
 
 	
 
 	public void printMap() {
-        //Mapa fica vazio
 		map.cleanCurrentMap();
-        //Coloca o heroi dentro do novo mapa
+        //put hero in map
 		map.setSymbol(hero.getX(), hero.getY(), hero.getSymbol());
-        //Coloca os guardas dentro do novo mapa
+        //put guards in map
 		for (int i = 0; i < guards.size(); i++)
 			map.setSymbol(guards.get(i).getX(), guards.get(i).getY(), guards.get(i).getSymbol());
-        //Mostra todos os elementos do mapa
+		//put ogres in map
+		for (int i = 0; i < ogres.size(); i++)
+			map.setSymbol(ogres.get(i).getX(), ogres.get(i).getY(), ogres.get(i).getSymbol());
+        //print map
 		for (int i = 0; i < map.getXMapLength(); i++) {
 			for (int j = 0; j < map.getYMapLength(); j++) {
 				System.out.print(map.getMapElement(i, j) + " ");
@@ -185,7 +188,48 @@ public class Level {
 		}
 	}
 
-	
+	public void uploadGuards(){
+		for (int i = 0; i < guards.size(); i++) {
+			moveGuard(guards.get(i));
+		}
+	}
+	public void uploadOgres(){
+		for (int i = 0; i < ogres.size(); i++) {
+			moveOgre(ogres.get(i));
+		}
+	}
+	public void checkCapturedByGuards(){
+		for (int i = 0; i < guards.size(); i++)
+			if (Math.abs(hero.getX() - guards.get(i).getX()) + Math.abs(hero.getY() - guards.get(i).getY()) < 2) {
+				hero.captureHero();
+				levelOver = true;
+				levelOverMessage = "Demonstracao de habilidade insuficiente relativamente aos objetivos a cumprir.\n";
+				break;
+			}
+	}
+	public void checkCapturedByOgres(){
+		for (int i = 0; i < ogres.size(); i++)
+			if (Math.abs(hero.getX() - ogres.get(i).getX()) + Math.abs(hero.getY() - ogres.get(i).getY()) < 2) {
+				hero.captureHero();
+				levelOver = true;
+				levelOverMessage = "Demonstracao de habilidade insuficiente relativamente aos objetivos a cumprir.\n";
+				break;
+			}
+	}
+	public void checkHeroNearExit(){
+		if (map.getMapElement(hero.getX() + 1, hero.getY()) == 'S' || map.getMapElement(hero.getX() - 1, hero.getY()) == 'S'
+				|| map.getMapElement(hero.getX(), hero.getY() + 1) == 'S' || map.getMapElement(hero.getX(), hero.getY() - 1) == 'S') {
+			levelOver = true;
+		}
+	}
+	public void checkHeroOnExit(){
+		map.loadExits();
+		for(int i=0; i < map.getExits().size(); i++){
+			if(map.getExits().get(i).getX() == hero.getX() &&
+			   map.getExits().get(i).getY() == hero.getY())
+			levelOver = true;
+		}
+	}
 	public boolean play() {
 		while (!levelOver) {
 			printMap();
@@ -196,29 +240,19 @@ public class Level {
 			int x = hero.getX();
 			int y = hero.getY();
 
-			//Serve para ver se cheguei às portas da caverna
-			if (map.getMapElement(x + 1, y) == 'i' || map.getMapElement(x - 1, y) == 'i'
-					|| map.getMapElement(x, y + 1) == 'i' || map.getMapElement(x, y - 1) == 'i') {
-				levelOver = true;
-			}
-
-			//Serve para mover cada um dos guardas para a sua nova posicao 
-			for (int i = 0; i < guards.size(); i++) {
-				moveGuard(guards.get(i));
-			}
+			checkHeroNearExit();
+			//checkHeroOnExit();
+			
+			uploadGuards();
+			uploadOgres();
             
-			//Avalia para cada guarda se o heroi se encontra em range
-			for (int i = 0; i < guards.size(); i++)
-				if (Math.abs(x - guards.get(i).getX()) + Math.abs(y - guards.get(i).getY()) < 2) {
-					levelOver = true;
-					levelOverMessage = "Demonstracao de habilidade insuficiente relativamente aos objetivos a cumprir.\n";
-					break;
-				}
+			checkCapturedByGuards();
+			checkCapturedByOgres();
 
 			if (levelOver)
 				continue;
 			
-            //Avalia se o heroi esta em range da chave
+            //check if Hero is near the lever
 			if (map.getMapElement(x + 1, y) == 'k' || 
 				map.getMapElement(x - 1, y) == 'k' || 
 				map.getMapElement(x, y + 1) == 'k' ||
