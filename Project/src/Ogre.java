@@ -1,4 +1,6 @@
 package gamelogic;
+import java.util.concurrent.ThreadLocalRandom;
+
 import gamelogic.Entity;
 
 class Ogre extends Entity {
@@ -8,8 +10,10 @@ class Ogre extends Entity {
 	
 	public Ogre(int x, int y) {
 		super(x, y);
-		this.mace = new Entity(0, 0, '*');
+		this.mace = new Entity(x, y, '*');
 		macePosition = 0;
 		this.setSymbol('0');
 	}
+	
+	public Entity getMace(){ return mace; }
 }

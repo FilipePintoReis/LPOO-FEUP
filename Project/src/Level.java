@@ -166,6 +166,48 @@ public class Level {
 		ogre.setY(y);
 		return true;
 	}
+	
+	public boolean swingMace(int ogreIndex){
+		int dx = 0, dy = 0;
+		int randomNumber = ThreadLocalRandom.current().nextInt(0, 4);
+		
+		switch (randomNumber) {
+		case 0:
+			dx--;
+			break;
+		case 1:
+			dy--;
+			break;
+		case 2:
+			dx++;
+			break;
+		case 3:
+			dy++;
+			break;
+		default:
+			System.out.println("Simbolo invalido");
+			break;
+		}
+
+		int x = ogres.get(ogreIndex).getX() + dx;
+		int y = ogres.get(ogreIndex).getY() + dy;
+		
+		char symbol = map.getMapElement(x, y);
+		if (symbol != ' ')
+			return false;
+
+		if (x < 0 || x > map.getXMapLength() - 1)
+			return false;
+		if (y < 0 || y > map.getYMapLength() - 1)
+			return false;
+
+		if(Math.abs(x - ogres.get(ogreIndex).getX()) + Math.abs(y - ogres.get(ogreIndex).getY()) > 1)
+		return false;
+		
+		ogres.get(ogreIndex).getMace().setX(x);
+		ogres.get(ogreIndex).getMace().setY(y);
+		return true;
+	}
 
 	
 
@@ -177,8 +219,12 @@ public class Level {
 		for (int i = 0; i < guards.size(); i++)
 			map.setSymbol(guards.get(i).getX(), guards.get(i).getY(), guards.get(i).getSymbol());
 		//put ogres in map
-		for (int i = 0; i < ogres.size(); i++)
+		for (int i = 0; i < ogres.size(); i++){
 			map.setSymbol(ogres.get(i).getX(), ogres.get(i).getY(), ogres.get(i).getSymbol());
+			//put maces in map
+			map.setSymbol(ogres.get(i).getMace().getX(), ogres.get(i).getMace().getY(), ogres.get(i).getMace().getSymbol());
+		}
+		
         //print map
 		for (int i = 0; i < map.getXMapLength(); i++) {
 			for (int j = 0; j < map.getYMapLength(); j++) {
@@ -187,7 +233,7 @@ public class Level {
 			System.out.print("\n");
 		}
 	}
-
+	
 	public void uploadGuards(){
 		for (int i = 0; i < guards.size(); i++) {
 			moveGuard(guards.get(i));
@@ -196,6 +242,7 @@ public class Level {
 	public void uploadOgres(){
 		for (int i = 0; i < ogres.size(); i++) {
 			moveOgre(ogres.get(i));
+			swingMace(i);
 		}
 	}
 	public void checkCapturedByGuards(){
@@ -207,9 +254,11 @@ public class Level {
 				break;
 			}
 	}
+	//checks if Hero was captured by a Ogre or hit by a Mace
 	public void checkCapturedByOgres(){
 		for (int i = 0; i < ogres.size(); i++)
-			if (Math.abs(hero.getX() - ogres.get(i).getX()) + Math.abs(hero.getY() - ogres.get(i).getY()) < 2) {
+			if (Math.abs(hero.getX() - ogres.get(i).getX()) + Math.abs(hero.getY() - ogres.get(i).getY()) < 2 ||
+					Math.abs(hero.getX() - ogres.get(i).getMace().getX()) + Math.abs(hero.getY() - ogres.get(i).getMace().getY()) < 2) {
 				hero.captureHero();
 				levelOver = true;
 				levelOverMessage = "Demonstracao de habilidade insuficiente relativamente aos objetivos a cumprir.\n";
