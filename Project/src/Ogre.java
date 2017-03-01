@@ -10,7 +10,7 @@ class Ogre extends Entity {
 	
 	public Ogre(int x, int y) {
 		super(x, y);
-		this.mace = new Entity(x, y, '*');
+		this.mace = new Entity(x+1, y, '*');
 		macePosition = 0;
 		this.setSymbol('0');
 	}

@@ -107,9 +107,6 @@ public class Level {
 		case 'd':
 			dy++;
 			break;
-		default:
-			System.out.println("Simbolo invalido");
-			break;
 		}
 
 		int x = guard.getX() + dx;
@@ -144,9 +141,6 @@ public class Level {
 			break;
 		case 3:
 			dy++;
-			break;
-		default:
-			System.out.println("Simbolo invalido");
 			break;
 		}
 
@@ -183,9 +177,6 @@ public class Level {
 			break;
 		case 3:
 			dy++;
-			break;
-		default:
-			System.out.println("Simbolo invalido");
 			break;
 		}
 
@@ -242,7 +233,8 @@ public class Level {
 	public void uploadOgres(){
 		for (int i = 0; i < ogres.size(); i++) {
 			moveOgre(ogres.get(i));
-			swingMace(i);
+			while(!swingMace(i))
+				swingMace(i);
 		}
 	}
 	public void checkCapturedByGuards(){
