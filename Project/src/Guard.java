@@ -41,5 +41,6 @@ class Guard extends Entity {
 		this.currentPosition++;
 		if (currentPosition > pattern.length - 1)
 			this.currentPosition = 0;
+	//	this.currentPosition = (this.currentPosition + 1) % pattern.length;
 	}
 }
