@@ -5,8 +5,9 @@ class Lever extends Entity {
 	boolean activated;
 	boolean isSteppedOnByEnemy;
 	
-	public Lever(int x, int y, char s){
-		super(x, y, s);
+	public Lever(int x, int y){
+		super(x, y);
+		setSymbol('k');
 		activated = false;
 		isSteppedOnByEnemy = false;
 	}

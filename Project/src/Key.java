@@ -8,12 +8,13 @@ class Key extends Entity {
 	
 	public Key(int x, int y){
 		super(x, y);
+		setSymbol('k');
 		pickedUp = false;
 		isSteppedOnByEnemy = false;
 	}
 	public boolean isPickedUp(){ return pickedUp; }
 	public void pickUp(){ pickedUp = false; }
 	public void drop(){ pickedUp = true; }
-	public void setSteppedOnByEnemy(){ isSteppedOnByEnemy = true; }
-
+	public void setSteppedOnByEnemy(){ isSteppedOnByEnemy = true; 
+	}
 }

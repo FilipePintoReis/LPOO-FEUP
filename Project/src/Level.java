@@ -17,54 +17,14 @@ public class Level {
 	String levelOverMessage = "Venho por este meio parabeniza-lo(a) pelo desempenho que demonstrou neste jogo.\n";
 
 	public Level() {
-		/*
-		 * char empty_map[][] = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X',
-		 * 'X' }, { 'X', ' ', ' ', ' ', 'I', ' ', 'X', ' ', ' ', 'X' }, { 'X',
-		 * 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' }, { 'X', ' ', 'I', ' ',
-		 * 'I', ' ', 'X', ' ', ' ', 'X' }, { 'X', 'X', 'X', ' ', 'X', 'X', 'X',
-		 * ' ', ' ', 'X' }, { 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'
-		 * }, { 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'X', 'X',
-		 * 'X', ' ', 'X', 'X', 'X', 'X', ' ', 'X' }, { 'X', ' ', 'I', ' ', 'I',
-		 * ' ', 'X', ' ', ' ', 'X' }, //{ 'X', ' ', 'I', ' ', 'I', ' ', 'X',
-		 * 'k', ' ', 'X' }, { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' }
-		 * };
-		 */
-
-		char empty_map2[][] = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
-				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-				{ 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-				{ 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-				// { 'X', ' ', ' ', ' ', ' ', ' ', ' ', 'k', ' ', 'X' },
-				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
-		char[] guard_pattern = { 'a', 's', 's', 's', 's', 'a', 'a', 'a', 'a', 'a', 'a', 's', 'd', 'd', 'd', 'd', 'd',
-				'd', 'd', 'w', 'w', 'w', 'w', 'w' };
-		hero = new Hero(1, 1);
-		// map = new Map(empty_map);
-		map = new Map(empty_map2);
-		// guards.add(new Guard(1, 8, guard_pattern));
-		ogres.add(new Ogre(5, 5));
-		ogres.add(new Ogre(3,5));
-		levers.add(new Lever(8, 7, 'k'));
-		userInput = new Input();
 	}
 
-	public Level(Hero hero, Map map, ArrayList<Guard> guards, ArrayList<Ogre> ogres) {
+	public Level(Hero hero, Map map, ArrayList<Guard> guards, ArrayList<Ogre> ogres, ArrayList<Lever> levers, ArrayList<Key> keys) {
 		this.hero = hero;
 		this.map = map;
 		this.guards = guards;
 		this.ogres = ogres;
-	}
-
-	public Level(Hero hero, Map map, ArrayList<Guard> guards, ArrayList<Ogre> ogres, ArrayList<Key> keys) {
-		this.hero = hero;
-		this.map = map;
-		this.guards = guards;
-		this.ogres = ogres;
+		this.levers = levers;
 		this.keys = keys;
 	}
 
@@ -94,11 +54,6 @@ public class Level {
 		char symbol = map.getMapElement(x, y);
 		if (symbol != ' ' && symbol != 'k' && symbol != 'S')
 			return false;
-
-		/*
-		 * if (x < 0 || x > map.getXMapLength() - 1) return false; if (y < 0 ||
-		 * y > map.getYMapLength() - 1) return false;
-		 */
 
 		hero.setX(x);
 		hero.setY(y);
@@ -327,6 +282,10 @@ public class Level {
 			if (levers.get(i).getX() == hero.getX() && levers.get(i).getY() == hero.getY())
 				map.openDoors();
 	}
+	
+	public boolean checkHeroCaptured(){
+		return hero.isCaptured();
+	}
 
 	public boolean play() {
 		while (!levelOver) {
@@ -351,8 +310,8 @@ public class Level {
 			if (levelOver)
 				continue;
 
-			checkHeroNearLever();
-			// checkHeroOnLever();
+			//checkHeroNearLever();
+		    checkHeroOnLever();
 			// if(checkHeroOnKey())
 			// map.openDoors();
 		}

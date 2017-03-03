@@ -4,11 +4,6 @@ import gamelogic.Entity;
 class Guard extends Entity {
 	
 	char pattern[];
-			/*
-			= { 'a', 's', 's', 's', 's', 'a', 'a', 'a', 'a', 'a', 'a', 's', 'd', 'd', 'd', 'd', 'd', 'd',
-			'd', 'w', 'w', 'w', 'w', 'w' };
-			*/
-			
 	int currentPosition;
 
 	public Guard(int x, int y, char[] pattern) {
