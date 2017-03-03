@@ -242,38 +242,12 @@ public class Level {
 			}
 	}
 
-	public void checkHeroNearExit() {
-		if (map.getMapElement(hero.getX() + 1, hero.getY()) == 'S'
-				|| map.getMapElement(hero.getX() - 1, hero.getY()) == 'S'
-				|| map.getMapElement(hero.getX(), hero.getY() + 1) == 'S'
-				|| map.getMapElement(hero.getX(), hero.getY() - 1) == 'S') {
-			levelOver = true;
-		}
-	}
 
 	public void checkHeroOnExit() {
 		map.loadExits();
 		for (int i = 0; i < map.getExits().size(); i++) {
 			if (map.getExits().get(i).getX() == hero.getX() && map.getExits().get(i).getY() == hero.getY())
 				levelOver = true;
-		}
-	}
-
-	public void checkHeroNearKey() {
-		for (int i = 0; i < keys.size(); i++) {
-			if (keys.get(i).getX() == hero.getX() && keys.get(i).getY() == hero.getY()) {
-				hero.giveKey();
-				keys.get(i).pickUp();
-			}
-		}
-	}
-
-	public void checkHeroNearLever() {
-		int x = hero.getX();
-		int y = hero.getY();
-		if (map.getMapElement(x + 1, y) == 'k' || map.getMapElement(x - 1, y) == 'k'
-				|| map.getMapElement(x, y + 1) == 'k' || map.getMapElement(x, y - 1) == 'k') {
-			map.openDoors();
 		}
 	}
 
@@ -297,9 +271,8 @@ public class Level {
 			int x = hero.getX();
 			int y = hero.getY();
 
-			// checkHeroNearExit();
+			
 			checkHeroOnExit();
-			checkHeroNearKey();
 
 			uploadGuards();
 			uploadOgres();
@@ -310,7 +283,6 @@ public class Level {
 			if (levelOver)
 				continue;
 
-			//checkHeroNearLever();
 		    checkHeroOnLever();
 			// if(checkHeroOnKey())
 			// map.openDoors();
