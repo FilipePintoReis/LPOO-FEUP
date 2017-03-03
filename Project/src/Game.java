@@ -27,8 +27,7 @@ public class Game {
 		ArrayList<Guard> guards = new ArrayList<Guard>();
 		guards.add(new Guard(1, 8, guard_pattern));
 		ArrayList<Ogre> ogres = new ArrayList<Ogre>();
-		//ogres.add(new Ogre(5, 5));
-		Input userInput = new Input();
+		//Input userInput = new Input();
 		
 //Level(Hero hero, Map map, ArrayList<Guard> guards, ArrayList<Ogre> ogres)
 		Level level0 = new Level(this.hero, zero_map, guards, ogres);

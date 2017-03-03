@@ -15,6 +15,7 @@ public class Map {
 		
 		current_map = new char[map.length][map[0].length];
 		empty_map = new char[map.length][map[0].length];
+		exits = new ArrayList<Entity>();
 		
 		for(int i=0; i < current_map.length; i++){
 			
