@@ -1,10 +1,7 @@
 package gamelogic;
 
 import java.util.*;
-
-import gamelogic.*;
 import gamelogic.Map;
-import userinteraction.Input;
 
 public class Game {
 	ArrayList<Level> levels = new ArrayList<Level>();

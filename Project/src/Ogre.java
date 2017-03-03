@@ -1,6 +1,4 @@
 package gamelogic;
-import java.util.concurrent.ThreadLocalRandom;
-
 import gamelogic.Entity;
 
 class Ogre extends Entity {
