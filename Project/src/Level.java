@@ -53,6 +53,13 @@ public class Level {
 		int y = hero.getY() + dy;
 
 		char symbol = map.getMapElement(x, y);
+		
+		if(this.hero.hasKey() && symbol == 'I'){		
+			map.openDoors();		
+			return false;		
+		}
+		
+		
 		if (symbol != ' ' && symbol != 'k' && symbol != 'S')
 			return false;
 
@@ -276,9 +283,31 @@ public class Level {
 				map.openDoors();
 	}
 	
+	
+	public void checkHeroOnKey(){		
+		for (int i = 0; i < keys.size(); i++)		
+			if (keys.get(i).getX() == hero.getX() && keys.get(i).getY() == hero.getY()){		
+		this.hero.giveKey();		
+		keys.get(i).pickUp();		
+		}			
+	}
+	
+	
+	
 	public boolean checkHeroCaptured(){
 		return hero.isCaptured();
 	}
+	
+	
+	public void checkKeyStatus(){		
+		for(int i = 0; i < keys.size() ; i++){		
+			if(keys.get(i).isPickedUp())		
+				keys.get(i).setSymbol(' ');		
+			if(!(keys.get(i).isPickedUp()))		
+				keys.get(i).setSymbol('k');		
+			}		
+		}		
+
 
 	public boolean play() {
 		while (!levelOver) {
@@ -298,6 +327,10 @@ public class Level {
 
 			checkCapturedByGuards();
 			checkCapturedByOgres();
+			
+			checkHeroOnLever();		
+			checkHeroOnKey();		
+			checkKeyStatus();
 
 			if (levelOver)
 				continue;
