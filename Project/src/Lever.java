@@ -1,5 +1,5 @@
-package gamelogic;
-import gamelogic.Entity;
+package dkeep.logic;
+import dkeep.logic.Entity;
 
 class Lever extends Entity {
 	boolean activated;

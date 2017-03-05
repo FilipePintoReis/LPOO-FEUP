@@ -1,7 +1,8 @@
-package gamelogic;
+package dkeep.logic;
 
 import java.util.*;
-import gamelogic.Map;
+
+import dkeep.logic.Map;
 
 public class Game {
 	ArrayList<Level> levels = new ArrayList<Level>();
@@ -49,7 +50,9 @@ public class Game {
 		ArrayList<Ogre> ogres1 = new ArrayList<Ogre>();
 		ArrayList<Key> keys1 = new ArrayList<Key>();
 		ArrayList<Lever> levers1 = new ArrayList<Lever>();
-		//ogres1.add(new Ogre(5, 5));
+		ogres1.add(new Ogre(5, 5));
+		ogres1.add(new Ogre(5,5));
+		ogres1.add(new Ogre(5,5));
 		keys1.add(new Key(8,7));
 				
 		//level 1
@@ -58,7 +61,7 @@ public class Game {
 //	public Level(Hero hero, Map map, ArrayList<Guard> guards, ArrayList<Ogre> ogres, ArrayList<Lever> levers, ArrayList<Key> keys)
 		Level level0 = new Level(hero0, map0, guards0, ogres0, levers0, keys0);
 		Level level1 = new Level(hero1, map1, guards1, ogres1, levers1, keys1);
-		levels.add(level0);
+		//levels.add(level0);
 		levels.add(level1);
 	}
 
@@ -72,23 +75,4 @@ public class Game {
 		}
 		System.out.println("Chegou ao fim desta demonstracao virtual.");
 	}
-	// char empty_map[][] = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'
-	// },
-	// { 'X', ' ', ' ', ' ', 'I', ' ', 'X', ' ', ' ', 'X' },
-	// { 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
-	// { 'X', ' ', 'I', ' ', 'I', ' ', 'X', ' ', ' ', 'X' },
-	// { 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
-	// { 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-	// { 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-	// { 'X', 'X', 'X', ' ', 'X', 'X', 'X', 'X', ' ', 'X' },
-	// { 'X', ' ', 'I', ' ', 'I', ' ', 'X', 'k', ' ', 'X' },
-	// { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
-	//
-	// char[] guard_pattern = { 'a', 's', 's', 's', 's', 'a', 'a', 'a', 'a',
-	// 'a', 'a', 's', 'd', 'd', 'd', 'd', 'd',
-	// 'd', 'd', 'w', 'w', 'w', 'w', 'w' };
-	// hero = new Hero(1, 1);
-	// guards.add(new Guard(1, 8, guard_pattern));
-	// ogres.add(new Ogre(8, 1, guard_pattern));
-	// userInput = new Input();
 }

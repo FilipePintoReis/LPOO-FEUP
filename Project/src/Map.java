@@ -1,4 +1,4 @@
-package gamelogic;
+package dkeep.logic;
 import java.util.*;
 
 public class Map {

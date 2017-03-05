@@ -1,5 +1,5 @@
-package userinteraction;
-import gamelogic.*;
+package dkeep.cli;
+import dkeep.logic.*;
 
 public class Main {
 

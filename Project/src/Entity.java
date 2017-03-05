@@ -1,4 +1,4 @@
-package gamelogic;
+package dkeep.logic;
 
 class Entity {
 	int x;
