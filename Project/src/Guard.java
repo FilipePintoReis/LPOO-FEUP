@@ -1,6 +1,6 @@
-package gamelogic;
+package dkeep.logic;
 
-import gamelogic.Entity;
+import dkeep.logic.Entity;
 
 class Guard extends Entity {
 	

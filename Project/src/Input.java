@@ -1,4 +1,4 @@
-package userinteraction;
+package dkeep.cli;
 
 import java.util.Scanner;
 
