@@ -5,6 +5,7 @@ import gamelogic.Entity;
 class Guard extends Entity {
 	
 	char pattern[];
+	char inverted_pattern[];
 	int currentPosition;
 	Behavior behavior;
 
@@ -14,8 +15,23 @@ class Guard extends Entity {
 		this.setSymbol('G');
 		this.currentPosition = 0;
 		this.pattern = new char[pattern.length];
+		this.inverted_pattern = new char[pattern.length];
 		for(int i=0; i < this.pattern.length; i++){
 			this.pattern[i] = pattern[i];
+			switch(this.pattern[i]){
+			case 'w':
+				inverted_pattern[i] = 's';
+				break;
+			case 's':
+				inverted_pattern[i] = 'w';
+				break;
+			case 'a':
+				inverted_pattern[i] = 'd';
+				break;
+			case 'd':
+				inverted_pattern[i] = 'a';
+				break;
+			}
 		}
 	}
 	
@@ -25,8 +41,23 @@ class Guard extends Entity {
 		this.setSymbol('G');
 		this.currentPosition = 0;
 		this.pattern = new char[pattern.length];
+		this.inverted_pattern = new char[pattern.length];
 		for(int i=0; i < this.pattern.length; i++){
 			this.pattern[i] = pattern[i];
+			switch(this.pattern[i]){
+			case 'w':
+				inverted_pattern[i] = 's';
+				break;
+			case 's':
+				inverted_pattern[i] = 'w';
+				break;
+			case 'a':
+				inverted_pattern[i] = 'd';
+				break;
+			case 'd':
+				inverted_pattern[i] = 'a';
+				break;
+			}
 		}
 	}
 	
@@ -36,11 +67,26 @@ class Guard extends Entity {
 		this.setSymbol('G');
 		this.currentPosition = 0;
 		pattern = new char[24];
+		inverted_pattern = new char[24];
 	}
 	
 	public void setPattern(char[] pattern){
 		for(int i=0; i < pattern.length; i++){
 			this.pattern[i] = pattern[i];
+			switch(this.pattern[i]){
+			case 'w':
+				inverted_pattern[i] = 's';
+				break;
+			case 's':
+				inverted_pattern[i] = 'w';
+				break;
+			case 'a':
+				inverted_pattern[i] = 'd';
+				break;
+			case 'd':
+				inverted_pattern[i] = 'a';
+				break;
+			}
 		}
 	}
 	public void incCurrentPosition() {
@@ -67,7 +113,20 @@ class Guard extends Entity {
 	}
 	
 	public char[] getPattern() { return this.pattern; }
+	public char[] getInvertedPattern(){ return this.inverted_pattern; }
 	public int getCurrentPosition() { return this.currentPosition; }
 	public Behavior getBehavior(){ return this.behavior; }
+	public String getPatternString(){
+		String patternString = "";
+		for(int i = 0; i < this.pattern.length; i++)
+			patternString += pattern[i];
+		return patternString;
+	}
+	public String getInvertedPatternString(){
+		String patternString = "";
+		for(int i = 0; i < this.inverted_pattern.length; i++)
+			patternString += inverted_pattern[i];
+		return patternString;
+	}
 	
 }

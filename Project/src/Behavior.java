@@ -44,6 +44,7 @@ public class Behavior {
 		
 	public void toggleInvertPattern(){
 		int randomNumber = ThreadLocalRandom.current().nextInt(0, 2);
+		//int randomNumber = 0;
 		
 		switch(randomNumber){
 		

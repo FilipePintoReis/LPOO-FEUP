@@ -71,11 +71,16 @@ public class Level {
 	// moves Guard according to its pattern
 	public boolean moveGuard(Guard guard) {
 		if(guard.getBehavior().getSleep()) return false;
-		if(guard.getBehavior().getInvertPattern()) guard.invertPattern();
 		
 		int dx = 0, dy = 0;
+		
+		char[] patternInUse;
+		if(guard.getBehavior().getInvertPattern())
+			patternInUse = guard.getInvertedPattern();
+		else patternInUse = guard.getPattern();
 
-		switch (guard.getPattern()[guard.currentPosition]) {
+		//switch (guard.getPattern()[guard.currentPosition]) {
+		  switch (patternInUse[guard.currentPosition]){
 		case 'w':
 			dx--;
 			break;
@@ -198,8 +203,16 @@ public class Level {
 		// put hero in map
 		map.setSymbol(hero.getX(), hero.getY(), hero.getSymbol());
 		// put guards in map
-		for (int i = 0; i < guards.size(); i++)
+		for (int i = 0; i < guards.size(); i++){
 			map.setSymbol(guards.get(i).getX(), guards.get(i).getY(), guards.get(i).getSymbol());
+			System.out.println("\nGuard pattern current position: " + guards.get(i).getCurrentPosition());
+			System.out.println("Guard inverted pattern position: " + guards.get(i).getCurrentPosition());
+			System.out.println("Guard pattern current symbol: " + guards.get(i).getPattern()[guards.get(i).getCurrentPosition()]);
+			System.out.println("Guard inverted pattern symbol: " + guards.get(i).getInvertedPattern()[guards.get(i).getCurrentPosition()]);
+			System.out.println("Guard pattern: " + guards.get(i).getPatternString());
+			System.out.println("Guard invert : " + guards.get(i).getInvertedPatternString());
+			System.out.println("Guard invert state: " + guards.get(i).getBehavior().getInvertPattern());
+		}
 		// put ogres in map
 		for (int i = 0; i < ogres.size(); i++) {
 			map.setSymbol(ogres.get(i).getX(), ogres.get(i).getY(), ogres.get(i).getSymbol());
@@ -223,11 +236,11 @@ public class Level {
 			
 			case "drunk":
 			guards.get(i).getBehavior().toggleSleep();
-			guards.get(i).getBehavior().invertPattern();
+			guards.get(i).getBehavior().toggleInvertPattern();
 			break;
 			
 			case "zealous":
-			guards.get(i).getBehavior().invertPattern();
+			guards.get(i).getBehavior().toggleInvertPattern();
 			break;
 			
 			default:
