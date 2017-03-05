@@ -3,6 +3,7 @@ package gamelogic;
 import userinteraction.Input;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.Collections;
 
 public class Level {
 	// class attributes
@@ -52,10 +53,6 @@ public class Level {
 		int y = hero.getY() + dy;
 
 		char symbol = map.getMapElement(x, y);
-		if(this.hero.hasKey() && symbol == 'I'){
-			map.openDoors();
-			return false;
-		}
 		if (symbol != ' ' && symbol != 'k' && symbol != 'S')
 			return false;
 
@@ -66,6 +63,9 @@ public class Level {
 
 	// moves Guard according to its pattern
 	public boolean moveGuard(Guard guard) {
+		if(guard.getBehavior().getSleep()) return false;
+		if(guard.getBehavior().getInvertPattern()) guard.invertPattern();
+		
 		int dx = 0, dy = 0;
 
 		switch (guard.getPattern()[guard.currentPosition]) {
@@ -85,16 +85,17 @@ public class Level {
 
 		int x = guard.getX() + dx;
 		int y = guard.getY() + dy;
-
-		if (x < 0 || x > map.getXMapLength() - 1)
-			return false;
-		if (y < 0 || y > map.getYMapLength() - 1)
-			return false;
+		
+		char symbol = map.getMapElement(x, y);
+		if (symbol != ' ') return false;
 
 		guard.setX(x);
 		guard.setY(y);
 
-		guard.incCurrentPosition();
+		if(guard.getBehavior().getInvertPattern()){ 
+			guard.decCurrentPosition();
+		}
+		else{ guard.incCurrentPosition(); }
 		return true;
 	}
 
@@ -211,6 +212,20 @@ public class Level {
 
 	public void uploadGuards() {
 		for (int i = 0; i < guards.size(); i++) {
+			switch(guards.get(i).getBehavior().getType()){
+			
+			case "drunk":
+			guards.get(i).getBehavior().toggleSleep();
+			guards.get(i).getBehavior().invertPattern();
+			break;
+			
+			case "zealous":
+			guards.get(i).getBehavior().invertPattern();
+			break;
+			
+			default:
+			break;
+			}
 			moveGuard(guards.get(i));
 		}
 	}
@@ -261,26 +276,9 @@ public class Level {
 				map.openDoors();
 	}
 	
-	public void checkHeroOnKey(){
-		for (int i = 0; i < keys.size(); i++)
-			if (keys.get(i).getX() == hero.getX() && keys.get(i).getY() == hero.getY()){
-		this.hero.giveKey();
-		keys.get(i).pickUp();
-		}	
-	}
-	
 	public boolean checkHeroCaptured(){
 		return hero.isCaptured();
 	}
-	
-	public void checkKeyStatus(){
-		for(int i = 0; i < keys.size() ; i++){
-			if(keys.get(i).isPickedUp())
-				keys.get(i).setSymbol(' ');
-			if(!(keys.get(i).isPickedUp()))
-				keys.get(i).setSymbol('k');
-			}
-		}
 
 	public boolean play() {
 		while (!levelOver) {
@@ -289,6 +287,10 @@ public class Level {
 
 			moveHero(hero);
 
+			int x = hero.getX();
+			int y = hero.getY();
+
+			
 			checkHeroOnExit();
 
 			uploadGuards();
@@ -296,14 +298,13 @@ public class Level {
 
 			checkCapturedByGuards();
 			checkCapturedByOgres();
-			
-			checkHeroOnLever();
-			checkHeroOnKey();
-			checkKeyStatus();
-			
+
 			if (levelOver)
 				continue;
-		    
+
+		    checkHeroOnLever();
+			// if(checkHeroOnKey())
+			// map.openDoors();
 		}
 		printMap();
 		System.out.print(levelOverMessage);
