@@ -249,6 +249,11 @@ public class Level {
 
 	public void uploadGuards() {
 		for (int i = 0; i < guards.size(); i++) {
+			if(guards.get(i).getBehavior().getSleep()){
+				guards.get(i).setSymbol('S');
+			}
+			else { guards.get(i).setSymbol('G'); }
+			
 			switch (guards.get(i).getBehavior().getType()) {
 
 			case "drunk":

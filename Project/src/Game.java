@@ -28,7 +28,8 @@ public class Game {
 		ArrayList<Ogre> ogres0 = new ArrayList<Ogre>();
 		ArrayList<Key> keys0 = new ArrayList<Key>();
 		ArrayList<Lever> levers0 = new ArrayList<Lever>();
-		guards0.add(new Guard(1, 8, guard_pattern00, "zealous"));
+		//guards0.add(new Guard(1, 8, guard_pattern00, "zealous"));
+		guards0.add(new Guard(1, 8, guard_pattern00, "drunk"));
 		levers0.add(new Lever(8,7));
 		//end level 0
 		
@@ -61,7 +62,7 @@ public class Game {
 //	public Level(Hero hero, Map map, ArrayList<Guard> guards, ArrayList<Ogre> ogres, ArrayList<Lever> levers, ArrayList<Key> keys)
 		Level level0 = new Level(hero0, map0, guards0, ogres0, levers0, keys0);
 		Level level1 = new Level(hero1, map1, guards1, ogres1, levers1, keys1);
-		//levels.add(level0);
+		levels.add(level0);
 		levels.add(level1);
 	}
 
