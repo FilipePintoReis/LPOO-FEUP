@@ -220,6 +220,7 @@ public class Level {
 		for (int i = 0; i < levers.size(); i++) {
 			map.setSymbol(levers.get(i).getX(), levers.get(i).getY(), levers.get(i).getSymbol());
 		}
+		//put clubs in map
 		for (int i = 0; i < clubs.size(); i++) {
 			map.setSymbol(clubs.get(i).getX(), clubs.get(i).getY(), clubs.get(i).getSymbol());
 		}
@@ -280,12 +281,16 @@ public class Level {
 
 	public void uploadOgres() {
 		for (int i = 0; i < ogres.size(); i++) {
+			if(ogres.get(i).isStunned()){
+				ogres.get(i).decStunCount();
+				return;
+			}
 			moveOgre(ogres.get(i));
 			while (!swingMace(i))
 				swingMace(i);
 		}
 	}
-
+	
 	public void checkCapturedByGuards() {
 		for (int i = 0; i < guards.size(); i++)
 			if (Math.abs(hero.getX() - guards.get(i).getX()) + Math.abs(hero.getY() - guards.get(i).getY()) < 2) {
@@ -318,7 +323,26 @@ public class Level {
 				}
 			}
 		}
-
+	}
+	
+	public void checkStunnedOgres(){
+		int x = 0, y = 0;
+		
+//		for(int i=0; i < ogres.size(); i++){
+//			x = ogres.get(i).getX();
+//			y = ogres.get(i).getY();
+//			
+//			if(map.getMapElement(x, y+1) == 'A' |
+//			   map.getMapElement(x, y-1) == 'A' |
+//			   map.getMapElement(x+1, y) == 'A' |
+//			   map.getMapElement(x-1, y) == 'A')
+//				ogres.get(i).setStunCount();
+		
+		for(int i=0; i < ogres.size(); i++){
+		if(hero.hasWeapon())
+			if (Math.abs(hero.getX() - ogres.get(i).getX()) + Math.abs(hero.getY() - ogres.get(i).getY()) < 2)
+				ogres.get(i).setStunCount();
+		}
 	}
 
 	public void checkArmedHeroNearOrcs() {
@@ -400,6 +424,7 @@ public class Level {
 
 			checkHeroOnLever();
 			checkHeroOnKey();
+			checkStunnedOgres();
 			checkHeroOnClub();
 			checkClubStatus();
 			checkKeyStatus();

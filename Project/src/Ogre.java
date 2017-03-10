@@ -33,6 +33,10 @@ class Ogre extends Entity {
 	public void setStunCount() {
 		stunCount = 2;
 	}
+	
+	public void setStunCount(int stunCount){
+		this.stunCount = stunCount;
+	}
 
 	public void decStunCount() {
 		stunCount--;
