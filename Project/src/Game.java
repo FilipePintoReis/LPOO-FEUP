@@ -28,6 +28,7 @@ public class Game {
 		ArrayList<Ogre> ogres0 = new ArrayList<Ogre>();
 		ArrayList<Key> keys0 = new ArrayList<Key>();
 		ArrayList<Lever> levers0 = new ArrayList<Lever>();
+		ArrayList<Club> clubs0 = new ArrayList<Club>();
 		//guards0.add(new Guard(1, 8, guard_pattern00, "zealous"));
 		guards0.add(new Guard(1, 8, guard_pattern00, "drunk"));
 		levers0.add(new Lever(8,7));
@@ -51,18 +52,20 @@ public class Game {
 		ArrayList<Ogre> ogres1 = new ArrayList<Ogre>();
 		ArrayList<Key> keys1 = new ArrayList<Key>();
 		ArrayList<Lever> levers1 = new ArrayList<Lever>();
+		ArrayList<Club> clubs1 = new ArrayList<Club>();
 		ogres1.add(new Ogre(5, 5));
-		ogres1.add(new Ogre(5,5));
-		ogres1.add(new Ogre(5,5));
+	//	ogres1.add(new Ogre(5,5));
+	//	ogres1.add(new Ogre(5,5));
 		keys1.add(new Key(8,7));
+		clubs1.add(new Club(1,2));
 				
 		//level 1
 		
 		
 //	public Level(Hero hero, Map map, ArrayList<Guard> guards, ArrayList<Ogre> ogres, ArrayList<Lever> levers, ArrayList<Key> keys)
-		Level level0 = new Level(hero0, map0, guards0, ogres0, levers0, keys0);
-		Level level1 = new Level(hero1, map1, guards1, ogres1, levers1, keys1);
-		levels.add(level0);
+		Level level0 = new Level(hero0, map0, guards0, ogres0, levers0, keys0, clubs0);
+		Level level1 = new Level(hero1, map1, guards1, ogres1, levers1, keys1, clubs1);
+		//levels.add(level0);
 		levels.add(level1);
 	}
 

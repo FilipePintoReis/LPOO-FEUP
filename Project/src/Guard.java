@@ -70,25 +70,6 @@ class Guard extends Entity {
 		inverted_pattern = new char[24];
 	}
 	
-	public void setPattern(char[] pattern){
-		for(int i=0; i < pattern.length; i++){
-			this.pattern[i] = pattern[i];
-			switch(this.pattern[i]){
-			case 'w':
-				inverted_pattern[i] = 's';
-				break;
-			case 's':
-				inverted_pattern[i] = 'w';
-				break;
-			case 'a':
-				inverted_pattern[i] = 'd';
-				break;
-			case 'd':
-				inverted_pattern[i] = 'a';
-				break;
-			}
-		}
-	}
 	public void incCurrentPosition() {
 		this.currentPosition++;
 		if (currentPosition > pattern.length - 1)
@@ -99,23 +80,8 @@ class Guard extends Entity {
 		if (currentPosition < 0)
 			this.currentPosition = pattern.length - 1;
 	}
-//	public void invertPattern(){
-//		//ArrayUtils.reverse(this.pattern);
-//		Collections.reverse(Arrays.asList(this.pattern));
-//	}
+
 	
-	public void invertPattern(){
-		for (int i = 0; i < pattern.length / 2; i++) {
-			  char temp = pattern[i];
-			  pattern[i] = pattern[pattern.length - 1 - i];
-			  pattern[pattern.length - 1 - i] = temp;
-			}
-	}
-	
-	public char[] getPattern() { return this.pattern; }
-	public char[] getInvertedPattern(){ return this.inverted_pattern; }
-	public int getCurrentPosition() { return this.currentPosition; }
-	public Behavior getBehavior(){ return this.behavior; }
 	public String getPatternString(){
 		String patternString = "";
 		for(int i = 0; i < this.pattern.length; i++)
@@ -128,5 +94,12 @@ class Guard extends Entity {
 			patternString += inverted_pattern[i];
 		return patternString;
 	}
+	
+	
+	
+	public char[] getPattern() { return this.pattern; }
+	public char[] getInvertedPattern(){ return this.inverted_pattern; }
+	public int getCurrentPosition() { return this.currentPosition; }
+	public Behavior getBehavior(){ return this.behavior; }
 	
 }

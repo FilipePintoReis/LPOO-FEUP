@@ -15,19 +15,22 @@ public class Level {
 	ArrayList<Ogre> ogres = new ArrayList<Ogre>();
 	ArrayList<Key> keys = new ArrayList<Key>();
 	ArrayList<Lever> levers = new ArrayList<Lever>();
+	ArrayList<Club> clubs = new ArrayList<Club>();
 	String levelOverMessage = "Venho por este meio parabeniza-lo(a) pelo desempenho que demonstrou neste jogo.\n";
-
+    
+	
 	public Level() {
 	}
 
 	public Level(Hero hero, Map map, ArrayList<Guard> guards, ArrayList<Ogre> ogres, ArrayList<Lever> levers,
-			ArrayList<Key> keys) {
+			ArrayList<Key> keys, ArrayList<Club> clubs) {
 		this.hero = hero;
 		this.map = map;
 		this.guards = guards;
 		this.ogres = ogres;
 		this.levers = levers;
 		this.keys = keys;
+		this.clubs = clubs;
 	}
 
 	public boolean moveHero(Hero hero) {
@@ -60,7 +63,7 @@ public class Level {
 			return false;
 		}
 
-		if (symbol != ' ' && symbol != 'k' && symbol != 'S')
+		if (symbol != ' ' && symbol != 'k' && symbol != 'S' && symbol!= 'C')
 			return false;
 
 		hero.setX(x);
@@ -76,7 +79,7 @@ public class Level {
 		
 		char[] patternInUse;
 		if(guard.getBehavior().getInvertPattern())
-			patternInUse = guard.getInvertedPattern();
+			patternInUse = guard.getInvertedPattern(); //should only take pattern, should do this inside guard
 		else patternInUse = guard.getPattern();
 
 		//switch (guard.getPattern()[guard.currentPosition]) {
@@ -217,18 +220,21 @@ public class Level {
 		for (int i = 0; i < levers.size(); i++) {
 			map.setSymbol(levers.get(i).getX(), levers.get(i).getY(), levers.get(i).getSymbol());
 		}
+		for (int i = 0; i < clubs.size(); i++) {
+			map.setSymbol(clubs.get(i).getX(), clubs.get(i).getY(), clubs.get(i).getSymbol());
+		}
 		// put hero in map
 		map.setSymbol(hero.getX(), hero.getY(), hero.getSymbol());
 		// put guards in map
 		for (int i = 0; i < guards.size(); i++){
 			map.setSymbol(guards.get(i).getX(), guards.get(i).getY(), guards.get(i).getSymbol());
-			System.out.println("\nGuard pattern current position: " + guards.get(i).getCurrentPosition());
+			/*System.out.println("\nGuard pattern current position: " + guards.get(i).getCurrentPosition());
 			System.out.println("Guard inverted pattern position: " + guards.get(i).getCurrentPosition());
 			System.out.println("Guard pattern current symbol: " + guards.get(i).getPattern()[guards.get(i).getCurrentPosition()]);
 			System.out.println("Guard inverted pattern symbol: " + guards.get(i).getInvertedPattern()[guards.get(i).getCurrentPosition()]);
 			System.out.println("Guard pattern: " + guards.get(i).getPatternString());
 			System.out.println("Guard invert : " + guards.get(i).getInvertedPatternString());
-			System.out.println("Guard invert state: " + guards.get(i).getBehavior().getInvertPattern());
+			System.out.println("Guard invert state: " + guards.get(i).getBehavior().getInvertPattern());*/
 		}
 		// put ogres in map
 		for (int i = 0; i < ogres.size(); i++) {
@@ -346,6 +352,14 @@ public class Level {
 				keys.get(i).pickUp();
 			}
 	}
+	
+	public void checkHeroOnClub(){
+		for(int i = 0; i < clubs.size(); i++)
+			if (clubs.get(i).getX() == hero.getX() && clubs.get(i).getY() == hero.getY()) {
+				this.hero.giveWeapon();
+				clubs.get(i).pickUp();
+			}
+	}
 
 	public boolean checkHeroCaptured() {
 		return hero.isCaptured();
@@ -357,6 +371,15 @@ public class Level {
 				keys.get(i).setSymbol(' ');
 			if (!(keys.get(i).isPickedUp()))
 				keys.get(i).setSymbol('k');
+		}
+	}
+	
+	public void checkClubStatus() {
+		for (int i = 0; i < clubs.size(); i++) {
+			if (clubs.get(i).isPickedUp())
+				clubs.get(i).setSymbol(' ');
+			if (!(clubs.get(i).isPickedUp()))
+				clubs.get(i).setSymbol('C');
 		}
 	}
 
@@ -377,6 +400,8 @@ public class Level {
 
 			checkHeroOnLever();
 			checkHeroOnKey();
+			checkHeroOnClub();
+			checkClubStatus();
 			checkKeyStatus();
 
 			if (levelOver)
