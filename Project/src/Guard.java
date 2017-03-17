@@ -102,4 +102,49 @@ class Guard extends Entity {
 	public int getCurrentPosition() { return this.currentPosition; }
 	public Behavior getBehavior(){ return this.behavior; }
 	
+	
+	public boolean moveEntity(Level level) {
+		if(this.getBehavior().getSleep()) return false;
+		
+		int dx = 0, dy = 0;
+		
+		char[] patternInUse;
+		if(this.getBehavior().getInvertPattern())
+			patternInUse = this.getInvertedPattern(); //should only take pattern, should do this inside guard
+		else patternInUse = this.getPattern();
+
+		//switch (guard.getPattern()[guard.currentPosition]) {
+		  switch (patternInUse[this.currentPosition]){
+		case 'w':
+			dx--;	
+			break;
+		case 'a':
+			dy--;
+			break;
+		case 's':
+			dx++;
+			break;
+		case 'd':
+			dy++;
+			break;
+		}
+
+		int x = this.getX() + dx;
+		int y = this.getY() + dy;
+
+		char symbol = level.getMap().getMapElement(x, y);
+		if (symbol != ' ')
+			return false;
+
+		this.setX(x);
+		this.setY(y);
+
+		if (this.getBehavior().getInvertPattern()) {
+			this.decCurrentPosition();
+		} else {
+			this.incCurrentPosition();
+		}
+		return true;
+	}
+	
 }

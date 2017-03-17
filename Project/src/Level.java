@@ -3,12 +3,9 @@ package dkeep.logic;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-import dkeep.cli.Input;
-
 public class Level {
 	// class attributes
 	boolean levelOver = false;
-	Input userInput = new Input();
 	Map map;
 	Hero hero;
 	ArrayList<Guard> guards = new ArrayList<Guard>();
@@ -19,9 +16,16 @@ public class Level {
 	String levelOverMessage = "Venho por este meio parabeniza-lo(a) pelo desempenho que demonstrou neste jogo.\n";
     
 	
-	public Level() {
-	}
-
+	public Map getMap(){ return this.map; }
+	public Hero getHero(){ return this.hero; }
+	public ArrayList<Guard> getGuards(){ return this.guards; }
+	public ArrayList<Ogre> getOgres(){ return this.ogres; }
+	public ArrayList<Key> getKeys(){ return this.keys; }
+	public ArrayList<Lever> getLevers(){ return this.levers; }
+	public boolean isOver(){ return levelOver; }
+	
+	public Level() {}
+	
 	public Level(Hero hero, Map map, ArrayList<Guard> guards, ArrayList<Ogre> ogres, ArrayList<Lever> levers,
 			ArrayList<Key> keys, ArrayList<Club> clubs) {
 		this.hero = hero;
@@ -31,180 +35,7 @@ public class Level {
 		this.levers = levers;
 		this.keys = keys;
 		this.clubs = clubs;
-	}
-
-	public boolean moveHero(Hero hero) {
-		int dx = 0, dy = 0;
-
-		switch (userInput.getUserInput()) {
-		case "w":
-			dx--;
-			break;
-		case "a":
-			dy--;
-			break;
-		case "s":
-			dx++;
-			break;
-		case "d":
-			dy++;
-			break;
-		default:
-			break;
-		}
-
-		int x = hero.getX() + dx;
-		int y = hero.getY() + dy;
-
-		char symbol = map.getMapElement(x, y);
-
-		if (this.hero.hasKey() && symbol == 'I') {
-			map.openDoors();
-			return false;
-		}
-
-		if (symbol != ' ' && symbol != 'k' && symbol != 'S' && symbol!= 'C')
-			return false;
-
-		hero.setX(x);
-		hero.setY(y);
-		return true;
-	}
-
-	// moves Guard according to its pattern
-	public boolean moveGuard(Guard guard) {
-		if(guard.getBehavior().getSleep()) return false;
-		
-		int dx = 0, dy = 0;
-		
-		char[] patternInUse;
-		if(guard.getBehavior().getInvertPattern())
-			patternInUse = guard.getInvertedPattern(); //should only take pattern, should do this inside guard
-		else patternInUse = guard.getPattern();
-
-		//switch (guard.getPattern()[guard.currentPosition]) {
-		  switch (patternInUse[guard.currentPosition]){
-		case 'w':
-			dx--;	
-			break;
-		case 'a':
-			dy--;
-			break;
-		case 's':
-			dx++;
-			break;
-		case 'd':
-			dy++;
-			break;
-		}
-
-		int x = guard.getX() + dx;
-		int y = guard.getY() + dy;
-
-		char symbol = map.getMapElement(x, y);
-		if (symbol != ' ')
-			return false;
-
-		guard.setX(x);
-		guard.setY(y);
-
-		if (guard.getBehavior().getInvertPattern()) {
-			guard.decCurrentPosition();
-		} else {
-			guard.incCurrentPosition();
-		}
-		return true;
-	}
-
-	public boolean moveOgre(Ogre ogre) {
-		if (ogre.isStunned()) {
-			ogre.decStunCount();
-			return false;
-		} else {
-			int dx = 0, dy = 0;
-
-			int randomNumber = ThreadLocalRandom.current().nextInt(0, 4);
-
-			switch (randomNumber) {
-			case 0:
-				dx--;
-				break;
-			case 1:
-				dy--;
-				break;
-			case 2:
-				dx++;
-				break;
-			case 3:
-				dy++;
-				break;
-			}
-
-			int x = ogre.getX() + dx;
-			int y = ogre.getY() + dy;
-
-			char symbol = map.getMapElement(x, y);
-			if (!(symbol == ' ' || symbol == 'k' || symbol == '0' || symbol == '*' || symbol == '8'))
-				return false;
-
-			if (x < 0 || x > map.getXMapLength() - 1)
-				return false;
-			if (y < 0 || y > map.getYMapLength() - 1)
-				return false;
-			// Verifica se esta em cima da chave
-			if (symbol == 'k')
-				ogre.setSymbol('$');
-			else
-				ogre.setSymbol('0');
-
-			ogre.setX(x);
-			ogre.setY(y);
-			return true;
-		}
-	}
-
-	public boolean swingMace(int ogreIndex) {
-		int dx = 0, dy = 0;
-		int randomNumber = ThreadLocalRandom.current().nextInt(0, 4);
-
-		switch (randomNumber) {
-		case 0:
-			dx--;
-			break;
-		case 1:
-			dy--;
-			break;
-		case 2:
-			dx++;
-			break;
-		case 3:
-			dy++;
-			break;
-		}
-
-		int x = ogres.get(ogreIndex).getX() + dx;
-		int y = ogres.get(ogreIndex).getY() + dy;
-
-		char symbol = map.getMapElement(x, y);
-		if (!(symbol == ' ' || symbol == 'k'))
-			return false;
-
-		if (x < 0 || x > map.getXMapLength() - 1)
-			return false;
-		if (y < 0 || y > map.getYMapLength() - 1)
-			return false;
-
-		if (Math.abs(x - ogres.get(ogreIndex).getX()) + Math.abs(y - ogres.get(ogreIndex).getY()) > 1)
-			return false;
-		// Verifica se esta em cima da chave
-		if (symbol == 'k')
-			ogres.get(ogreIndex).getMace().setSymbol('$');
-		else
-			ogres.get(ogreIndex).getMace().setSymbol('*');
-
-		ogres.get(ogreIndex).getMace().setX(x);
-		ogres.get(ogreIndex).getMace().setY(y);
-		return true;
+		uploadMap();
 	}
 
 	public void printMap() {
@@ -229,13 +60,6 @@ public class Level {
 		// put guards in map
 		for (int i = 0; i < guards.size(); i++){
 			map.setSymbol(guards.get(i).getX(), guards.get(i).getY(), guards.get(i).getSymbol());
-			/*System.out.println("\nGuard pattern current position: " + guards.get(i).getCurrentPosition());
-			System.out.println("Guard inverted pattern position: " + guards.get(i).getCurrentPosition());
-			System.out.println("Guard pattern current symbol: " + guards.get(i).getPattern()[guards.get(i).getCurrentPosition()]);
-			System.out.println("Guard inverted pattern symbol: " + guards.get(i).getInvertedPattern()[guards.get(i).getCurrentPosition()]);
-			System.out.println("Guard pattern: " + guards.get(i).getPatternString());
-			System.out.println("Guard invert : " + guards.get(i).getInvertedPatternString());
-			System.out.println("Guard invert state: " + guards.get(i).getBehavior().getInvertPattern());*/
 		}
 		// put ogres in map
 		for (int i = 0; i < ogres.size(); i++) {
@@ -275,7 +99,7 @@ public class Level {
 			default:
 				break;
 			}
-			moveGuard(guards.get(i));
+			guards.get(i).moveEntity(this);
 		}
 	}
 
@@ -285,9 +109,41 @@ public class Level {
 				ogres.get(i).decStunCount();
 				return;
 			}
-			moveOgre(ogres.get(i));
-			while (!swingMace(i))
-				swingMace(i);
+			ogres.get(i).moveEntity(this);
+			while (!ogres.get(i).swingMace(i,this))
+				ogres.get(i).swingMace(i, this);
+		}
+	}
+	
+	public void uploadMap(){
+		map.cleanCurrentMap();
+		// put keys in map
+		for (int i = 0; i < keys.size(); i++) {
+			if (keys.get(i).isPickedUp())
+				continue;
+			else
+				map.setSymbol(keys.get(i).getX(), keys.get(i).getY(), keys.get(i).getSymbol());
+		}
+		// put levers in map
+		for (int i = 0; i < levers.size(); i++) {
+			map.setSymbol(levers.get(i).getX(), levers.get(i).getY(), levers.get(i).getSymbol());
+		}
+		//put clubs in map
+		for (int i = 0; i < clubs.size(); i++) {
+			map.setSymbol(clubs.get(i).getX(), clubs.get(i).getY(), clubs.get(i).getSymbol());
+		}
+		// put hero in map
+		map.setSymbol(hero.getX(), hero.getY(), hero.getSymbol());
+		// put guards in map
+		for (int i = 0; i < guards.size(); i++){
+			map.setSymbol(guards.get(i).getX(), guards.get(i).getY(), guards.get(i).getSymbol());
+		}
+		// put ogres in map
+		for (int i = 0; i < ogres.size(); i++) {
+			map.setSymbol(ogres.get(i).getX(), ogres.get(i).getY(), ogres.get(i).getSymbol());
+			// put maces in map
+			map.setSymbol(ogres.get(i).getMace().getX(), ogres.get(i).getMace().getY(),
+					ogres.get(i).getMace().getSymbol());
 		}
 	}
 	
@@ -326,18 +182,6 @@ public class Level {
 	}
 	
 	public void checkStunnedOgres(){
-		int x = 0, y = 0;
-		
-//		for(int i=0; i < ogres.size(); i++){
-//			x = ogres.get(i).getX();
-//			y = ogres.get(i).getY();
-//			
-//			if(map.getMapElement(x, y+1) == 'A' |
-//			   map.getMapElement(x, y-1) == 'A' |
-//			   map.getMapElement(x+1, y) == 'A' |
-//			   map.getMapElement(x-1, y) == 'A')
-//				ogres.get(i).setStunCount();
-		
 		for(int i=0; i < ogres.size(); i++){
 		if(hero.hasWeapon())
 			if (Math.abs(hero.getX() - ogres.get(i).getX()) + Math.abs(hero.getY() - ogres.get(i).getY()) < 2)
@@ -407,15 +251,17 @@ public class Level {
 		}
 	}
 
-	public boolean play() {
+	public boolean play(String userInput) {
 		while (!levelOver) {
-			printMap();
-			System.out.print("Direction[wasd]: ");
+			//printMap();
+			
+			//System.out.print("Direction[wasd]: ");
 
-			moveHero(hero);
+			this.hero.moveEntity(userInput, this);
 
 			checkHeroOnExit();
 
+			uploadMap();
 			uploadGuards();
 			uploadOgres();
 
@@ -436,5 +282,26 @@ public class Level {
 		printMap();
 		System.out.print(levelOverMessage);
 		return levelOver;
+	}
+	
+	public void makeMove(String userInput){
+		uploadMap();
+		uploadGuards();
+		uploadOgres();
+		
+		this.hero.moveEntity(userInput, this);
+
+		checkHeroOnExit();
+		checkHeroOnLever();
+		checkHeroOnKey();
+		checkHeroOnClub();
+
+		checkClubStatus();
+		checkKeyStatus();
+		
+		checkCapturedByGuards();
+		checkCapturedByOgres();
+		checkStunnedOgres();
+		uploadMap();
 	}
 }

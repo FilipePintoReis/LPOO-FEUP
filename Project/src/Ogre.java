@@ -1,5 +1,7 @@
 package dkeep.logic;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import dkeep.logic.Entity;
 
 class Ogre extends Entity {
@@ -33,8 +35,8 @@ class Ogre extends Entity {
 	public void setStunCount() {
 		stunCount = 2;
 	}
-	
-	public void setStunCount(int stunCount){
+
+	public void setStunCount(int stunCount) {
 		this.stunCount = stunCount;
 	}
 
@@ -51,5 +53,96 @@ class Ogre extends Entity {
 			this.setSymbol('8');
 		} else
 			System.out.println("Error: Ogre stun count is negative");
+	}
+
+	public boolean moveEntity(Level level) {
+		if (this.isStunned()) {
+			this.decStunCount();
+			return false;
+		} else {
+			int dx = 0, dy = 0;
+
+			int randomNumber = ThreadLocalRandom.current().nextInt(0, 4);
+
+			switch (randomNumber) {
+			case 0:
+				dx--;
+				break;
+			case 1:
+				dy--;
+				break;
+			case 2:
+				dx++;
+				break;
+			case 3:
+				dy++;
+				break;
+			}
+
+			int x = this.getX() + dx;
+			int y = this.getY() + dy;
+
+			char symbol = level.getMap().getMapElement(x, y);
+			if (!(symbol == ' ' || symbol == 'k' || symbol == '0' || symbol == '*' || symbol == '8'))
+				return false;
+
+			if (x < 0 || x > level.getMap().getXMapLength() - 1)
+				return false;
+			if (y < 0 || y > level.getMap().getYMapLength() - 1)
+				return false;
+			// Verifica se esta em cima da chave
+			if (symbol == 'k')
+				this.setSymbol('$');
+			else
+				this.setSymbol('0');
+
+			this.setX(x);
+			this.setY(y);
+			return true;
+		}
+	}
+	
+	public boolean swingMace(int ogreIndex, Level level) {
+		int dx = 0, dy = 0;
+		int randomNumber = ThreadLocalRandom.current().nextInt(0, 4);
+
+		switch (randomNumber) {
+		case 0:
+			dx--;
+			break;
+		case 1:
+			dy--;
+			break;
+		case 2:
+			dx++;
+			break;
+		case 3:
+			dy++;
+			break;
+		}
+
+		int x = this.getX() + dx;
+		int y =this.getY() + dy;
+
+		char symbol = level.getMap().getMapElement(x, y);
+		if (!(symbol == ' ' || symbol == 'k'))
+			return false;
+
+		if (x < 0 || x > level.getMap().getXMapLength() - 1)
+			return false;
+		if (y < 0 || y > level.getMap().getYMapLength() - 1)
+			return false;
+
+		if (Math.abs(x - this.getX()) + Math.abs(y - this.getY()) > 1)
+			return false;
+		// Verifica se esta em cima da chave
+		if (symbol == 'k')
+			this.getMace().setSymbol('$');
+		else
+			this.getMace().setSymbol('*');
+
+		this.getMace().setX(x);
+		this.getMace().setY(y);
+		return true;
 	}
 }

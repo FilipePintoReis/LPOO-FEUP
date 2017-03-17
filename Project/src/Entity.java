@@ -29,6 +29,9 @@ class Entity {
 		this.symbol = symbol;
 	};
 
+	public void moveEntity(String userInput){
+	}
+	
 	public Entity(int x, int y) {
 		this.x = x;
 		this.y = y;

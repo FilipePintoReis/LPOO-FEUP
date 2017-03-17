@@ -6,8 +6,23 @@ import dkeep.logic.Map;
 
 public class Game {
 	ArrayList<Level> levels = new ArrayList<Level>();
+	int currentLevel;
+	boolean gameOver;
+	
+	public ArrayList<Level> getLevels(){ return levels; }
+	public int getCurrentLevelIndex(){ return currentLevel; }
+	public Level getCurrentLevel(){ return levels.get(currentLevel); }
+	public void incCurrentLevel(){
+		currentLevel++;
+		if(currentLevel > levels.size()-1)
+			gameOver = true;
+	}
 
 	public Game(){
+		currentLevel = 0;
+		gameOver = false;
+		// nivel
+		// heroi
 		
 		//level 0
 		char empty_map0[][] = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
@@ -30,7 +45,7 @@ public class Game {
 		ArrayList<Lever> levers0 = new ArrayList<Lever>();
 		ArrayList<Club> clubs0 = new ArrayList<Club>();
 		//guards0.add(new Guard(1, 8, guard_pattern00, "zealous"));
-		guards0.add(new Guard(1, 8, guard_pattern00, "drunk"));
+		guards0.add(new Guard(1, 8, guard_pattern00, "rookie"));
 		levers0.add(new Lever(8,7));
 		//end level 0
 		
@@ -65,13 +80,14 @@ public class Game {
 //	public Level(Hero hero, Map map, ArrayList<Guard> guards, ArrayList<Ogre> ogres, ArrayList<Lever> levers, ArrayList<Key> keys)
 		Level level0 = new Level(hero0, map0, guards0, ogres0, levers0, keys0, clubs0);
 		Level level1 = new Level(hero1, map1, guards1, ogres1, levers1, keys1, clubs1);
-		//levels.add(level0);
+		levels.add(level0);
 		levels.add(level1);
 	}
 
-	public void play() {
+	public void play(String userInput) {
 		for (int i = 0; i < levels.size(); i++) {
-			levels.get(i).play();
+			this.currentLevel = i;
+			levels.get(i).play(userInput);
 			if (levels.get(i).checkHeroCaptured()) {
 				System.out.println("Voce foi capturado.");
 				return;
@@ -79,4 +95,28 @@ public class Game {
 		}
 		System.out.println("Chegou ao fim desta demonstracao virtual.");
 	}
+	
+	public void play2(String userInput){
+		levels.get(currentLevel).makeMove(userInput);
+		if(levels.get(currentLevel).isOver()){
+			incCurrentLevel();
+		}
+	}
+	
+	public boolean checkLevelsFinished(){
+		for(int i=0; i < levels.size(); i++)
+			if(!levels.get(i).isOver())
+				return false;
+		return true;
+	}
+	
+	public boolean checkGameOver(){
+		for(int i=0; i < levels.size(); i++)
+			if(levels.get(i).checkHeroCaptured())
+				return true;
+		return false;
+	}
+	
+	
+	
 }
