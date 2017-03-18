@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class DungeonTest {
 
 	
-	@Before public void initialize() {
+	/*@Before public void initialize() {
 	char [][] empty_map = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
 							{ 'X', 'H', ' ', 'G', ' ', ' ', ' ', ' ', ' ', 'X' },
 							{ 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
@@ -32,7 +32,7 @@ public class DungeonTest {
 	ArrayList<Club> clubs = new ArrayList<Club>();
 	Level level = new Level(hero, map, guards, ogres, levers, keys, clubs);
 	Game game = new Game(level);
-	}
+	}*/
 	
 
 }

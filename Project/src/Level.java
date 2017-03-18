@@ -38,46 +38,6 @@ public class Level {
 		uploadMap();
 	}
 
-	public void printMap() {
-		map.cleanCurrentMap();
-		// put keys in map
-		for (int i = 0; i < keys.size(); i++) {
-			if (keys.get(i).isPickedUp())
-				continue;
-			else
-				map.setSymbol(keys.get(i).getX(), keys.get(i).getY(), keys.get(i).getSymbol());
-		}
-		// put levers in map
-		for (int i = 0; i < levers.size(); i++) {
-			map.setSymbol(levers.get(i).getX(), levers.get(i).getY(), levers.get(i).getSymbol());
-		}
-		//put clubs in map
-		for (int i = 0; i < clubs.size(); i++) {
-			map.setSymbol(clubs.get(i).getX(), clubs.get(i).getY(), clubs.get(i).getSymbol());
-		}
-		// put hero in map
-		map.setSymbol(hero.getX(), hero.getY(), hero.getSymbol());
-		// put guards in map
-		for (int i = 0; i < guards.size(); i++){
-			map.setSymbol(guards.get(i).getX(), guards.get(i).getY(), guards.get(i).getSymbol());
-		}
-		// put ogres in map
-		for (int i = 0; i < ogres.size(); i++) {
-			map.setSymbol(ogres.get(i).getX(), ogres.get(i).getY(), ogres.get(i).getSymbol());
-			// put maces in map
-			map.setSymbol(ogres.get(i).getMace().getX(), ogres.get(i).getMace().getY(),
-					ogres.get(i).getMace().getSymbol());
-		}
-
-		// print map
-		for (int i = 0; i < map.getXMapLength(); i++) {
-			for (int j = 0; j < map.getYMapLength(); j++) {
-				System.out.print(map.getMapElement(i, j) + " ");
-			}
-			System.out.print("\n");
-		}
-	}
-
 	public void uploadGuards() {
 		for (int i = 0; i < guards.size(); i++) {
 			if(guards.get(i).getBehavior().getSleep()){
@@ -249,39 +209,6 @@ public class Level {
 			if (!(clubs.get(i).isPickedUp()))
 				clubs.get(i).setSymbol('C');
 		}
-	}
-
-	public boolean play(String userInput) {
-		while (!levelOver) {
-			//printMap();
-			
-			//System.out.print("Direction[wasd]: ");
-
-			this.hero.moveEntity(userInput, this);
-
-			checkHeroOnExit();
-
-			uploadMap();
-			uploadGuards();
-			uploadOgres();
-
-			checkCapturedByGuards();
-			checkCapturedByOgres();
-
-			checkHeroOnLever();
-			checkHeroOnKey();
-			checkStunnedOgres();
-			checkHeroOnClub();
-			checkClubStatus();
-			checkKeyStatus();
-
-			if (levelOver)
-				continue;
-		}
-
-		printMap();
-		System.out.print(levelOverMessage);
-		return levelOver;
 	}
 	
 	public void makeMove(String userInput){

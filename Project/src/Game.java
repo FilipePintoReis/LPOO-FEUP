@@ -83,20 +83,8 @@ public class Game {
 		levels.add(level0);
 		levels.add(level1);
 	}
-
-	public void play(String userInput) {
-		for (int i = 0; i < levels.size(); i++) {
-			this.currentLevel = i;
-			levels.get(i).play(userInput);
-			if (levels.get(i).checkHeroCaptured()) {
-				System.out.println("Voce foi capturado.");
-				return;
-			}
-		}
-		System.out.println("Chegou ao fim desta demonstracao virtual.");
-	}
 	
-	public void play2(String userInput){
+	public void play(String userInput){
 		levels.get(currentLevel).makeMove(userInput);
 		if(levels.get(currentLevel).isOver()){
 			incCurrentLevel();
@@ -109,6 +97,15 @@ public class Game {
 				return false;
 		return true;
 	}
+	
+	public boolean checkHeroCaptured(){
+		for(int i = 0; i < levels.size(); i++){
+			if(levels.get(i).getHero().isCaptured())
+				return true;
+		}
+		return false;
+	}
+	
 	
 	public boolean checkGameOver(){
 		for(int i=0; i < levels.size(); i++)
