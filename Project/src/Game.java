@@ -12,12 +12,24 @@ public class Game {
 	public ArrayList<Level> getLevels(){ return levels; }
 	public int getCurrentLevelIndex(){ return currentLevel; }
 	public Level getCurrentLevel(){ return levels.get(currentLevel); }
+	public Level getPreviousLevel(){ 
+		if(levels.size() == 1) return levels.get(0);
+		else return levels.get(currentLevel - 1);
+		}
+	
 	public void incCurrentLevel(){
 		currentLevel++;
 		if(currentLevel > levels.size()-1)
 			gameOver = true;
 	}
 
+	public Game(Level level){
+		currentLevel = 0;
+		gameOver = false;
+		levels = new ArrayList<Level>();
+		levels.add(level);
+	}
+	
 	public Game(){
 		currentLevel = 0;
 		gameOver = false;

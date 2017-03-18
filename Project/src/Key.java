@@ -1,7 +1,7 @@
 package dkeep.logic;
 import dkeep.logic.Entity;
 
-class Key extends Entity {
+public class Key extends Entity {
 	
 	boolean pickedUp;
 	boolean isSteppedOnByEnemy;

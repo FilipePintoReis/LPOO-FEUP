@@ -1,5 +1,5 @@
 package dkeep.logic;
-class Hero extends Entity {
+public class Hero extends Entity {
 	boolean hasKey, captured, hasWeapon;
 	
 	public Hero(int x, int y) {

@@ -2,7 +2,7 @@ package dkeep.logic;
 
 import dkeep.logic.Entity;
 
-class Guard extends Entity {
+public class Guard extends Entity {
 	
 	char pattern[];
 	char inverted_pattern[];

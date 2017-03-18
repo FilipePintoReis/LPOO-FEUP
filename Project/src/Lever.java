@@ -1,7 +1,7 @@
 package dkeep.logic;
 import dkeep.logic.Entity;
 
-class Lever extends Entity {
+public class Lever extends Entity {
 	boolean activated;
 	boolean isSteppedOnByEnemy;
 	

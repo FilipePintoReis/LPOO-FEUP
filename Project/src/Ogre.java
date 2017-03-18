@@ -4,7 +4,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import dkeep.logic.Entity;
 
-class Ogre extends Entity {
+public class Ogre extends Entity {
 
 	Entity mace;
 	int macePosition, stunCount;
