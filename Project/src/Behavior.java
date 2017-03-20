@@ -11,7 +11,7 @@ public class Behavior {
 		if(!type.equals("rookie") & !type.equals("drunk") & !type.equals("zealous")){
 			System.out.println("\n\nError on Guard's Behavior creation); Invalid behaviour type: " + type);
 			return;
-		}
+		} 
 		this.type = type;
 		this.sleep = false;
 		this.invertPattern = false;

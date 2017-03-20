@@ -17,3 +17,4 @@ public class Lever extends Entity {
 	public void unactivate(){ activated = false; }
 	public void setSteppedOnByEnemy(){ isSteppedOnByEnemy = true; }
 }	
+ 

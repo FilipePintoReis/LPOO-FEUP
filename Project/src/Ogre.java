@@ -119,7 +119,7 @@ public class Ogre extends Entity {
 		case 3:
 			dy++;
 			break;
-		}
+		} 
 
 		int x = this.getX() + dx;
 		int y =this.getY() + dy;

@@ -19,7 +19,7 @@ public class Guard extends Entity {
 		for(int i=0; i < this.pattern.length; i++){
 			this.pattern[i] = pattern[i];
 			switch(this.pattern[i]){
-			case 'w':
+			case 'w': 
 				inverted_pattern[i] = 's';
 				break;
 			case 's':

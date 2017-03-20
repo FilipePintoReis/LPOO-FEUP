@@ -18,3 +18,4 @@ public class Key extends Entity {
 	public void drop(){ pickedUp = false; }
 	public void setSteppedOnByEnemy(){ isSteppedOnByEnemy = true; }
 }
+ 

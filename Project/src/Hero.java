@@ -11,13 +11,18 @@ public class Hero extends Entity {
 	}
 	public void captureHero(){ captured = true; }
 	public boolean isCaptured(){ return captured; }
-	public void giveKey(){ hasKey = true; }
+	public void giveKey(){ 
+		hasKey = true;
+		if(!this.hasWeapon)
+			this.setSymbol('K');
+		} 
 	public boolean hasKey(){ return hasKey; }
 	public boolean hasWeapon() { return hasWeapon; }
 	public void giveWeapon() { 
 		hasWeapon = true; 
-		this.setSymbol('A');
+		this.setSymbol('A'); 
 	}
+	
 	
 	public boolean moveEntity(String userInput, Level level) {
 		int dx = 0, dy = 0;

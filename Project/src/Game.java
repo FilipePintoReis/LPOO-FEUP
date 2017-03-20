@@ -88,15 +88,15 @@ public class Game {
 				
 		//level 1
 		
-		
+		 
 //	public Level(Hero hero, Map map, ArrayList<Guard> guards, ArrayList<Ogre> ogres, ArrayList<Lever> levers, ArrayList<Key> keys)
 		Level level0 = new Level(hero0, map0, guards0, ogres0, levers0, keys0, clubs0);
 		Level level1 = new Level(hero1, map1, guards1, ogres1, levers1, keys1, clubs1);
 		levels.add(level0);
-		levels.add(level1);
+		levels.add(level1); 
 	}
 	
-	public void play(String userInput){
+	public void play(String userInput){ 
 		levels.get(currentLevel).makeMove(userInput);
 		if(levels.get(currentLevel).isOver()){
 			incCurrentLevel();

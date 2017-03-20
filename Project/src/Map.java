@@ -18,7 +18,7 @@ public class Map {
 		exits = new ArrayList<Entity>();
 		
 		for(int i=0; i < current_map.length; i++){
-			
+		 	
 			for(int j=0; j < current_map[i].length; j++){
 				current_map[i][j] = map[i][j];
 				empty_map[i][j] = map[i][j];
@@ -47,7 +47,6 @@ public class Map {
 			if(current_map[exits.get(i).getX()][exits.get(i).getY()] != 'X' ||
 			   current_map[exits.get(i).getX()][exits.get(i).getY()] !=	' '){
 				current_map = old_map;
-				return;
 			}
 			current_map[exits.get(i).getX()][exits.get(i).getY()] = exits.get(i).getSymbol();
 		}

@@ -10,7 +10,7 @@ public class Main {
 				System.out.print(level.getMap().getMapElement(i, j) + " ");
 			}
 			System.out.print("\n");
-		}
+		} 
 	}
 	
 	

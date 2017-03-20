@@ -1,6 +1,6 @@
 package dkeep.logic;
 
-class Entity {
+public class Entity {
 	int x;
 	int y;
 	char symbol;
@@ -15,7 +15,7 @@ class Entity {
 
 	public char getSymbol() {
 		return symbol;
-	};
+	}; 
 
 	public void setX(int x) {
 		this.x = x;
@@ -28,7 +28,7 @@ class Entity {
 	public void setSymbol(char symbol) {
 		this.symbol = symbol;
 	};
-
+ 
 	public void moveEntity(String userInput){
 	}
 	

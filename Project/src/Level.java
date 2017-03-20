@@ -46,7 +46,7 @@ public class Level {
 			else { guards.get(i).setSymbol('G'); }
 			
 			switch (guards.get(i).getBehavior().getType()) {
-
+ 
 			case "drunk":
 			guards.get(i).getBehavior().toggleSleep();
 			guards.get(i).getBehavior().toggleInvertPattern();
@@ -187,7 +187,7 @@ public class Level {
 				this.hero.giveWeapon();
 				clubs.get(i).pickUp();
 			}
-	}
+	} 
 
 	public boolean checkHeroCaptured() {
 		return hero.isCaptured();

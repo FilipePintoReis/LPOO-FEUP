@@ -20,7 +20,7 @@ public class DungeonTest {
 			   				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
 			    };
 	
-	Map map = new Map(empty_map);
+	Map map = new Map(empty_map); 
 	Hero hero = new Hero(1,1);
 	Guard guard = new Guard(1, 3);
 	Lever lever = new Lever(3, 1);
@@ -86,7 +86,7 @@ public class DungeonTest {
 		game.play("s");
 		assertEquals('S', game.getCurrentLevel().getMap().getMapElement(2, 0));
 	}
-	
+	 
 	@Test
 	public void testHeroAdvancesLevel(){
 		game.play("s");
