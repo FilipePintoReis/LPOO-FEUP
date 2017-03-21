@@ -9,7 +9,6 @@ public class Club extends Entity {
 		this.pickedUp = false;
 	}
 	
-	public void drop(){ this.pickedUp = false; }
 	public void pickUp(){ this.pickedUp = true; }
 	public boolean isPickedUp(){ return this.pickedUp; }
 

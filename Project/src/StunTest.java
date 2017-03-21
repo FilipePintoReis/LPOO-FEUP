@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 
 
-public class KeepTest {
+public class StunTest {
 	
 	public void makePlayWithStillOgre(Game game, String input){
 		game.getCurrentLevel().uploadMap();
@@ -42,10 +42,8 @@ public class KeepTest {
 	
 	Map map = new Map(empty_map);
 	Hero hero = new Hero(1,1);
-	Ogre ogre = new Ogre(1, 3);
-	Ogre ogre1 = new Ogre(1, 4);
-	Key key2 = new Key(1, 4);
-	Key key1 = new Key(3, 1);
+	Club club = new Club(1,2);
+	Ogre ogre = new Ogre(1,4);
 	ArrayList<Guard> guards = new ArrayList<Guard>();
 	ArrayList<Ogre> ogres = new ArrayList<Ogre>();
 	ArrayList<Key> keys = new ArrayList<Key>();
@@ -56,64 +54,34 @@ public class KeepTest {
 	Game game = new Game(level);
 	
 	@Before public void initialize() {
+		clubs.add(club);
 		ogres.add(ogre);
-		ogres.add(ogre1);
-		keys.add(key1);
-		keys.add(key2);
 	} 
 	
-	//Keep Level Tests
-	/* Hero moves into an adjacent position to the Ogre and the game ends with defeat
-	 * Hero moves into the Keep's exit door key cell and changes its representation to "K"
-	 * Hero moves into the closed Keep's exit door, without the key and fails to open it
-	 * Hero moves into the closed Keep's exit door, with the key and the the door opens
-	 * Hero moves into the open Keep's exit door and the game ends with victory
-	 */
-	 
 	@Test
-	public void testHeroGetsCapturebyOgre() {
+	public void testHeroChangeSymbol(){
+		assertSame(game.getCurrentLevel().getHero().getSymbol(), 'H');
 		makePlayWithStillOgre(game, "d");
-		assertTrue(game.getPreviousLevel().getHero().isCaptured());
-	}
-
-	@Test
-	public void testHeroSymbolTurnsK() {
-		makePlayWithStillOgre(game, "s");
-		makePlayWithStillOgre(game, "s");
-		assertTrue(game.getCurrentLevel().getHero().getSymbol() == 'K');
-	}
-
-	@Test
-	public void testHeroFailsToExit() {
-		makePlayWithStillOgre(game, "s");
-		makePlayWithStillOgre(game, "a");
-		assertFalse(game.getCurrentLevel().getMap().getMapElement(2, 0) == 'S');
-	}
-
-	@Test
-	public void testHeroOpensDoor() {
-		makePlayWithStillOgre(game, "s");
-		makePlayWithStillOgre(game, "s");
-		makePlayWithStillOgre(game, "w");
-		makePlayWithStillOgre(game, "a");
-		assertTrue(game.getCurrentLevel().getMap().getMapElement(2, 0) == 'S');
-	}
-
-	@Test
-	public void testHeroWinsLevel() {
-		makePlayWithStillOgre(game, "s");
-		makePlayWithStillOgre(game, "s");
-		makePlayWithStillOgre(game, "w");
-		makePlayWithStillOgre(game, "a");
-		makePlayWithStillOgre(game, "a");
-		assertTrue(game.getPreviousLevel().isOver());
-		assertFalse(game.getPreviousLevel().getHero().isCaptured());
+		assertSame(game.getCurrentLevel().getHero().getSymbol(), 'A');
 	}
 	
-	/*@Test
-	public void testOgreOverKey() {
-		makePlayWithStillOgre(game, "s");
-		assertTrue(game.getCurrentLevel().getOgres().get(1).getSymbol() == '$');
-	}*/
+	@Test 
+	public void testHeroStunsOgre(){
+		assertSame(game.getCurrentLevel().getOgres().get(0).getSymbol(), '0');
+		makePlayWithStillOgre(game, "d");
+		makePlayWithStillOgre(game, "d");
+		assertSame('8', game.getCurrentLevel().getOgres().get(0).getSymbol());
+	}
 	
+	@Test
+	public void testHeroLosesWithWeapon(){
+		assertFalse(game.getCurrentLevel().checkHeroCaptured());
+		makePlayWithStillOgre(game, "s");
+		makePlayWithStillOgre(game, "d");
+		makePlayWithStillOgre(game, "d");
+		makePlayWithStillOgre(game, "d");
+		makePlayWithStillOgre(game, "d");
+		assertTrue(game.getCurrentLevel().checkHeroCaptured());
+
+	}
 }

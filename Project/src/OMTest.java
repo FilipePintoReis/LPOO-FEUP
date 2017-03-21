@@ -30,6 +30,9 @@ public class OMTest {
 	Map map = new Map(empty_map);
 	Hero hero = new Hero(1, 1);
 	Ogre ogre = new Ogre(1, 4);
+	Key key1 = new Key(1, 3);
+	Key key2 = new Key(1, 5);
+	Key key3 = new Key(2, 4);
 	ArrayList<Guard> guards = new ArrayList<Guard>();
 	ArrayList<Ogre> ogres = new ArrayList<Ogre>();
 	ArrayList<Key> keys = new ArrayList<Key>();
@@ -42,6 +45,9 @@ public class OMTest {
 	@Before
 	public void initialize() {
 		ogres.add(ogre); 
+		keys.add(key1);
+		keys.add(key2);
+		keys.add(key3);
 	}
 
 	@Test(timeout = 1000)
@@ -85,4 +91,14 @@ public class OMTest {
 		
 		assertTrue(true);
 	}
+	
+	@Test
+	public void testOgreOnKeyChangesSymbol(){
+		game.play("s");
+		for(int i = 0; i < keys.size(); i++){
+			if(game.getCurrentLevel().getMap().getMapElement(game.getCurrentLevel().getKeys().get(i).getX(), game.getCurrentLevel().getKeys().get(i).getY()) == '$');
+				assertTrue(true);
+		}
+	}
+	
 }

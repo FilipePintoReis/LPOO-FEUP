@@ -8,10 +8,9 @@ public class Behavior {
 	String type;
 	
 	public Behavior(String type){
-		if(!type.equals("rookie") & !type.equals("drunk") & !type.equals("zealous")){
-			System.out.println("\n\nError on Guard's Behavior creation); Invalid behaviour type: " + type);
+		if(!type.equals("rookie") & !type.equals("drunk") & !type.equals("zealous"))
 			return;
-		} 
+	
 		this.type = type;
 		this.sleep = false;
 		this.invertPattern = false;

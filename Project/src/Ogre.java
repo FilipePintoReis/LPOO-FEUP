@@ -36,10 +36,6 @@ public class Ogre extends Entity {
 		stunCount = 2;
 	}
 
-	public void setStunCount(int stunCount) {
-		this.stunCount = stunCount;
-	}
-
 	public void decStunCount() {
 		stunCount--;
 	}
@@ -48,11 +44,10 @@ public class Ogre extends Entity {
 		if (stunCount == 0) {
 			isStunned = false;
 			this.setSymbol('0');
-		} else if (stunCount > 0) {
+		} else {
 			isStunned = true;
 			this.setSymbol('8');
-		} else
-			System.out.println("Error: Ogre stun count is negative");
+		}
 	}
 
 	public boolean moveEntity(Level level) {

@@ -144,20 +144,13 @@ public class Level {
 	public void checkStunnedOgres(){
 		for(int i=0; i < ogres.size(); i++){
 		if(hero.hasWeapon())
-			if (Math.abs(hero.getX() - ogres.get(i).getX()) + Math.abs(hero.getY() - ogres.get(i).getY()) < 2)
+			if (Math.abs(hero.getX() - ogres.get(i).getX()) + Math.abs(hero.getY() - ogres.get(i).getY()) < 2){
 				ogres.get(i).setStunCount();
-		}
-	}
-
-	public void checkArmedHeroNearOrcs() {
-		if (hero.hasWeapon()) {
-			for (int i = 0; i < ogres.size(); i++) {
-				if (Math.abs(hero.getX() - ogres.get(i).getX()) + Math.abs(hero.getY() - ogres.get(i).getY()) < 2) {
-					ogres.get(i).setStunCount();
-				}
+				ogres.get(i).checkStun();
 			}
 		}
 	}
+
 
 	public void checkHeroOnExit() {
 		map.loadExits();
@@ -206,7 +199,7 @@ public class Level {
 		for (int i = 0; i < clubs.size(); i++) {
 			if (clubs.get(i).isPickedUp())
 				clubs.get(i).setSymbol(' ');
-			if (!(clubs.get(i).isPickedUp()))
+			if (!clubs.get(i).isPickedUp())
 				clubs.get(i).setSymbol('C');
 		}
 	}

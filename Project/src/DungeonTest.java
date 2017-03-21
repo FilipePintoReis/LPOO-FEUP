@@ -70,7 +70,8 @@ public class DungeonTest {
 	@Test 
 	public void testHeroCapturedByGuard(){
 		game.play("d");
-		assertTrue(game.getPreviousLevel().getHero().isCaptured());
+		assertTrue(game.checkHeroCaptured());
+		assertTrue(game.checkGameOver());
 		}
 	
 	@Test
