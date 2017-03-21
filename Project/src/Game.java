@@ -126,6 +126,14 @@ public class Game {
 		return false;
 	}
 	
-	
+	public String getCurrentMapString(){
+		String map = "";
+		for(int i=0; i < this.getCurrentLevel().getMap().getXMapLength(); i++)
+			for(int j=0; j < this.getCurrentLevel().getMap().getYMapLength(); j++)
+				map += this.getCurrentLevel().getMap().getMapElement(i, j);
+				map += " ";
+		map += "\n";
+	return map;
+	}
 	
 }

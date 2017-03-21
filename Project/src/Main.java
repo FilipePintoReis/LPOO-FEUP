@@ -2,8 +2,7 @@ package dkeep.cli;
 import dkeep.logic.*;
 
 public class Main {
-	
-	
+
 	public static void printLevel(Level level){
 		for (int i = 0; i < level.getMap().getXMapLength(); i++) {
 			for (int j = 0; j < level.getMap().getYMapLength(); j++) {
@@ -12,8 +11,6 @@ public class Main {
 			System.out.print("\n");
 		} 
 	}
-	
-	
 	
 	public static void main(String[] args) {
 		Game game = new Game();
