@@ -20,42 +20,16 @@ public class Guard extends Entity {
 			this.pattern[i] = pattern[i];
 			switch(this.pattern[i]){
 			case 'w': 
-				inverted_pattern[i] = 's';
+				inverted_pattern[i+1>pattern.length-1?0:i+1] = 's';
 				break;
 			case 's':
-				inverted_pattern[i] = 'w';
+				inverted_pattern[i+1>pattern.length-1?0:i+1] = 'w';
 				break;
 			case 'a':
-				inverted_pattern[i] = 'd';
+				inverted_pattern[i+1>pattern.length-1?0:i+1] = 'd';
 				break;
 			case 'd':
-				inverted_pattern[i] = 'a';
-				break;
-			}
-		}
-	}
-	
-	public Guard(int x, int y, char[] pattern) {
-		super(x, y);
-		this.behavior = new Behavior("rookie");
-		this.setSymbol('G');
-		this.currentPosition = 0;
-		this.pattern = new char[pattern.length];
-		this.inverted_pattern = new char[pattern.length];
-		for(int i=0; i < this.pattern.length; i++){
-			this.pattern[i] = pattern[i];
-			switch(this.pattern[i]){
-			case 'w':
-				inverted_pattern[i] = 's';
-				break;
-			case 's':
-				inverted_pattern[i] = 'w';
-				break;
-			case 'a':
-				inverted_pattern[i] = 'd';
-				break;
-			case 'd':
-				inverted_pattern[i] = 'a';
+				inverted_pattern[i+1>pattern.length-1?0:i+1] = 'a';
 				break;
 			}
 		}

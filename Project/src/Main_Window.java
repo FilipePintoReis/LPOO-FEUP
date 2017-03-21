@@ -129,7 +129,7 @@ public class Main_Window {
 		textAreaConsole.setFont(new Font("Courier New", Font.PLAIN, 13));
 		textAreaConsole.setBounds(10, 79, 289, 277);
 		main_window.getContentPane().add(textAreaConsole);
-		
+		  
 		JButton btnUp = new JButton("Up");
 		btnUp.setEnabled(false);
 		btnUp.addActionListener(new ActionListener() {

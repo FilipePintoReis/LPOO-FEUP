@@ -60,7 +60,7 @@ public class Game {
 		ArrayList<Lever> levers0 = new ArrayList<Lever>();
 		ArrayList<Club> clubs0 = new ArrayList<Club>();
 		//guards0.add(new Guard(1, 8, guard_pattern00, "zealous"));
-		guards0.add(new Guard(1, 8, guard_pattern00, "rookie"));
+		guards0.add(new Guard(1, 8, guard_pattern00, "zealous"));
 		levers0.add(new Lever(8,7));
 		//end level 0
 		
