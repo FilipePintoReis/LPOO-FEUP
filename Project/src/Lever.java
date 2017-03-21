@@ -14,7 +14,5 @@ public class Lever extends Entity {
 	
 	public boolean getState(){ return activated; }
 	public void activate(){ activated = true; }
-	public void unactivate(){ activated = false; }
-	public void setSteppedOnByEnemy(){ isSteppedOnByEnemy = true; }
 }	
  

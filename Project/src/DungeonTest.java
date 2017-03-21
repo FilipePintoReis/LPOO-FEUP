@@ -19,10 +19,11 @@ public class DungeonTest {
 							{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
 			   				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
 			    };
-	
+	char [] g1Pattern = {'d', 's', 'a', 'w'};
 	Map map = new Map(empty_map); 
 	Hero hero = new Hero(1,1);
 	Guard guard = new Guard(1, 3);
+	Guard guard1 = new Guard(4, 7, g1Pattern, "drunk");
 	Lever lever = new Lever(3, 1);
 	ArrayList<Guard> guards = new ArrayList<Guard>();
 	ArrayList<Ogre> ogres = new ArrayList<Ogre>();
@@ -37,6 +38,7 @@ public class DungeonTest {
 	@Before public void initialize() {
 		guards.add(guard);
 		levers.add(lever);
+		guards.add(guard1);
 		game.getLevels().add(level2);
 	}
 	
@@ -47,6 +49,7 @@ public class DungeonTest {
 	 * Hero moves towards the closed exit doors and fails to leave
 	 * Hero moves into the lever cell and the Dungeon exit doors open
 	 * Hero moves into the open Dungeon exit doors and progresses into the keep
+	 * Drunk guard tests inverted pattern and sleep functions
 	 */
 	
 	@Test
@@ -95,6 +98,18 @@ public class DungeonTest {
 		game.play("w");
 		game.play("a");
 		assertSame(level2, game.getCurrentLevel());
+	}
+	
+	@Test(timeout=1000)
+	public void testGuardPattern(){
+		boolean changedPattern = false, slept = false;
+		while(!(changedPattern && slept)){
+			game.play("w");
+			if(game.getCurrentLevel().getGuards().get(1).getBehavior().getSleep())
+				slept = true;
+			else if(game.getCurrentLevel().getGuards().get(1).getBehavior().isPatternInverted())
+				changedPattern = true;
+		}
 	}
 	
 }

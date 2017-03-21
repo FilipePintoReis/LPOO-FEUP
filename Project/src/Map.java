@@ -40,7 +40,7 @@ public class Map {
 				}
 			}	
 	}
-	public void setExits(ArrayList<Entity> exits){
+	/*public void setExits(ArrayList<Entity> exits){
 		char old_map[][] = current_map;
 		
 		for(int i=0; i < exits.size(); i++){
@@ -50,7 +50,7 @@ public class Map {
 			}
 			current_map[exits.get(i).getX()][exits.get(i).getY()] = exits.get(i).getSymbol();
 		}
-	}
+	}*/
 	public void loadExits(){
 		exits.clear();
 		for(int i=0; i < current_map.length; i++)
@@ -74,8 +74,8 @@ public class Map {
 				current_map[i][j] = empty_map[i][j];
 	}
 	
-	public boolean isEmpty(int x, int y){
+	/*public boolean isEmpty(int x, int y){
 		return (current_map[x][y] == ' ');
-	}
+	}*/
 	
 }

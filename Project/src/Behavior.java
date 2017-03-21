@@ -4,7 +4,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Behavior {
 	boolean sleep;
-	boolean invertPattern;
+	boolean patternIsInverted;
 	String type;
 	
 	public Behavior(String type){
@@ -13,17 +13,17 @@ public class Behavior {
 	
 		this.type = type;
 		this.sleep = false;
-		this.invertPattern = false;
+		this.patternIsInverted = false;
 	}
 	
 	public boolean getSleep(){ return sleep; }
 	public String getType(){ return type; }
-	public boolean getInvertPattern(){ return invertPattern; }
+	public boolean isPatternInverted(){ return patternIsInverted; }
 	public void setSleep(){ sleep = true; }
-	public void invertPattern(){ invertPattern = true; }
+	public void invertPattern(){ patternIsInverted = true; }
 	public void setType(String type){ this.type = type; }
 	
-	public void toggleSleep(){
+	public void chanceOfSleep(){
 		int randomNumber = ThreadLocalRandom.current().nextInt(0, 2);
 		
 		switch(randomNumber){
@@ -41,18 +41,18 @@ public class Behavior {
 		}
 	}
 		
-	public void toggleInvertPattern(){
+	public void chanceOfInvertingPattern(){
 		int randomNumber = ThreadLocalRandom.current().nextInt(0, 2);
 		//int randomNumber = 0;
 		
 		switch(randomNumber){
 		
 		case 0:
-		invertPattern = false;
+		patternIsInverted = false;
 		break;
 		
 		case 1:
-		invertPattern = true;
+		patternIsInverted = true;
 		break;
 		
 		default:

@@ -48,12 +48,12 @@ public class Level {
 			switch (guards.get(i).getBehavior().getType()) {
  
 			case "drunk":
-			guards.get(i).getBehavior().toggleSleep();
-			guards.get(i).getBehavior().toggleInvertPattern();
+			guards.get(i).getBehavior().chanceOfSleep();
+			guards.get(i).getBehavior().chanceOfInvertingPattern();
 			break;
-			
+			 
 			case "zealous":
-			guards.get(i).getBehavior().toggleInvertPattern();
+			guards.get(i).getBehavior().chanceOfInvertingPattern();
 			break;
 
 			default:

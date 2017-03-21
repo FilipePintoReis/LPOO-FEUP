@@ -54,20 +54,6 @@ public class Guard extends Entity {
 		if (currentPosition < 0)
 			this.currentPosition = pattern.length - 1;
 	}
-
-	
-	public String getPatternString(){
-		String patternString = "";
-		for(int i = 0; i < this.pattern.length; i++)
-			patternString += pattern[i];
-		return patternString;
-	}
-	public String getInvertedPatternString(){
-		String patternString = "";
-		for(int i = 0; i < this.inverted_pattern.length; i++)
-			patternString += inverted_pattern[i];
-		return patternString;
-	}
 	
 	
 	
@@ -83,11 +69,11 @@ public class Guard extends Entity {
 		int dx = 0, dy = 0;
 		
 		char[] patternInUse;
-		if(this.getBehavior().getInvertPattern())
-			patternInUse = this.getInvertedPattern(); //should only take pattern, should do this inside guard
+		
+		if(this.getBehavior().isPatternInverted()) patternInUse = this.getInvertedPattern(); 
 		else patternInUse = this.getPattern();
 
-		//switch (guard.getPattern()[guard.currentPosition]) {
+
 		  switch (patternInUse[this.currentPosition]){
 		case 'w':
 			dx--;	
@@ -113,7 +99,7 @@ public class Guard extends Entity {
 		this.setX(x);
 		this.setY(y);
 
-		if (this.getBehavior().getInvertPattern()) {
+		if (this.getBehavior().isPatternInverted()) {
 			this.decCurrentPosition();
 		} else {
 			this.incCurrentPosition();
