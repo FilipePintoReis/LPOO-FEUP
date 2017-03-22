@@ -13,8 +13,6 @@ public class Key extends Entity {
 		isSteppedOnByEnemy = false;
 	}
 	public boolean isPickedUp(){ return pickedUp; }
-	//public boolean isSteppedOnByEnemy(){ return isSteppedOnByEnemy; }
 	public void pickUp(){ pickedUp = true; }
-	//public void setSteppedOnByEnemy(){ isSteppedOnByEnemy = true; }
 }
  

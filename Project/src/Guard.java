@@ -59,7 +59,6 @@ public class Guard extends Entity {
 	
 	public char[] getPattern() { return this.pattern; }
 	public char[] getInvertedPattern(){ return this.inverted_pattern; }
-	public int getCurrentPosition() { return this.currentPosition; }
 	public Behavior getBehavior(){ return this.behavior; }
 	
 	

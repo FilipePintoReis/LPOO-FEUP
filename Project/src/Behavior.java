@@ -19,9 +19,6 @@ public class Behavior {
 	public boolean getSleep(){ return sleep; }
 	public String getType(){ return type; }
 	public boolean isPatternInverted(){ return patternIsInverted; }
-	public void setSleep(){ sleep = true; }
-	public void invertPattern(){ patternIsInverted = true; }
-	public void setType(String type){ this.type = type; }
 	
 	public void chanceOfSleep(){
 		int randomNumber = ThreadLocalRandom.current().nextInt(0, 2);

@@ -22,6 +22,20 @@ public class Ogre extends Entity {
 	public Entity getMace() {
 		return mace;
 	}
+	
+	public void updateOgreSymbol(char symbol){
+		if (symbol == 'k')
+			this.setSymbol('$');
+		else
+			this.setSymbol('0');
+	}
+	
+	public void updateMaceSymbol(char symbol){
+		if (symbol == 'k')
+			this.getMace().setSymbol('$');
+		else
+			this.getMace().setSymbol('*');
+	}
 
 	public boolean isStunned() {
 		this.checkStun();
@@ -82,11 +96,7 @@ public class Ogre extends Entity {
 					|| x > level.getMap().getXMapLength() - 1 || y < 0 || y > level.getMap().getYMapLength() - 1)
 				return false;
 			// Verifica se esta em cima da chave
-			if (symbol == 'k')
-				this.setSymbol('$');
-			else
-				this.setSymbol('0');
-
+			this.updateOgreSymbol(symbol);
 			this.setX(x);
 			this.setY(y);
 			return true;
@@ -122,10 +132,7 @@ public class Ogre extends Entity {
 			return false;
 		
 		// Verifica se esta em cima da chave
-		if (symbol == 'k')
-			this.getMace().setSymbol('$');
-		else
-			this.getMace().setSymbol('*');
+		this.updateMaceSymbol(symbol);
 
 		this.getMace().setX(x);
 		this.getMace().setY(y);
