@@ -110,10 +110,4 @@ public class KeepTest {
 		assertFalse(game.getPreviousLevel().getHero().isCaptured());
 	}
 	
-	/*@Test
-	public void testOgreOverKey() {
-		makePlayWithStillOgre(game, "s");
-		assertTrue(game.getCurrentLevel().getOgres().get(1).getSymbol() == '$');
-	}*/
-	
 }

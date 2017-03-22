@@ -53,12 +53,12 @@ public class Ogre extends Entity {
 	public boolean moveEntity(Level level) {
 		if (this.isStunned()) {
 			this.decStunCount();
-			return false;
-		} else {
+			return false; } 
+		else {
 			int dx = 0, dy = 0;
-
+			
 			int randomNumber = ThreadLocalRandom.current().nextInt(0, 4);
-
+			
 			switch (randomNumber) {
 			case 0:
 				dx--;
@@ -78,12 +78,8 @@ public class Ogre extends Entity {
 			int y = this.getY() + dy;
 
 			char symbol = level.getMap().getMapElement(x, y);
-			if (!(symbol == ' ' || symbol == 'k' || symbol == '0' || symbol == '*' || symbol == '8'))
-				return false;
-
-			if (x < 0 || x > level.getMap().getXMapLength() - 1)
-				return false;
-			if (y < 0 || y > level.getMap().getYMapLength() - 1)
+			if (!(symbol == ' ' || symbol == 'k' || symbol == '0' || symbol == '*' || symbol == '8') || x < 0 
+					|| x > level.getMap().getXMapLength() - 1 || y < 0 || y > level.getMap().getYMapLength() - 1)
 				return false;
 			// Verifica se esta em cima da chave
 			if (symbol == 'k')
@@ -99,6 +95,7 @@ public class Ogre extends Entity {
 	
 	public boolean swingMace(int ogreIndex, Level level) {
 		int dx = 0, dy = 0;
+		
 		int randomNumber = ThreadLocalRandom.current().nextInt(0, 4);
 
 		switch (randomNumber) {
@@ -114,22 +111,16 @@ public class Ogre extends Entity {
 		case 3:
 			dy++;
 			break;
-		} 
+		}
 
 		int x = this.getX() + dx;
 		int y =this.getY() + dy;
 
 		char symbol = level.getMap().getMapElement(x, y);
-		if (!(symbol == ' ' || symbol == 'k'))
+		if (!(symbol == ' ' || symbol == 'k') || x < 0 || x > level.getMap().getXMapLength() - 1 || y < 0 
+				|| y > level.getMap().getYMapLength() - 1 || Math.abs(x - this.getX()) + Math.abs(y - this.getY()) > 1)
 			return false;
-
-		if (x < 0 || x > level.getMap().getXMapLength() - 1)
-			return false;
-		if (y < 0 || y > level.getMap().getYMapLength() - 1)
-			return false;
-
-		if (Math.abs(x - this.getX()) + Math.abs(y - this.getY()) > 1)
-			return false;
+		
 		// Verifica se esta em cima da chave
 		if (symbol == 'k')
 			this.getMace().setSymbol('$');

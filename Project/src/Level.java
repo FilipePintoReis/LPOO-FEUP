@@ -1,7 +1,6 @@
 package dkeep.logic;
 
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Level {
 	// class attributes
