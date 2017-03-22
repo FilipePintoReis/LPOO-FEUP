@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class DungeonTest {
 	
-	//@Before public void initialize() {
+	
 	char [][] empty_map = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
 							{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
 							{ 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },

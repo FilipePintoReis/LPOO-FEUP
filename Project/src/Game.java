@@ -62,6 +62,10 @@ public class Game {
 		//guards0.add(new Guard(1, 8, guard_pattern00, "zealous"));
 		guards0.add(new Guard(1, 8, guard_pattern00, "zealous"));
 		levers0.add(new Lever(8,7));
+		
+		Level level0 = new Level(hero0, map0, guards0, ogres0, levers0, keys0, clubs0);
+		levels.add(level0);
+		
 		//end level 0
 		
 		//level 1
@@ -88,13 +92,9 @@ public class Game {
 		ogres1.add(new Ogre(5,5));
 		keys1.add(new Key(8,7));
 		clubs1.add(new Club(1,2));
-				
 		//level 1
 		
-		
-		Level level0 = new Level(hero0, map0, guards0, ogres0, levers0, keys0, clubs0);
 		Level level1 = new Level(hero1, map1, guards1, ogres1, levers1, keys1, clubs1);
-		levels.add(level0);
 		levels.add(level1); 
 	}
 	
@@ -133,15 +133,25 @@ public class Game {
 				return true;
 		return false;
 	}
-	
-	public String getCurrentMapString(){
+
+	public String getCurrentMapString() {
 		String map = "";
-		for(int i=0; i < this.getCurrentLevel().getMap().getXMapLength(); i++)
-			for(int j=0; j < this.getCurrentLevel().getMap().getYMapLength(); j++)
-				map += this.getCurrentLevel().getMap().getMapElement(i, j);
-				map += " ";
-		map += "\n";
-	return map;
+		for (int i = 0; i < this.getCurrentLevel().getMap().getXMapLength(); i++) {
+			for (int j = 0; j < this.getCurrentLevel().getMap().getYMapLength(); j++) {
+				if (j == this.getCurrentLevel().getMap().getYMapLength() - 1)
+					map += this.getCurrentLevel().getMap().getMapElement(i, j);
+				else {
+					map += this.getCurrentLevel().getMap().getMapElement(i, j);
+					map += " ";
+				}
+			}
+			if(i == getCurrentLevel().getMap().getXMapLength() - 1)
+				continue;
+			else
+			map += "\n";
+
+		}
+		return map;
 	}
-	
+
 }
