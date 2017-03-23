@@ -30,9 +30,6 @@ public class Game {
 		levels.add(level);
 	}
 	
-	
-	
-	
 	public Game(){
 		currentLevel = 0;
 		gameOver = false;
