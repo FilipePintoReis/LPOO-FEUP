@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -23,20 +24,52 @@ public class Main_Window {
 	private JTextField fieldOgres;
 	private JLabel labelGuardPersonality;
 	private JButton btnExitGame;
+	private JButton btnUp;
+	private JButton btnDown;
+	private JButton btnLeft;
+	private JButton btnRight;
+	
+	
 	
 	Game game = new Game();
 	Input userInput = new Input();
 	boolean gameInitialized = false;
 	String guardPersonalityInput, ogreNumberInput;
-	
+	boolean gotKey = true, gotWeapon = true, unactivatedLever = true, changedLevel = true;
+
 	String getGameStatusMessage(){
-		String gameMessage = "Produto trazido até si por Estrugido & Afilhiados™";
-		if(game.checkGameOver()){
-			if(game.getCurrentLevel().getHero().isCaptured())
-				gameMessage = "Você padeceu perante as circunstâncias adversas.";
-			else gameMessage = "Você é o ganhador, o seu espírito foi enaltecido.";
-		} 
+		String gameMessage = "Produto trazido até si por Goldmans and Sach & Afilhiados™";
+		if(game.getCurrentLevel().getHero().hasWeapon() & gotWeapon){
+			gameMessage = "Você tem em sua posse um avantajado maçarico.";
+			gotWeapon = false;
+			return gameMessage;
+		}
+		if(game.getCurrentLevel().getHero().hasKey() & gotKey){
+			gameMessage = "Você tem em sua posse uma pacata chave.";
+			gotKey = false;
+			return gameMessage;
+		}
+		for(int i=0; i < game.getCurrentLevel().getLevers().size(); i++){
+			if(game.getCurrentLevel().getLevers().get(i).getState()){
+				gameMessage = "Você accionou uma alavanca. Prossiga.";
+				unactivatedLever = false;
+				return gameMessage;
+			}
+		}
+		if(game.checkGameOver())
+			gameMessage = "Você padeceu perante as circunstâncias adversas.";
+		if(game.checkLevelsFinished())
+			gameMessage = "Você é o ganhador, o seu espírito foi enaltecido.";
 		return gameMessage;
+	}
+	
+	void resetGame(){
+		if(game.checkGameOver() | game.checkLevelsFinished())
+			 game.resetGame();
+	}
+	
+	void enableControls(){
+		
 	}
 	
 	/**
@@ -85,32 +118,33 @@ public class Main_Window {
 		main_window.getContentPane().add(labelGuardPersonality);
 		
 		JComboBox comboBoxPersonalities = new JComboBox();
-		comboBoxPersonalities.addItem("Rookie");
-		comboBoxPersonalities.addItem("Zealous");
-		comboBoxPersonalities.addItem("Drunk");
+		comboBoxPersonalities.addItem("rookie");
+		comboBoxPersonalities.addItem("zealous");
+		comboBoxPersonalities.addItem("drunk");
 		comboBoxPersonalities.setBounds(135, 45, 149, 22);
 		main_window.getContentPane().add(comboBoxPersonalities);
 		
 		JTextArea textAreaConsole = new JTextArea();
 		textAreaConsole.setEditable(false);
-		if(gameInitialized)
-			textAreaConsole.setText(game.getCurrentMapString());
+		//textAreaConsole.setText(game.getCurrentMapString());
 		textAreaConsole.setFont(new Font("Courier New", Font.PLAIN, 24));
 		textAreaConsole.setBounds(10, 79, 289, 277);
 		main_window.getContentPane().add(textAreaConsole);
 		
 		JLabel labelStatus = new JLabel("New label");
-		labelStatus.setText("Produto trazida até si por Estrugido & Afilhiados™");
-		labelStatus.setBounds(10, 367, 289, 23);
+		labelStatus.setText("Produto trazido até si por Goldmans and Sach & Afilhiados™");
+		labelStatus.setBounds(10, 367, 471, 23);
 		main_window.getContentPane().add(labelStatus);
 		
-		JButton btnUp = new JButton("Up");
+		btnUp = new JButton("Up");
 		btnUp.setEnabled(false);
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				game.play("w");
 				textAreaConsole.setText(game.getCurrentMapString());
 				labelStatus.setText(getGameStatusMessage());
+				if(game.checkGameOver())
+					labelStatus.setText("Você padeceu perante as circunstâncias adversas.");
 			}
 		});
 		btnUp.setBounds(324, 162, 157, 23);
@@ -123,6 +157,8 @@ public class Main_Window {
 				game.play("s");
 				textAreaConsole.setText(game.getCurrentMapString());
 				labelStatus.setText(getGameStatusMessage());
+				if(game.checkGameOver())
+					labelStatus.setText("Você padeceu perante as circunstâncias adversas.");
 			}
 		});
 		btnDown.setBounds(324, 212, 157, 23);
@@ -135,6 +171,8 @@ public class Main_Window {
 				game.play("a");
 				textAreaConsole.setText(game.getCurrentMapString());
 				labelStatus.setText(getGameStatusMessage());
+				if(game.checkGameOver())
+					labelStatus.setText("Você padeceu perante as circunstâncias adversas.");
 			}
 		});
 		btnLeft.addActionListener(new ActionListener() {
@@ -151,6 +189,10 @@ public class Main_Window {
 				game.play("d");
 				textAreaConsole.setText(game.getCurrentMapString());
 				labelStatus.setText(getGameStatusMessage());
+				if(game.checkGameOver()){
+					labelStatus.setText("Você padeceu perante as circunstâncias adversas.");
+				btnRight.setEnabled(false);
+				}
 			}
 		});
 		btnRight.setBounds(407, 186, 74, 23);
@@ -159,23 +201,36 @@ public class Main_Window {
 		JButton btnNewGame = new JButton("New Game");
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Game newGame = new Game();
 				
-				int nrOgres, nrGuards, nrKeys, nrLevers, nrClubs;
+				int nrOgres = 0, nrGuards, nrKeys, nrLevers, nrClubs;
 				nrKeys = 1;
 				nrLevers = 1;
 				nrClubs = 1;
 				
+				try{
 				ogreNumberInput = fieldOgres.getText();
 				
-				if(!ogreNumberInput.matches("[0-9]*") | ogreNumberInput.equals(null)) //dude why
+				if(!ogreNumberInput.matches("[0-5]*"))
+					throw new NoSuchElementException();
+				nrOgres = Integer.parseInt(ogreNumberInput);
+				
+				if(nrOgres > 5) throw new IllegalArgumentException();
+				}
+				catch(NoSuchElementException ex){
+					fieldOgres.setText(1 + "");
 					nrOgres = 1;
-				else nrOgres = Integer.parseInt(ogreNumberInput);
-				
-				System.out.println(ogreNumberInput.matches("[0-9]*"));
-				
-				guardPersonalityInput = labelGuardPersonality.getText();
-				
+				}
+				catch(IllegalArgumentException ex){
+					fieldOgres.setText(5 + "");
+					nrOgres = 5;
+				}
+				/*
+				nrOgres = Integer.parseInt(ogreNumberInput);
+				if(nrOgres > 5) nrOgres = 5;
+				*/
+								
+				guardPersonalityInput = (String) comboBoxPersonalities.getSelectedItem();
+								
 				//level 0
 				ArrayList<Ogre> ogres0 = new ArrayList();
 				ArrayList<Guard> guards0 = new ArrayList();
@@ -200,7 +255,7 @@ public class Main_Window {
 				guards0.add(new Guard(1, 8, guard_pattern, guardPersonalityInput));
 				levers0.add(new Lever(8,7));
 				Level level0 = new Level(hero0, map0, guards0, ogres0, levers0, keys0, clubs0);
-				newGame.getLevels().add(level0);
+				game.getLevels().add(level0);
 				//end of level0
 				
 				//level1
@@ -231,10 +286,9 @@ public class Main_Window {
 				clubs1.add(new Club(1,2));
 				
 				Level level1 = new Level(hero1, map1, guards1, ogres1, levers1, keys1, clubs1);
-				newGame.getLevels().add(level1); 
+				game.getLevels().add(level1); 
 				//end of level1
 				
-				game = newGame;
 				gameInitialized = true;
 				
 				textAreaConsole.setText(game.getCurrentMapString());
