@@ -27,8 +27,6 @@ public class ActualGameClassTest {
 			  +"\n" + "X X X   X X X X   X"
 			  +"\n" + "X   I   I   X k   X"
 			  +"\n" + "X X X X X X X X X X";
-		System.out.print(stringMap);
-		System.out.print(test);
 		assertEquals(test,stringMap);
 	}
 }
