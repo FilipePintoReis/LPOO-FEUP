@@ -22,15 +22,17 @@ import java.awt.Font;
 public class Main_Window {
 
 	private JFrame main_window;
-	private JTextField fieldOgres;
 	private JLabel labelGuardPersonality;
+	private JComboBox comboBoxPersonalities = new JComboBox();
+	private JTextField fieldOgres = new JTextField();
+
 	private JButton btnExitGame;
-	private JButton btnUp;
-	private JButton btnDown;
-	private JButton btnLeft;
-	private JButton btnRight;
+	private JButton btnUp = new JButton("Up");
+	private JButton btnDown = new JButton("Down");
+	private JButton btnLeft = new JButton("Left");
+	private JButton btnRight = new JButton("Right");;
 	
-	
+
 	
 	Game game = new Game();
 	Input userInput = new Input();
@@ -70,7 +72,21 @@ public class Main_Window {
 	}
 	
 	void enableControls(){
-		
+		btnUp.setEnabled(true);
+		btnDown.setEnabled(true);
+		btnLeft.setEnabled(true);
+		btnRight.setEnabled(true);
+		fieldOgres.setEnabled(false);
+		comboBoxPersonalities.setEnabled(false);
+	}
+	
+	void disableControls(){
+		btnUp.setEnabled(false);
+		btnDown.setEnabled(false);
+		btnLeft.setEnabled(false);
+		btnRight.setEnabled(false);
+		fieldOgres.setEnabled(true);
+		comboBoxPersonalities.setEnabled(true);
 	}
 	
 	/**
@@ -105,7 +121,6 @@ public class Main_Window {
 		main_window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		main_window.getContentPane().setLayout(null);
 		
-		fieldOgres = new JTextField();
 		fieldOgres.setBounds(135, 11, 149, 23);
 		main_window.getContentPane().add(fieldOgres);
 		fieldOgres.setColumns(10);
@@ -118,7 +133,6 @@ public class Main_Window {
 		labelGuardPersonality.setBounds(10, 45, 115, 23);
 		main_window.getContentPane().add(labelGuardPersonality);
 		
-		JComboBox comboBoxPersonalities = new JComboBox();
 		comboBoxPersonalities.addItem("rookie");
 		comboBoxPersonalities.addItem("zealous");
 		comboBoxPersonalities.addItem("drunk");
@@ -137,43 +151,71 @@ public class Main_Window {
 		labelStatus.setBounds(10, 367, 471, 23);
 		main_window.getContentPane().add(labelStatus);
 		
-		btnUp = new JButton("Up");
+		//btnUp = new JButton("Up");
 		btnUp.setEnabled(false);
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				game.play("w");
 				textAreaConsole.setText(game.getCurrentMapString());
 				labelStatus.setText(getGameStatusMessage());
-				if(game.checkGameOver())
+				if(game.checkGameOver()){
 					labelStatus.setText("Você padeceu perante as circunstâncias adversas.");
+					disableControls();
+					game.resetGame();
+					//textAreaConsole.setText(game.getPreviousMapString());
+				}
+				if(game.checkLevelsFinished()){
+					labelStatus.setText("Você é o ganhador, o seu espírito foi enaltecido por esta experiência.");
+					disableControls();
+					game.resetGame();
+				}
 			}
+			
 		});
 		btnUp.setBounds(324, 162, 157, 23);
 		main_window.getContentPane().add(btnUp);
 		
-		JButton btnDown = new JButton("Down");
+		//JButton btnDown = new JButton("Down");
 		btnDown.setEnabled(false);
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				game.play("s");
 				textAreaConsole.setText(game.getCurrentMapString());
 				labelStatus.setText(getGameStatusMessage());
-				if(game.checkGameOver())
+				if(game.checkGameOver()){
 					labelStatus.setText("Você padeceu perante as circunstâncias adversas.");
+					disableControls();
+					game.resetGame();
+					//textAreaConsole.setText(game.getPreviousMapString());
+				}
+				if(game.checkLevelsFinished()){
+					labelStatus.setText("Você é o ganhador, o seu espírito foi enaltecido por esta experiência.");
+					game.resetGame();
+					disableControls();
+				}
 			}
 		});
 		btnDown.setBounds(324, 212, 157, 23);
 		main_window.getContentPane().add(btnDown);
 		
-		JButton btnLeft = new JButton("Left");
+		//JButton btnLeft = new JButton("Left");
 		btnLeft.setEnabled(false);
 		btnLeft.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				game.play("a");
 				textAreaConsole.setText(game.getCurrentMapString());
 				labelStatus.setText(getGameStatusMessage());
-				if(game.checkGameOver())
+				if(game.checkGameOver()){
 					labelStatus.setText("Você padeceu perante as circunstâncias adversas.");
+					disableControls();
+					game.resetGame();
+					//textAreaConsole.setText(game.getPreviousMapString());
+				}
+				if(game.checkLevelsFinished()){
+					labelStatus.setText("Você é o ganhador, o seu espírito foi enaltecido por esta experiência.");
+					game.resetGame();
+					disableControls();
+				}
 			}
 		});
 		btnLeft.addActionListener(new ActionListener() {
@@ -183,7 +225,7 @@ public class Main_Window {
 		btnLeft.setBounds(324, 186, 73, 23);
 		main_window.getContentPane().add(btnLeft);
 		
-		JButton btnRight = new JButton("Right");
+		//JButton btnRight = new JButton("Right");
 		btnRight.setEnabled(false);
 		btnRight.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -192,7 +234,14 @@ public class Main_Window {
 				labelStatus.setText(getGameStatusMessage());
 				if(game.checkGameOver()){
 					labelStatus.setText("Você padeceu perante as circunstâncias adversas.");
-				btnRight.setEnabled(false);
+					disableControls();
+					game.resetGame();
+					//textAreaConsole.setText(game.getPreviousMapString());
+				}
+				if(game.checkLevelsFinished()){
+					labelStatus.setText("Você é o ganhador, o seu espírito foi enaltecido por esta experiência.");
+					game.resetGame();
+					disableControls();
 				}
 			}
 		});
@@ -224,23 +273,6 @@ public class Main_Window {
 					nrOgres = 1;
 					
 				}
-//				ogreNumberInput = fieldOgres.getText();
-//				
-//				if(!ogreNumberInput.matches("[0-5]*"))
-//					throw new NoSuchElementException();
-//				nrOgres = Integer.parseInt(ogreNumberInput);
-//				
-//				if(nrOgres > 5) throw new IllegalArgumentException();
-//				}
-				
-//				catch(IllegalArgumentException ex){
-//					fieldOgres.setText(5 + "");
-//					nrOgres = 5;
-//				}
-				/*
-				nrOgres = Integer.parseInt(ogreNumberInput);
-				if(nrOgres > 5) nrOgres = 5;
-				*/
 								
 				guardPersonalityInput = (String) comboBoxPersonalities.getSelectedItem();
 								
@@ -306,12 +338,7 @@ public class Main_Window {
 				
 				textAreaConsole.setText(game.getCurrentMapString());
 				
-				btnUp.setEnabled(true);
-				btnDown.setEnabled(true);
-				btnLeft.setEnabled(true);
-				btnRight.setEnabled(true);
-				fieldOgres.setEditable(false);
-				comboBoxPersonalities.setEnabled(false);
+				enableControls();
 			}
 		});
 		btnNewGame.setBounds(324, 11, 157, 23);

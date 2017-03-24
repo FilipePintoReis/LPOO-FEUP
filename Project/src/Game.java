@@ -28,6 +28,13 @@ public class Game {
 		if(currentLevel > levels.size()-1)
 			gameOver = true;
 	}
+	
+	public void decCurrentLevel(){
+		currentLevel--;
+		if(currentLevel < 0){
+			currentLevel = 0;
+		}
+	}
 
 	public Game(Level level){
 		currentLevel = 0;
@@ -117,6 +124,8 @@ public class Game {
 		levels.get(currentLevel).makeMove(userInput);
 		if(levels.get(currentLevel).isOver()){
 			incCurrentLevel();
+			if(currentLevel > levels.size()-1)
+				currentLevel--;
 		}
 	}
 	
@@ -144,7 +153,11 @@ public class Game {
 	}
 
 	public String getCurrentMapString() {
+		if(currentLevel < 0 | currentLevel > levels.size()-1)
+			return getPreviousMapString();
+	
 		String map = "";
+		
 		for (int i = 0; i < this.getCurrentLevel().getMap().getXMapLength(); i++) {
 			for (int j = 0; j < this.getCurrentLevel().getMap().getYMapLength(); j++) {
 				if (j == this.getCurrentLevel().getMap().getYMapLength() - 1)
@@ -158,7 +171,25 @@ public class Game {
 				continue;
 			else
 			map += "\n";
-
+		}
+		return map;
+	}
+	
+	public String getPreviousMapString() {
+		String map = "";
+		for (int i = 0; i < this.getPreviousLevel().getMap().getXMapLength(); i++) {
+			for (int j = 0; j < this.getPreviousLevel().getMap().getYMapLength(); j++) {
+				if (j == this.getPreviousLevel().getMap().getYMapLength() - 1)
+					map += this.getPreviousLevel().getMap().getMapElement(i, j);
+				else {
+					map += this.getPreviousLevel().getMap().getMapElement(i, j);
+					map += " ";
+				}
+			}
+			if(i == getPreviousLevel().getMap().getXMapLength() - 1)
+				continue;
+			else
+			map += "\n";
 		}
 		return map;
 	}
