@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -208,22 +209,34 @@ public class Main_Window {
 				nrClubs = 1;
 				
 				try{
-				ogreNumberInput = fieldOgres.getText();
+				Scanner sc = new Scanner(fieldOgres.getText());
+				nrOgres = sc.nextInt();
 				
-				if(!ogreNumberInput.matches("[0-5]*"))
+				if(nrOgres <= 0){
 					throw new NoSuchElementException();
-				nrOgres = Integer.parseInt(ogreNumberInput);
-				
-				if(nrOgres > 5) throw new IllegalArgumentException();
+					}
+				if(nrOgres > 5){
+					throw new NoSuchElementException();
+				}
 				}
 				catch(NoSuchElementException ex){
-					fieldOgres.setText(1 + "");
+					fieldOgres.setText("1");
 					nrOgres = 1;
+					
 				}
-				catch(IllegalArgumentException ex){
-					fieldOgres.setText(5 + "");
-					nrOgres = 5;
-				}
+//				ogreNumberInput = fieldOgres.getText();
+//				
+//				if(!ogreNumberInput.matches("[0-5]*"))
+//					throw new NoSuchElementException();
+//				nrOgres = Integer.parseInt(ogreNumberInput);
+//				
+//				if(nrOgres > 5) throw new IllegalArgumentException();
+//				}
+				
+//				catch(IllegalArgumentException ex){
+//					fieldOgres.setText(5 + "");
+//					nrOgres = 5;
+//				}
 				/*
 				nrOgres = Integer.parseInt(ogreNumberInput);
 				if(nrOgres > 5) nrOgres = 5;
