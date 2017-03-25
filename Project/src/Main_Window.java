@@ -118,7 +118,7 @@ public class Main_Window {
 	 */
 	private void initialize() {
 		main_window = new JFrame();
-		main_window.setBounds(100, 100, 520, 440);
+		main_window.setBounds(100, 100, 520, 527);
 		main_window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		main_window.getContentPane().setLayout(null);
 		
@@ -145,15 +145,15 @@ public class Main_Window {
 		textAreaConsole.setEditable(false);
 		//textAreaConsole.setText(game.getCurrentMapString());
 		textAreaConsole.setFont(new Font("Courier New", Font.PLAIN, 24));
-		textAreaConsole.setBounds(291, 4, 23, 23);
+		textAreaConsole.setBounds(10, 79, 346, 364);
 		main_window.getContentPane().add(textAreaConsole);
 		
-		panelGraphics.setBounds(10, 79, 289, 277);
+		panelGraphics.setBounds(10, 79, 346, 364);
 		main_window.getContentPane().add(panelGraphics);
 		
 		JLabel labelStatus = new JLabel("New label");
 		labelStatus.setText("Produto trazido até si por Goldmans and Sach & Afilhiados™");
-		labelStatus.setBounds(10, 367, 471, 23);
+		labelStatus.setBounds(10, 454, 471, 23);
 		main_window.getContentPane().add(labelStatus);
 		
 		//btnUp = new JButton("Up");
@@ -179,7 +179,7 @@ public class Main_Window {
 			}
 			
 		});
-		btnUp.setBounds(324, 162, 157, 23);
+		btnUp.setBounds(366, 305, 128, 23);
 		main_window.getContentPane().add(btnUp);
 		
 		//JButton btnDown = new JButton("Down");
@@ -204,7 +204,7 @@ public class Main_Window {
 				}
 			}
 		});
-		btnDown.setBounds(324, 212, 157, 23);
+		btnDown.setBounds(366, 345, 128, 23);
 		main_window.getContentPane().add(btnDown);
 		
 		//JButton btnLeft = new JButton("Left");
@@ -233,7 +233,7 @@ public class Main_Window {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnLeft.setBounds(324, 186, 73, 23);
+		btnLeft.setBounds(366, 325, 64, 23);
 		main_window.getContentPane().add(btnLeft);
 		
 		//JButton btnRight = new JButton("Right");
@@ -258,7 +258,7 @@ public class Main_Window {
 				}
 			}
 		});
-		btnRight.setBounds(407, 186, 74, 23);
+		btnRight.setBounds(430, 325, 64, 23);
 		main_window.getContentPane().add(btnRight);
 		
 		JButton btnNewGame = new JButton("New Game");
