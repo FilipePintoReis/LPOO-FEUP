@@ -124,7 +124,7 @@ public class Ogre extends Entity {
 		}
 
 		int x = this.getX() + dx;
-		int y =this.getY() + dy;
+		int y = this.getY() + dy;
 
 		char symbol = level.getMap().getMapElement(x, y);
 		if (!(symbol == ' ' || symbol == 'k') || x < 0 || x > level.getMap().getXMapLength() - 1 || y < 0 

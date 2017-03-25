@@ -18,9 +18,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import java.awt.Font;
+import javax.swing.JPanel;
 
 public class Main_Window {
-
+	
 	private JFrame main_window;
 	private JLabel labelGuardPersonality;
 	private JComboBox comboBoxPersonalities = new JComboBox();
@@ -32,9 +33,11 @@ public class Main_Window {
 	private JButton btnLeft = new JButton("Left");
 	private JButton btnRight = new JButton("Right");;
 	
-
+	public void Main_Window(){};
 	
-	Game game = new Game();
+	Game game = new Game();	
+	private SpritePanel panelGraphics = new SpritePanel(32);
+	
 	Input userInput = new Input();
 	boolean gameInitialized = false;
 	String guardPersonalityInput, ogreNumberInput;
@@ -140,11 +143,15 @@ public class Main_Window {
 		main_window.getContentPane().add(comboBoxPersonalities);
 		
 		JTextArea textAreaConsole = new JTextArea();
+		textAreaConsole.setEnabled(false);
 		textAreaConsole.setEditable(false);
 		//textAreaConsole.setText(game.getCurrentMapString());
 		textAreaConsole.setFont(new Font("Courier New", Font.PLAIN, 24));
-		textAreaConsole.setBounds(10, 79, 289, 277);
+		textAreaConsole.setBounds(291, 4, 23, 23);
 		main_window.getContentPane().add(textAreaConsole);
+		
+		panelGraphics.setBounds(10, 79, 289, 277);
+		main_window.getContentPane().add(panelGraphics);
 		
 		JLabel labelStatus = new JLabel("New label");
 		labelStatus.setText("Produto trazido até si por Goldmans and Sach & Afilhiados™");
@@ -156,7 +163,9 @@ public class Main_Window {
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				game.play("w");
-				textAreaConsole.setText(game.getCurrentMapString());
+				//textAreaConsole.setText(game.getCurrentMapString());
+				panelGraphics.repaint();
+				panelGraphics.requestFocusInWindow();
 				labelStatus.setText(getGameStatusMessage());
 				if(game.checkGameOver()){
 					labelStatus.setText("Você padeceu perante as circunstâncias adversas.");
@@ -180,7 +189,9 @@ public class Main_Window {
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				game.play("s");
-				textAreaConsole.setText(game.getCurrentMapString());
+				//textAreaConsole.setText(game.getCurrentMapString());
+				panelGraphics.repaint();
+				panelGraphics.requestFocusInWindow();
 				labelStatus.setText(getGameStatusMessage());
 				if(game.checkGameOver()){
 					labelStatus.setText("Você padeceu perante as circunstâncias adversas.");
@@ -203,7 +214,9 @@ public class Main_Window {
 		btnLeft.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				game.play("a");
-				textAreaConsole.setText(game.getCurrentMapString());
+				//textAreaConsole.setText(game.getCurrentMapString());
+				panelGraphics.repaint();
+				panelGraphics.requestFocusInWindow();
 				labelStatus.setText(getGameStatusMessage());
 				if(game.checkGameOver()){
 					labelStatus.setText("Você padeceu perante as circunstâncias adversas.");
@@ -230,7 +243,9 @@ public class Main_Window {
 		btnRight.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				game.play("d");
-				textAreaConsole.setText(game.getCurrentMapString());
+				//textAreaConsole.setText(game.getCurrentMapString());
+				panelGraphics.repaint();
+				panelGraphics.requestFocusInWindow();
 				labelStatus.setText(getGameStatusMessage());
 				if(game.checkGameOver()){
 					labelStatus.setText("Você padeceu perante as circunstâncias adversas.");
@@ -273,7 +288,8 @@ public class Main_Window {
 					nrOgres = 1;
 					
 				}
-								
+						
+				
 				guardPersonalityInput = (String) comboBoxPersonalities.getSelectedItem();
 								
 				//level 0
@@ -336,7 +352,10 @@ public class Main_Window {
 				
 				gameInitialized = true;
 				
-				textAreaConsole.setText(game.getCurrentMapString());
+				//textAreaConsole.setText(game.getCurrentMapString());
+				panelGraphics.requestFocusInWindow();
+				panelGraphics.setGame(game);
+				panelGraphics.repaint();
 				
 				enableControls();
 			}
@@ -349,6 +368,7 @@ public class Main_Window {
 			public void actionPerformed(ActionEvent e){
 				System.exit(0);
 			}
+			
 		});
 		btnExitGame.setBounds(324, 45, 158, 23);
 		main_window.getContentPane().add(btnExitGame);		
