@@ -24,6 +24,8 @@ public class DungeonTest {
 	Hero hero = new Hero(1,1);
 	Guard guard = new Guard(1, 3);
 	Guard guard1 = new Guard(4, 7, g1Pattern, "drunk");
+	Guard guard2 = new Guard(1, 7, g1Pattern, "rookie");
+	Guard guard3 = new Guard(4, 2, g1Pattern, "zealous");
 	Lever lever = new Lever(3, 1);
 	ArrayList<Guard> guards = new ArrayList<Guard>();
 	ArrayList<Ogre> ogres = new ArrayList<Ogre>();
@@ -39,6 +41,7 @@ public class DungeonTest {
 		guards.add(guard);
 		levers.add(lever);
 		guards.add(guard1);
+		guards.add(guard2);
 		game.getLevels().add(level2);
 	}
 	
@@ -89,6 +92,7 @@ public class DungeonTest {
 		game.play("s");
 		game.play("s");
 		assertEquals('S', game.getCurrentLevel().getMap().getMapElement(2, 0));
+		assertTrue(game.getCurrentLevel().getLevers().get(0).getState());
 	}
 	 
 	@Test
@@ -101,15 +105,46 @@ public class DungeonTest {
 	}
 	
 	@Test(timeout=1000)
-	public void testGuardPattern(){
-		boolean changedPattern = false, slept = false;
-		while(!(changedPattern && slept)){
+	public void testDrunkenGuardPattern(){
+		assertSame(game.getCurrentLevel().getGuards().get(0).getSymbol(),'G');
+		boolean changedPattern = false, slept = false, failedToMove = false;
+		while(!(changedPattern && slept && failedToMove)){
 			game.play("w");
-			if(game.getCurrentLevel().getGuards().get(1).getBehavior().getSleep())
+			if(game.getCurrentLevel().getGuards().get(1).getBehavior().getSleep()){
 				slept = true;
+				assertFalse(game.getCurrentLevel().getGuards().get(1).moveEntity(game.getCurrentLevel()));
+				if(!game.getCurrentLevel().getGuards().get(1).moveEntity(game.getCurrentLevel()))
+					failedToMove = true;
+			}
 			else if(game.getCurrentLevel().getGuards().get(1).getBehavior().isPatternInverted())
 				changedPattern = true;
 		}
 	}
+	@Test(timeout=1000)
+	public void testZealousGuardPattern(){
+		boolean changedPattern = false;
+		while(!changedPattern){
+			game.play("w");
+			 if(game.getCurrentLevel().getGuards().get(1).getBehavior().isPatternInverted())
+				changedPattern = true;
+		}
+	}
 	
+	@Test(timeout=1000)
+	public void testRookieGuardPattern(){
+		assertSame(game.getCurrentLevel().getGuards().get(2).getX(), 1);
+		assertSame(game.getCurrentLevel().getGuards().get(2).getY(), 7);
+		game.play("a");
+		assertSame(game.getCurrentLevel().getGuards().get(2).getX(), 1);
+		assertSame(game.getCurrentLevel().getGuards().get(2).getY(), 8);
+		game.play("a");
+		assertSame(game.getCurrentLevel().getGuards().get(2).getX(), 2);
+		assertSame(game.getCurrentLevel().getGuards().get(2).getY(), 8);
+		game.play("a");
+		assertSame(game.getCurrentLevel().getGuards().get(2).getX(), 2);
+		assertSame(game.getCurrentLevel().getGuards().get(2).getY(), 7);
+		game.play("a");
+		assertSame(game.getCurrentLevel().getGuards().get(2).getX(), 1);
+		assertSame(game.getCurrentLevel().getGuards().get(2).getY(), 7);
+	}
 }

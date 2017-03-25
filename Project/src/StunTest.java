@@ -73,6 +73,16 @@ public class StunTest {
 		assertSame('8', game.getCurrentLevel().getOgres().get(0).getSymbol());
 	}
 	
+	@Test 
+	public void testHeroFailsToStunOgre(){
+		assertSame(game.getCurrentLevel().getOgres().get(0).getSymbol(), '0');
+		makePlayWithStillOgre(game, "s");
+		makePlayWithStillOgre(game, "d");
+		makePlayWithStillOgre(game, "d");
+		makePlayWithStillOgre(game, "w");
+		assertNotEquals('8', game.getPreviousLevel().getOgres().get(0).getSymbol());
+	}
+	
 	@Test
 	public void testHeroLosesWithWeapon(){
 		assertFalse(game.getCurrentLevel().checkHeroCaptured());

@@ -110,4 +110,9 @@ public class KeepTest {
 		assertFalse(game.getPreviousLevel().getHero().isCaptured());
 	}
 	
+	@Test
+	public void testMaceStartsCorrect(){
+		assertSame(game.getCurrentLevel().getOgres().get(0).getMace().getX(), 1);
+		assertSame(game.getCurrentLevel().getOgres().get(0).getMace().getY(), 4);
+	}
 }

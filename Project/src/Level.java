@@ -23,8 +23,6 @@ public class Level {
 	public ArrayList<Lever> getLevers(){ return this.levers; }
 	public boolean isOver(){ return levelOver; }
 	
-	public Level() {}
-	
 	public Level(Hero hero, Map map, ArrayList<Guard> guards, ArrayList<Ogre> ogres, ArrayList<Lever> levers,
 			ArrayList<Key> keys, ArrayList<Club> clubs) {
 		this.hero = hero;
@@ -161,8 +159,10 @@ public class Level {
 
 	public void checkHeroOnLever() {
 		for (int i = 0; i < levers.size(); i++)
-			if (levers.get(i).getX() == hero.getX() && levers.get(i).getY() == hero.getY())
+			if (levers.get(i).getX() == hero.getX() && levers.get(i).getY() == hero.getY()){
 				map.openDoors();
+				levers.get(i).activate();
+			}
 	}
 
 	public void checkHeroOnKey() {

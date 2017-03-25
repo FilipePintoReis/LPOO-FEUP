@@ -185,7 +185,7 @@ public class Game {
 					map += this.getPreviousLevel().getMap().getMapElement(i, j);
 					map += " ";
 				}
-			}
+			} 
 			if(i == getPreviousLevel().getMap().getXMapLength() - 1)
 				continue;
 			else

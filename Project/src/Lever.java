@@ -3,13 +3,11 @@ import dkeep.logic.Entity;
 
 public class Lever extends Entity {
 	boolean activated;
-	boolean isSteppedOnByEnemy;
 	
 	public Lever(int x, int y){
 		super(x, y);
 		setSymbol('k');
 		activated = false;
-		isSteppedOnByEnemy = false;
 	}
 	
 	public boolean getState(){ return activated; }
