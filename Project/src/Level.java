@@ -11,9 +11,7 @@ public class Level {
 	ArrayList<Ogre> ogres = new ArrayList<Ogre>();
 	ArrayList<Key> keys = new ArrayList<Key>();
 	ArrayList<Lever> levers = new ArrayList<Lever>();
-	ArrayList<Club> clubs = new ArrayList<Club>();
-	String levelOverMessage = "Venho por este meio parabeniza-lo(a) pelo desempenho que demonstrou neste jogo.\n";
-    
+	ArrayList<Club> clubs = new ArrayList<Club>();    
 	
 	public Map getMap(){ return this.map; }
 	public Hero getHero(){ return this.hero; }
@@ -38,7 +36,7 @@ public class Level {
 	public void uploadGuards() {
 		for (int i = 0; i < guards.size(); i++) {
 			if(guards.get(i).getBehavior().getSleep()){
-				guards.get(i).setSymbol('S');
+				guards.get(i).setSymbol('g');
 			}
 			else { guards.get(i).setSymbol('G'); }
 			
@@ -108,8 +106,6 @@ public class Level {
 		for (int i = 0; i < guards.size(); i++)
 			if (Math.abs(hero.getX() - guards.get(i).getX()) + Math.abs(hero.getY() - guards.get(i).getY()) < 2) {
 				hero.captureHero();
-				levelOver = true;
-				levelOverMessage = "Demonstracao de habilidade insuficiente relativamente aos objetivos a cumprir.\n";
 				break;
 			}
 	}
@@ -122,16 +118,12 @@ public class Level {
 						|| Math.abs(hero.getX() - ogres.get(i).getMace().getX())
 								+ Math.abs(hero.getY() - ogres.get(i).getMace().getY()) < 2) {
 					hero.captureHero();
-					levelOver = true;
-					levelOverMessage = "Demonstracao de habilidade insuficiente relativamente aos objetivos a cumprir.\n";
 					break;
 				}
 			} else {
 				if (Math.abs(hero.getX() - ogres.get(i).getMace().getX())
 						+ Math.abs(hero.getY() - ogres.get(i).getMace().getY()) < 2) {
 					hero.captureHero();
-					levelOver = true;
-					levelOverMessage = "Demonstracao de habilidade insuficiente relativamente aos objetivos a cumprir.\n";
 					break;
 				}
 			}
