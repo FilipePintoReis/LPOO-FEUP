@@ -14,7 +14,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.SwingConstants;
-import net.miginfocom.swing.MigLayout;
+//import net.miginfocom.swing.MigLayout;
 
 public class Menu_Window {
 
@@ -53,7 +53,7 @@ public class Menu_Window {
 		Menu_Window.setTitle("The legend of the half-prince racoon, Leya");
 		Menu_Window.setFont(new Font("Elephant", Font.BOLD | Font.ITALIC, 25));
 		Menu_Window.getContentPane().setBackground(Color.YELLOW);
-		Menu_Window.getContentPane().setLayout(new MigLayout("", "[117px][][][][][][][][][][][][][][][]", "[33px][33px][23px][][][][][][][][]"));
+		//Menu_Window.getContentPane().setLayout(new MigLayout("", "[117px][][][][][][][][][][][][][][][]", "[33px][33px][23px][][][][][][][][]"));
 		
 		JButton btnNewButton_1 = new JButton("New game");
 		btnNewButton_1.addActionListener(new ActionListener() {

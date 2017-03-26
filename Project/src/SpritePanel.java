@@ -57,7 +57,7 @@ public class SpritePanel extends JPanel implements KeyListener {
 			hero 		   = ImageIO.read(new File("src/dkeep/gui/sprites/hero.png"));
 			ogre 		   = ImageIO.read(new File("src/dkeep/gui/sprites/ogre.png"));
 			guard 		   = ImageIO.read(new File("src/dkeep/gui/sprites/guard.png"));
-			//sleepingGuard  = ImageIO.read(new File("src/dkeep/gui/sprites/sleepingGuard.png"));
+			sleepingGuard  = ImageIO.read(new File("src/dkeep/gui/sprites/sleepingGuard.png"));
 			key 		   = ImageIO.read(new File("src/dkeep/gui/sprites/key.png"));
 			lever 		   = ImageIO.read(new File("src/dkeep/gui/sprites/lever.png"));
 			activatedLever = ImageIO.read(new File("src/dkeep/gui/sprites/activatedLever.png"));
@@ -70,9 +70,9 @@ public class SpritePanel extends JPanel implements KeyListener {
 			//ogreOnKey 	   = ImageIO.read(new File("src/dkeep/gui/sprites/ogreOnKey.png"));
 			//clubOnKey 	   = ImageIO.read(new File("src/dkeep/gui/sprites/clubOnKey.png"));
 			//maceOnKey 	   = ImageIO.read(new File("src/dkeep/gui/sprites/maceOnKey.png"));
-			//heroWithClub   = ImageIO.read(new File("src/dkeep/gui/sprites/heroWithClub.png"));
+			heroWithClub   = ImageIO.read(new File("src/dkeep/gui/sprites/heroWithClub.png"));
 			//heroWithKey    = ImageIO.read(new File("src/dkeep/gui/sprites/heroWithKey.png"));
-			//stunnedOgre    = ImageIO.read(new File("src/dkeep/gui/sprites/stunnedOgre.png"));
+			stunnedOgre    = ImageIO.read(new File("src/dkeep/gui/sprites/stunnedOgre.png"));
 		}
 		catch (IOException e){
 			e.printStackTrace();
@@ -125,7 +125,7 @@ public class SpritePanel extends JPanel implements KeyListener {
 					break;
 					
 				case 'A':
-					g.drawImage(hero, j1 * imageSize, i1 * imageSize, this);
+					g.drawImage(heroWithClub, j1 * imageSize, i1 * imageSize, this);
 					break;
 					
 				case 'C':
@@ -133,7 +133,7 @@ public class SpritePanel extends JPanel implements KeyListener {
 					break;
 					
 				case '8':
-					g.drawImage(ogre, j1 * imageSize, i1 * imageSize, this);
+					g.drawImage(stunnedOgre, j1 * imageSize, i1 * imageSize, this);
 					break;
 					
 				case '$':
@@ -149,7 +149,7 @@ public class SpritePanel extends JPanel implements KeyListener {
 					break;
 					
 				case 'g':
-					g.drawImage(guard, j1 * imageSize, i1 * imageSize, this);
+					g.drawImage(sleepingGuard, j1 * imageSize, i1 * imageSize, this);
 					break;
 					
 				case 'k':
@@ -178,11 +178,41 @@ public class SpritePanel extends JPanel implements KeyListener {
 			}
 	}
 	
-	public void inputHandler(final int s1, final int s2) { }
+	public void inputHandler(final int s1, final int s2) {
+		if(s1 == s2)
+			if(s2 == KeyEvent.VK_UP){
+				game.play("w");
+				requestFocusInWindow();
+			}
+			if(s2 == KeyEvent.VK_DOWN){
+				game.play("s");
+				requestFocusInWindow();
+			}
+			if(s2 == KeyEvent.VK_LEFT){
+				game.play("a");
+				requestFocusInWindow();
+			}
+			if(s2 == KeyEvent.VK_RIGHT){
+				game.play("d");
+				requestFocusInWindow();
+			}
+		
+			if(game.checkLevelsFinished()){
+				game.resetGame();
+				return;
+			}
+			if(game.checkGameOver()){
+				game.resetGame();
+			}
+		repaint();
+	}
 	
 	@Override
 	public void keyPressed(KeyEvent e){
-		
+		inputHandler(e.getKeyCode(), KeyEvent.VK_UP);
+		 inputHandler(e.getKeyCode(), KeyEvent.VK_DOWN);
+		 inputHandler(e.getKeyCode(), KeyEvent.VK_LEFT);
+		inputHandler(e.getKeyCode(), KeyEvent.VK_RIGHT);
 	}
 	
 	@Override
