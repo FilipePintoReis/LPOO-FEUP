@@ -11,12 +11,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import dkeep.logic.Game;
-import dkeep.logic.Level;
-import dkeep.logic.Hero;
-import dkeep.logic.Guard;
-import dkeep.logic.Lever;
-import dkeep.logic.Key;
+import dkeep.logic.*;
 
 public class SpritePanel extends JPanel implements KeyListener {
 	private Game game;

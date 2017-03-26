@@ -2,17 +2,30 @@ package dkeep.logic;
 
 import java.util.*;
 
-import dkeep.logic.Map;
-
 public class Game {
 	ArrayList<Level> levels = new ArrayList<Level>();
 	int currentLevel;
 	boolean gameOver;
 	
-	
+	/**
+	 * return levels
+	 * @return ArrayList<Level>
+	 */
 	public ArrayList<Level> getLevels(){ return levels; }
+	/**
+	 * returns currentlevel int
+	 * @return int
+	 */
 	public int getCurrentLevelIndex(){ return currentLevel; }
+	/**
+	 * returns current level 
+	 * @return Level
+	 */
 	public Level getCurrentLevel(){ return levels.get(currentLevel); }
+	/**
+	 * returns previous level
+	 * @return Level
+	 */
 	public Level getPreviousLevel(){ 
 		if(levels.size() == 1) return levels.get(0);
 		else return levels.get(currentLevel - 1);

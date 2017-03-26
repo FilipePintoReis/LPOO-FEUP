@@ -37,7 +37,6 @@ public class Main_Window {
 	private SpritePanel panelGraphics = new SpritePanel(32);
 	
 	private Input userInput = new Input();
-	private boolean finalize = false;
 	private String guardPersonalityInput, ogreNumberInput;
 	private boolean gotKey = true, gotWeapon = true, unactivatedLever = true, changedLevel = true;
 
