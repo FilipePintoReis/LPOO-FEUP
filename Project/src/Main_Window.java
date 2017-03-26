@@ -33,17 +33,20 @@ public class Main_Window {
 	private JButton btnLeft = new JButton("Left");
 	private JButton btnRight = new JButton("Right");;
 	
-
 	public void Main_Window(){};
 
-	Game game = new Game();	
+	private Game game = new Game();	
 	private SpritePanel panelGraphics = new SpritePanel(32);
 	
-	Input userInput = new Input();
-	boolean gameInitialized = false;
-	String guardPersonalityInput, ogreNumberInput;
-	boolean gotKey = true, gotWeapon = true, unactivatedLever = true, changedLevel = true;
+	private Input userInput = new Input();
+	private boolean gameInitialized = false;
+	private String guardPersonalityInput, ogreNumberInput;
+	private boolean gotKey = true, gotWeapon = true, unactivatedLever = true, changedLevel = true;
 
+	public SpritePanel getPanelGraphics(){ return panelGraphics; }
+	public Game getGame(){ return game; }
+	
+	
 	String getGameStatusMessage(){
 		String gameMessage = "Produto trazido até si por Goldmans and Sach & Afilhiados™";
 		if(game.getCurrentLevel().getHero().hasWeapon() & gotWeapon){
@@ -161,6 +164,8 @@ public class Main_Window {
 		labelStatus.setBounds(10, 454, 471, 23);
 		main_window.getContentPane().add(labelStatus);
 		
+		panelGraphics.addKeyListener(panelGraphics);
+		
 		//btnUp = new JButton("Up");
 		btnUp.setEnabled(false);
 		btnUp.addActionListener(new ActionListener() {
@@ -170,16 +175,17 @@ public class Main_Window {
 				panelGraphics.repaint();
 				panelGraphics.requestFocusInWindow();
 				labelStatus.setText(getGameStatusMessage());
+				if(game.checkLevelsFinished()){
+					labelStatus.setText("Você é o ganhador, o seu espírito foi enaltecido por esta experiência.");
+					disableControls();
+					game.resetGame();
+					return;
+				}
 				if(game.checkGameOver()){
 					labelStatus.setText("Você padeceu perante as circunstâncias adversas.");
 					disableControls();
 					game.resetGame();
 					//textAreaConsole.setText(game.getPreviousMapString());
-				}
-				if(game.checkLevelsFinished()){
-					labelStatus.setText("Você é o ganhador, o seu espírito foi enaltecido por esta experiência.");
-					disableControls();
-					game.resetGame();
 				}
 			}
 			
@@ -196,16 +202,17 @@ public class Main_Window {
 				panelGraphics.repaint();
 				panelGraphics.requestFocusInWindow();
 				labelStatus.setText(getGameStatusMessage());
+				if(game.checkLevelsFinished()){
+					labelStatus.setText("Você é o ganhador, o seu espírito foi enaltecido por esta experiência.");
+					game.resetGame();
+					disableControls();
+					return;
+				}
 				if(game.checkGameOver()){
 					labelStatus.setText("Você padeceu perante as circunstâncias adversas.");
 					disableControls();
 					game.resetGame();
 					//textAreaConsole.setText(game.getPreviousMapString());
-				}
-				if(game.checkLevelsFinished()){
-					labelStatus.setText("Você é o ganhador, o seu espírito foi enaltecido por esta experiência.");
-					game.resetGame();
-					disableControls();
 				}
 			}
 		});
@@ -221,16 +228,17 @@ public class Main_Window {
 				panelGraphics.repaint();
 				panelGraphics.requestFocusInWindow();
 				labelStatus.setText(getGameStatusMessage());
+				if(game.checkLevelsFinished()){
+					labelStatus.setText("Você é o ganhador, o seu espírito foi enaltecido por esta experiência.");
+					game.resetGame();
+					disableControls();
+					return;
+				}
 				if(game.checkGameOver()){
 					labelStatus.setText("Você padeceu perante as circunstâncias adversas.");
 					disableControls();
 					game.resetGame();
 					//textAreaConsole.setText(game.getPreviousMapString());
-				}
-				if(game.checkLevelsFinished()){
-					labelStatus.setText("Você é o ganhador, o seu espírito foi enaltecido por esta experiência.");
-					game.resetGame();
-					disableControls();
 				}
 			}
 		});
@@ -250,16 +258,17 @@ public class Main_Window {
 				panelGraphics.repaint();
 				panelGraphics.requestFocusInWindow();
 				labelStatus.setText(getGameStatusMessage());
+				if(game.checkLevelsFinished()){
+					labelStatus.setText("Você é o ganhador, o seu espírito foi enaltecido por esta experiência.");
+					game.resetGame();
+					disableControls();
+					return;
+				}
 				if(game.checkGameOver()){
 					labelStatus.setText("Você padeceu perante as circunstâncias adversas.");
 					disableControls();
 					game.resetGame();
 					//textAreaConsole.setText(game.getPreviousMapString());
-				}
-				if(game.checkLevelsFinished()){
-					labelStatus.setText("Você é o ganhador, o seu espírito foi enaltecido por esta experiência.");
-					game.resetGame();
-					disableControls();
 				}
 			}
 		});

@@ -178,11 +178,41 @@ public class SpritePanel extends JPanel implements KeyListener {
 			}
 	}
 	
-	public void inputHandler(final int s1, final int s2) { }
+	public void inputHandler(final int s1, final int s2) {
+		if(s1 == s2)
+			if(s2 == KeyEvent.VK_UP){
+				game.play("w");
+				requestFocusInWindow();
+			}
+			if(s2 == KeyEvent.VK_DOWN){
+				game.play("s");
+				requestFocusInWindow();
+			}
+			if(s2 == KeyEvent.VK_LEFT){
+				game.play("a");
+				requestFocusInWindow();
+			}
+			if(s2 == KeyEvent.VK_RIGHT){
+				game.play("d");
+				requestFocusInWindow();
+			}
+		
+			if(game.checkLevelsFinished()){
+				game.resetGame();
+				return;
+			}
+			if(game.checkGameOver()){
+				game.resetGame();
+			}
+		repaint();
+	}
 	
 	@Override
 	public void keyPressed(KeyEvent e){
-		
+		inputHandler(e.getKeyCode(), KeyEvent.VK_UP);
+		 inputHandler(e.getKeyCode(), KeyEvent.VK_DOWN);
+		 inputHandler(e.getKeyCode(), KeyEvent.VK_LEFT);
+		inputHandler(e.getKeyCode(), KeyEvent.VK_RIGHT);
 	}
 	
 	@Override
