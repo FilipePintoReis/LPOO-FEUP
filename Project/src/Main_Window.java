@@ -273,7 +273,7 @@ public class Main_Window {
 		btnRight.setBounds(430, 325, 64, 23);
 		main_window.getContentPane().add(btnRight);
 		
-		JButton btnNewGame = new JButton("New Game");
+		JButton btnNewGame = new JButton("Set Game");
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
