@@ -85,6 +85,7 @@ public class Menu_Window {
 				System.exit(0);
 			}
 		});
+
 		GroupLayout groupLayout = new GroupLayout(menu_window.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
