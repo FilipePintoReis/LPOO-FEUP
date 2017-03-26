@@ -1,10 +1,7 @@
 package dkeep.gui;
 
 import java.awt.Graphics;
-<<<<<<< HEAD
-=======
 import java.awt.Image;
->>>>>>> 3829596e3a4df12cc6cfd974b32594692f827b1e
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
@@ -44,14 +41,11 @@ public class SpritePanel extends JPanel implements KeyListener {
 	private BufferedImage heroWithKey;
 	private BufferedImage stunnedOgre;
 	
-<<<<<<< HEAD
-=======
 	public BufferedImage scaleImage(Image image){
 		BufferedImage temp;
 		temp = (BufferedImage) image.getScaledInstance(32, 32, image.SCALE_FAST);
 		return temp;
 	}
->>>>>>> 3829596e3a4df12cc6cfd974b32594692f827b1e
 	public void setGame(Game game){ this.game = game; }
 	public Game getGame(){ return game; }
 	
@@ -66,11 +60,7 @@ public class SpritePanel extends JPanel implements KeyListener {
 			//sleepingGuard  = ImageIO.read(new File("src/dkeep/gui/sprites/sleepingGuard.png"));
 			key 		   = ImageIO.read(new File("src/dkeep/gui/sprites/key.png"));
 			lever 		   = ImageIO.read(new File("src/dkeep/gui/sprites/lever.png"));
-<<<<<<< HEAD
-			//activatedLever = ImageIO.read(new File("src/dkeep/gui/activatedLever.png"));
-=======
 			activatedLever = ImageIO.read(new File("src/dkeep/gui/sprites/activatedLever.png"));
->>>>>>> 3829596e3a4df12cc6cfd974b32594692f827b1e
 			closedDoor 	   = ImageIO.read(new File("src/dkeep/gui/sprites/closedDoor.png"));
 			openedDoor     = ImageIO.read(new File("src/dkeep/gui/sprites/openedDoor.png"));
 			wall 		   = ImageIO.read(new File("src/dkeep/gui/sprites/wall.png"));
@@ -127,45 +117,6 @@ public class SpritePanel extends JPanel implements KeyListener {
 				switch(game.getCurrentLevel().getMap().getCurrentMap()[i1][j1]){
 					
 				case 'H':
-<<<<<<< HEAD
-					g.drawImage(hero, i1 * imageSize, j1 * imageSize, this);
-					break;
-					
-				case 'K':
-					g.drawImage(hero, i1 * imageSize, j1 * imageSize, this);
-					break;
-					
-				case 'A':
-					g.drawImage(hero, i1 * imageSize, j1 * imageSize, this);
-					break;
-					
-				case '8':
-					g.drawImage(ogre, i1 * imageSize, j1 * imageSize, this);
-					break;
-					
-				case '$':
-					g.drawImage(ogre, i1 * imageSize, j1 * imageSize, this);
-					break;
-				
-				case 'O':
-					g.drawImage(ogre, i1 * imageSize, j1 * imageSize, this);
-					break;
-				
-				case 'G':
-					g.drawImage(guard,  i1 * imageSize, j1 * imageSize, this);
-					break;
-					
-				case 'g':
-					g.drawImage(guard, i1 * imageSize, j1 * imageSize, this);
-					break;
-					
-				case 'k':
-					g.drawImage(key, i1 * imageSize, j1 * imageSize, this);
-					break;
-					
-				case '*':
-					g.drawImage(mace, i1 * imageSize, j1 * imageSize, this);
-=======
 					g.drawImage(hero, j1 * imageSize, i1 * imageSize, this);
 					break;
 					
@@ -220,7 +171,6 @@ public class SpritePanel extends JPanel implements KeyListener {
 					
 				case '*':
 					g.drawImage(mace, j1 * imageSize, i1 * imageSize, this);
->>>>>>> 3829596e3a4df12cc6cfd974b32594692f827b1e
 					break;
 				
 				default: break;
