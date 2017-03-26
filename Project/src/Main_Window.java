@@ -146,7 +146,7 @@ public class Main_Window {
 		JTextArea textAreaConsole = new JTextArea();
 		textAreaConsole.setEnabled(false);
 		textAreaConsole.setEditable(false);
-		//textAreaConsole.setText(game.getCurrentMapString());
+		
 		textAreaConsole.setFont(new Font("Courier New", Font.PLAIN, 24));
 
 		textAreaConsole.setBounds(10, 79, 346, 364);
@@ -161,14 +161,14 @@ public class Main_Window {
 		labelStatus.setBounds(10, 454, 471, 23);
 		main_window.getContentPane().add(labelStatus);
 		
-		//panelGraphics.addKeyListener(panelGraphics);
 		
-		//btnUp = new JButton("Up");
+		
+		
 		btnUp.setEnabled(false);
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				game.play("w");
-				//textAreaConsole.setText(game.getCurrentMapString());
+				
 				panelGraphics.repaint();
 				panelGraphics.requestFocusInWindow();
 				labelStatus.setText(getGameStatusMessage());
@@ -182,7 +182,6 @@ public class Main_Window {
 					labelStatus.setText("Você padeceu perante as circunstâncias adversas.");
 					disableControls();
 					game.resetGame();
-					//textAreaConsole.setText(game.getPreviousMapString());
 				}
 			}
 			
@@ -190,12 +189,12 @@ public class Main_Window {
 		btnUp.setBounds(366, 305, 128, 23);
 		main_window.getContentPane().add(btnUp);
 		
-		//JButton btnDown = new JButton("Down");
+		
 		btnDown.setEnabled(false);
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				game.play("s");
-				//textAreaConsole.setText(game.getCurrentMapString());
+				
 				panelGraphics.repaint();
 				panelGraphics.requestFocusInWindow();
 				labelStatus.setText(getGameStatusMessage());
@@ -209,19 +208,18 @@ public class Main_Window {
 					labelStatus.setText("Você padeceu perante as circunstâncias adversas.");
 					disableControls();
 					game.resetGame();
-					//textAreaConsole.setText(game.getPreviousMapString());
 				}
 			}
 		});
 		btnDown.setBounds(366, 345, 128, 23);
 		main_window.getContentPane().add(btnDown);
 		
-		//JButton btnLeft = new JButton("Left");
+		
 		btnLeft.setEnabled(false);
 		btnLeft.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				game.play("a");
-				//textAreaConsole.setText(game.getCurrentMapString());
+				
 				panelGraphics.repaint();
 				panelGraphics.requestFocusInWindow();
 				labelStatus.setText(getGameStatusMessage());
@@ -235,7 +233,6 @@ public class Main_Window {
 					labelStatus.setText("Você padeceu perante as circunstâncias adversas.");
 					disableControls();
 					game.resetGame();
-					//textAreaConsole.setText(game.getPreviousMapString());
 				}
 			}
 		});
@@ -246,12 +243,12 @@ public class Main_Window {
 		btnLeft.setBounds(366, 325, 64, 23);
 		main_window.getContentPane().add(btnLeft);
 		
-		//JButton btnRight = new JButton("Right");
+		
 		btnRight.setEnabled(false);
 		btnRight.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				game.play("d");
-				//textAreaConsole.setText(game.getCurrentMapString());
+				
 				panelGraphics.repaint();
 				panelGraphics.requestFocusInWindow();
 				labelStatus.setText(getGameStatusMessage());
@@ -265,7 +262,6 @@ public class Main_Window {
 					labelStatus.setText("Você padeceu perante as circunstâncias adversas.");
 					disableControls();
 					game.resetGame();
-					//textAreaConsole.setText(game.getPreviousMapString());
 				}
 			}
 		});
@@ -359,7 +355,7 @@ public class Main_Window {
 				game.getLevels().add(level1); 
 				//end of level1
 								
-				//textAreaConsole.setText(game.getCurrentMapString());
+				
 				panelGraphics.requestFocusInWindow();
 				panelGraphics.setGame(game);
 				panelGraphics.repaint();
