@@ -31,9 +31,7 @@ public class Main_Window {
 	private JButton btnUp = new JButton("Up");
 	private JButton btnDown = new JButton("Down");
 	private JButton btnLeft = new JButton("Left");
-	private JButton btnRight = new JButton("Right");;
-	
-	public void Main_Window(){};
+	private JButton btnRight = new JButton("Right");
 
 	private Game game = new Game();	
 	private SpritePanel panelGraphics = new SpritePanel(32);

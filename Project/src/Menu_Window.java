@@ -14,7 +14,10 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.SwingConstants;
-//import net.miginfocom.swing.MigLayout;
+import net.miginfocom.swing.MigLayout;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class Menu_Window {
 
@@ -52,13 +55,13 @@ public class Menu_Window {
 		Menu_Window.setBackground(Color.CYAN);
 		Menu_Window.setTitle("The legend of the half-prince racoon, Leya");
 		Menu_Window.setFont(new Font("Elephant", Font.BOLD | Font.ITALIC, 25));
-		Menu_Window.getContentPane().setBackground(Color.YELLOW);
-		//Menu_Window.getContentPane().setLayout(new MigLayout("", "[117px][][][][][][][][][][][][][][][]", "[33px][33px][23px][][][][][][][][]"));
+		Menu_Window.getContentPane().setBackground(Color.WHITE);
 		
 		JButton btnNewButton_1 = new JButton("New game");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Main_Window main = new Main_Window();
+				main.main(null);
 			}
 		});
 		
@@ -71,10 +74,8 @@ public class Menu_Window {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		Menu_Window.getContentPane().add(btnNewButton, "cell 7 0,alignx center,aligny bottom");
 		btnNewButton_1.setVerticalAlignment(SwingConstants.TOP);
 		btnNewButton_1.setFont(new Font("Agency FB", Font.PLAIN, 19));
-		Menu_Window.getContentPane().add(btnNewButton_1, "cell 15 0,alignx center,aligny bottom");
 		
 		JButton btnNewButton_2 = new JButton("Exit this virtual demonstration");
 		btnNewButton_2.setFont(new Font("Agency FB", Font.PLAIN, 19));
@@ -83,7 +84,34 @@ public class Menu_Window {
 				System.exit(0);
 			}
 		});
-		Menu_Window.getContentPane().add(btnNewButton_2, "cell 11 10,alignx center,aligny center");
+		GroupLayout groupLayout = new GroupLayout(Menu_Window.getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addContainerGap(467, Short.MAX_VALUE)
+					.addComponent(btnNewButton_1)
+					.addGap(77))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(373)
+					.addComponent(btnNewButton_2)
+					.addContainerGap(59, Short.MAX_VALUE))
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addContainerGap(284, Short.MAX_VALUE)
+					.addComponent(btnNewButton)
+					.addGap(242))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addGap(21)
+					.addComponent(btnNewButton)
+					.addPreferredGap(ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+					.addComponent(btnNewButton_2)
+					.addGap(49)
+					.addComponent(btnNewButton_1)
+					.addGap(61))
+		);
+		Menu_Window.getContentPane().setLayout(groupLayout);
 		Menu_Window.setBounds(100, 100, 653, 330);
 		Menu_Window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
