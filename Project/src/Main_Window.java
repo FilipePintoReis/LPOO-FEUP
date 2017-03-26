@@ -162,7 +162,7 @@ public class Main_Window {
 		labelStatus.setBounds(10, 454, 471, 23);
 		main_window.getContentPane().add(labelStatus);
 		
-		panelGraphics.addKeyListener(panelGraphics);
+		//panelGraphics.addKeyListener(panelGraphics);
 		
 		//btnUp = new JButton("Up");
 		btnUp.setEnabled(false);

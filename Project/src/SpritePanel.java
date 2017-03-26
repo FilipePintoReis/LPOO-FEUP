@@ -210,8 +210,8 @@ public class SpritePanel extends JPanel implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e){
 		inputHandler(e.getKeyCode(), KeyEvent.VK_UP);
-		 inputHandler(e.getKeyCode(), KeyEvent.VK_DOWN);
-		 inputHandler(e.getKeyCode(), KeyEvent.VK_LEFT);
+		inputHandler(e.getKeyCode(), KeyEvent.VK_DOWN);
+		inputHandler(e.getKeyCode(), KeyEvent.VK_LEFT);
 		inputHandler(e.getKeyCode(), KeyEvent.VK_RIGHT);
 	}
 	
