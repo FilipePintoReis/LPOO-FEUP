@@ -30,38 +30,55 @@ public class Game {
 		if(levels.size() == 1) return levels.get(0);
 		else return levels.get(currentLevel - 1);
 		}
-	
+	/**
+	 * resets game
+	 */
 	public void resetGame(){
 		levels.clear();
 		gameOver = false;
 		currentLevel = 0;
 	}
+	
+	/**
+	 * increments currentLevel
+	 */
 	public void incCurrentLevel(){
 		currentLevel++;
 		if(currentLevel > levels.size()-1)
 			gameOver = true;
 	}
 	
+	/**
+	 * decrementsCurrentLevel
+	 */
 	public void decCurrentLevel(){
 		currentLevel--;
 		if(currentLevel < 0){
 			currentLevel = 0;
 		}
 	}
-
+	/**
+	 * constructor
+	 * @param level
+	 */
 	public Game(Level level){
 		currentLevel = 0;
 		gameOver = false;
 		levels = new ArrayList<Level>();
 		levels.add(level);
 	}
-	
+	/**
+	 * constructor
+	 */
 	public Game(){
 		currentLevel = 0;
 		gameOver = false;
 		levels = new ArrayList();
 	}
-	
+	/**
+	 * function that receives user input and checks if the level ends after that move. Also increments level 
+	 * @param userInput
+	 */
 	public void play(String userInput){ 
 		levels.get(currentLevel).makeMove(userInput);
 		if(levels.get(currentLevel).isOver()){
@@ -70,14 +87,20 @@ public class Game {
 				currentLevel--;
 		}
 	}
-	
+	/**
+	 * runs throught every level to check if it is finished
+	 * @return boolean
+	 */
 	public boolean checkLevelsFinished(){
 		for(int i=0; i < levels.size(); i++)
 			if(!levels.get(i).isOver())
 				return false;
 		return true;
 	}
-	
+	/**
+	 * returns true if hero was captured else false
+	 * @return boolean
+	 */
 	public boolean checkHeroCaptured(){
 		for(int i = 0; i < levels.size(); i++){
 			if(levels.get(i).getHero().isCaptured())
@@ -86,14 +109,20 @@ public class Game {
 		return false;
 	}
 	
-	
+	/**
+	 * returns true if game is over else false
+	 * @return boolean
+	 */
 	public boolean checkGameOver(){
 		for(int i=0; i < levels.size(); i++)
 			if(levels.get(i).checkHeroCaptured())
 				return true;
 		return false;
 	}
-
+	/**
+	 * functions that creates correspondent string of the current map
+	 * @return String
+	 */
 	public String getCurrentMapString() {
 		if(currentLevel < 0 | currentLevel > levels.size()-1)
 			return getPreviousMapString();
@@ -116,7 +145,10 @@ public class Game {
 		}
 		return map;
 	}
-	
+	/**
+	 * same as getCurrentMapString(), but uses previous map
+	 * @return String
+	 */
 	public String getPreviousMapString() {
 		String map = "";
 		for (int i = 0; i < this.getPreviousLevel().getMap().getXMapLength(); i++) {

@@ -8,7 +8,13 @@ public class Guard extends Entity {
 	char inverted_pattern[];
 	int currentPosition;
 	Behavior behavior;
-
+	/**
+	 * constructor
+	 * @param x
+	 * @param y
+	 * @param pattern
+	 * @param behavior
+	 */
 	public Guard(int x, int y, char[] pattern, String behavior) {
 		super(x, y);
 		this.behavior = new Behavior(behavior);
@@ -34,7 +40,11 @@ public class Guard extends Entity {
 			}
 		}
 	}
-	
+	/**
+	 * constructor
+	 * @param x
+	 * @param y
+	 */
 	public Guard(int x, int y) {
 		super(x, y);
 		this.behavior = new Behavior("rookie");
@@ -43,12 +53,17 @@ public class Guard extends Entity {
 		pattern = new char[24];
 		inverted_pattern = new char[24];
 	}
-	
+	/**
+	 * increments currentPosition variable
+	 */
 	public void incCurrentPosition() {
 		this.currentPosition++;
 		if (currentPosition > pattern.length - 1)
 			this.currentPosition = 0;
 	}
+	/**
+	 * decrements currentPosition variable
+	 */
 	public void decCurrentPosition() {
 		this.currentPosition--;
 		if (currentPosition < 0)
@@ -56,12 +71,27 @@ public class Guard extends Entity {
 	}
 	
 	
-	
+	/**
+	 * returns pattern
+	 * @return char[]
+	 */
 	public char[] getPattern() { return this.pattern; }
+	/**
+	 * returns inverted_pattern
+	 * @return char[]
+	 */
 	public char[] getInvertedPattern(){ return this.inverted_pattern; }
+	/**
+	 * retuns behavior
+	 * @return Behavior
+	 */
 	public Behavior getBehavior(){ return this.behavior; }
 	
-	
+	/**
+	 * move function for the guard, creates a delta dx and dy so as to check if guard can move to certain position on the map
+	 * @param level
+	 * @return boolean
+	 */
 	public boolean moveEntity(Level level) {
 		if(this.getBehavior().getSleep()) return false;
 		
