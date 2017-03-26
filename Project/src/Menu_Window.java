@@ -14,14 +14,14 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.SwingConstants;
-import net.miginfocom.swing.MigLayout;
+//import net.miginfocom.swing.MigLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class Menu_Window {
 
-	private JFrame Menu_Window;
+	private JFrame menu_window;
 
 	/**
 	 * Launch the application.
@@ -31,7 +31,7 @@ public class Menu_Window {
 			public void run() {
 				try {
 					Menu_Window window = new Menu_Window();
-					window.Menu_Window.setVisible(true);
+					window.menu_window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -50,18 +50,19 @@ public class Menu_Window {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		Menu_Window = new JFrame();
-		Menu_Window.getContentPane().setFont(new Font("Leelawadee", Font.BOLD, 19));
-		Menu_Window.setBackground(Color.CYAN);
-		Menu_Window.setTitle("The legend of the half-prince racoon, Leya");
-		Menu_Window.setFont(new Font("Elephant", Font.BOLD | Font.ITALIC, 25));
-		Menu_Window.getContentPane().setBackground(Color.WHITE);
+		menu_window = new JFrame();
+		menu_window.getContentPane().setFont(new Font("Leelawadee", Font.BOLD, 19));
+		menu_window.setBackground(Color.CYAN);
+		menu_window.setTitle("The legend of the half-prince racoon, Leya");
+		menu_window.setFont(new Font("Elephant", Font.BOLD | Font.ITALIC, 25));
+		menu_window.getContentPane().setBackground(Color.WHITE);
 		
 		JButton btnNewButton_1 = new JButton("New game");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Main_Window main = new Main_Window();
 				main.main(null);
+				menu_window.dispose();
 			}
 		});
 		
@@ -84,7 +85,8 @@ public class Menu_Window {
 				System.exit(0);
 			}
 		});
-		GroupLayout groupLayout = new GroupLayout(Menu_Window.getContentPane());
+
+		GroupLayout groupLayout = new GroupLayout(menu_window.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
@@ -111,9 +113,9 @@ public class Menu_Window {
 					.addComponent(btnNewButton_1)
 					.addGap(61))
 		);
-		Menu_Window.getContentPane().setLayout(groupLayout);
-		Menu_Window.setBounds(100, 100, 653, 330);
-		Menu_Window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		menu_window.getContentPane().setLayout(groupLayout);
+		menu_window.setBounds(100, 100, 653, 330);
+		menu_window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 }
