@@ -21,6 +21,17 @@ public class Level {
 	public ArrayList<Lever> getLevers(){ return this.levers; }
 	public boolean isOver(){ return levelOver; }
 	
+	/**
+	 * Level constructor, receives each element that constitutes a level
+	 * @param hero
+	 * @param map
+	 * @param guards
+	 * @param ogres
+	 * @param levers
+	 * @param keys
+	 * @param clubs
+	 */
+	
 	public Level(Hero hero, Map map, ArrayList<Guard> guards, ArrayList<Ogre> ogres, ArrayList<Lever> levers,
 			ArrayList<Key> keys, ArrayList<Club> clubs) {
 		this.hero = hero;
@@ -33,6 +44,11 @@ public class Level {
 		uploadMap();
 	}
 
+	/**
+	 * uploads each guard according to their behaviour
+	 * moves each guard
+	 */
+	
 	public void uploadGuards() {
 		for (int i = 0; i < guards.size(); i++) {
 			if(guards.get(i).getBehavior().getSleep()){
@@ -58,6 +74,10 @@ public class Level {
 		}
 	}
 
+	/**
+	 * uploads the ogres state by checking if any ogre was stunned and moves each ogre
+	 */
+	
 	public void uploadOgres() {
 		for (int i = 0; i < ogres.size(); i++) {
 			if(ogres.get(i).isStunned()){
@@ -69,6 +89,11 @@ public class Level {
 				ogres.get(i).swingMace(i, this);
 		}
 	}
+	
+	/**
+	 * cleans the current map and puts each element (keys, levers, clubs, hero, ogres, guards, maces )
+	 * on the cleansed current map
+	 */
 	
 	public void uploadMap(){
 		map.cleanCurrentMap();
@@ -102,6 +127,10 @@ public class Level {
 		}
 	}
 	
+	/**
+	 * checks if the hero was captured by any guards and sets its state accordingly
+	 */
+	
 	public void checkCapturedByGuards() {
 		for (int i = 0; i < guards.size(); i++)
 			if (Math.abs(hero.getX() - guards.get(i).getX()) + Math.abs(hero.getY() - guards.get(i).getY()) < 2) {
@@ -110,7 +139,10 @@ public class Level {
 			}
 	}
 
-	// checks if Hero was captured by a Ogre or hit by a Mace
+	/**
+	 * checks if the hero was captured by the ogres or hit by their maces and sets the heros state accordingly
+	 * 
+	 */
 	public void checkCapturedByOgres() {
 		for (int i = 0; i < ogres.size(); i++) {
 			if (!hero.hasWeapon) {
@@ -130,6 +162,10 @@ public class Level {
 		}
 	}
 	
+	/**
+	 * checks if any ogres were stunned and sets their states accordingly
+	 */
+	
 	public void checkStunnedOgres(){
 		for(int i=0; i < ogres.size(); i++){
 		if(hero.hasWeapon())
@@ -139,7 +175,10 @@ public class Level {
 			}
 		}
 	}
-
+	
+	/**
+	 * checks if the hero reached the exit and sets the levels state accordingly
+	 */
 
 	public void checkHeroOnExit() {
 		map.loadExits();
@@ -149,6 +188,11 @@ public class Level {
 		}
 	}
 
+	
+	/**
+	 * checks if the hero is on a lever and sets the map, hero and lever states accordingly
+	 */
+	
 	public void checkHeroOnLever() {
 		for (int i = 0; i < levers.size(); i++)
 			if (levers.get(i).getX() == hero.getX() && levers.get(i).getY() == hero.getY()){
@@ -157,6 +201,10 @@ public class Level {
 			}
 	}
 
+	/**
+	 * checks if the hero caught the key and sets the heros and keys states accordingly
+	 */
+	
 	public void checkHeroOnKey() {
 		for (int i = 0; i < keys.size(); i++)
 			if (keys.get(i).getX() == hero.getX() && keys.get(i).getY() == hero.getY()) {
@@ -164,6 +212,10 @@ public class Level {
 				keys.get(i).pickUp();
 			}
 	}
+	
+	/**
+	 * checks if the hero was hit by a club and sets its state accordingly
+	 */
 	
 	public void checkHeroOnClub(){
 		for(int i = 0; i < clubs.size(); i++)
@@ -173,10 +225,20 @@ public class Level {
 			}
 	} 
 
+	/**
+	 * checks if the hero was captured
+	 * returns the heros captured state
+	 * @return
+	 */
+	
 	public boolean checkHeroCaptured() {
 		return hero.isCaptured();
 	}
 
+	/**
+	 * checks if the key was picked up and sets its symbol and state accordingly
+	 */
+	
 	public void checkKeyStatus() {
 		for (int i = 0; i < keys.size(); i++) {
 			if (keys.get(i).isPickedUp())
@@ -186,6 +248,10 @@ public class Level {
 		}
 	}
 	
+	/**
+	 * checks if the club was picked up and sets its symbol and state accordingly
+	 */
+	
 	public void checkClubStatus() {
 		for (int i = 0; i < clubs.size(); i++) {
 			if (clubs.get(i).isPickedUp())
@@ -194,6 +260,12 @@ public class Level {
 				clubs.get(i).setSymbol('C');
 		}
 	}
+	
+	/**
+	 * makes a move given a user input
+	 * moves the hero in the inputs direction and uploads the level
+	 * @param userInput
+	 */
 	
 	public void makeMove(String userInput){
 		uploadMap();
