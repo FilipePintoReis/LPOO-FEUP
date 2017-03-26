@@ -31,15 +31,13 @@ public class Main_Window {
 	private JButton btnUp = new JButton("Up");
 	private JButton btnDown = new JButton("Down");
 	private JButton btnLeft = new JButton("Left");
-	private JButton btnRight = new JButton("Right");;
-	
-	public void Main_Window(){};
+	private JButton btnRight = new JButton("Right");
 
 	private Game game = new Game();	
 	private SpritePanel panelGraphics = new SpritePanel(32);
 	
 	private Input userInput = new Input();
-	private boolean gameInitialized = false;
+	private boolean finalize = false;
 	private String guardPersonalityInput, ogreNumberInput;
 	private boolean gotKey = true, gotWeapon = true, unactivatedLever = true, changedLevel = true;
 
@@ -361,9 +359,7 @@ public class Main_Window {
 				Level level1 = new Level(hero1, map1, guards1, ogres1, levers1, keys1, clubs1);
 				game.getLevels().add(level1); 
 				//end of level1
-				
-				gameInitialized = true;
-				
+								
 				//textAreaConsole.setText(game.getCurrentMapString());
 				panelGraphics.requestFocusInWindow();
 				panelGraphics.setGame(game);
@@ -378,9 +374,10 @@ public class Main_Window {
 		btnExitGame = new JButton("Exit");
 		btnExitGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-				System.exit(0);
+				Menu_Window menu = new Menu_Window();
+				menu.main(null);
+				main_window.dispose();
 			}
-			
 		});
 		btnExitGame.setBounds(324, 45, 158, 23);
 		main_window.getContentPane().add(btnExitGame);		

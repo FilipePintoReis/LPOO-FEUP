@@ -15,10 +15,13 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.SwingConstants;
 //import net.miginfocom.swing.MigLayout;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class Menu_Window {
 
-	private JFrame Menu_Window;
+	private JFrame menu_window;
 
 	/**
 	 * Launch the application.
@@ -28,7 +31,7 @@ public class Menu_Window {
 			public void run() {
 				try {
 					Menu_Window window = new Menu_Window();
-					window.Menu_Window.setVisible(true);
+					window.menu_window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -47,18 +50,19 @@ public class Menu_Window {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		Menu_Window = new JFrame();
-		Menu_Window.getContentPane().setFont(new Font("Leelawadee", Font.BOLD, 19));
-		Menu_Window.setBackground(Color.CYAN);
-		Menu_Window.setTitle("The legend of the half-prince racoon, Leya");
-		Menu_Window.setFont(new Font("Elephant", Font.BOLD | Font.ITALIC, 25));
-		Menu_Window.getContentPane().setBackground(Color.YELLOW);
-		//Menu_Window.getContentPane().setLayout(new MigLayout("", "[117px][][][][][][][][][][][][][][][]", "[33px][33px][23px][][][][][][][][]"));
+		menu_window = new JFrame();
+		menu_window.getContentPane().setFont(new Font("Leelawadee", Font.BOLD, 19));
+		menu_window.setBackground(Color.CYAN);
+		menu_window.setTitle("The legend of the half-prince racoon, Leya");
+		menu_window.setFont(new Font("Elephant", Font.BOLD | Font.ITALIC, 25));
+		menu_window.getContentPane().setBackground(Color.WHITE);
 		
 		JButton btnNewButton_1 = new JButton("New game");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Main_Window main = new Main_Window();
+				main.main(null);
+				menu_window.dispose();
 			}
 		});
 		
@@ -71,10 +75,8 @@ public class Menu_Window {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		Menu_Window.getContentPane().add(btnNewButton, "cell 7 0,alignx center,aligny bottom");
 		btnNewButton_1.setVerticalAlignment(SwingConstants.TOP);
 		btnNewButton_1.setFont(new Font("Agency FB", Font.PLAIN, 19));
-		Menu_Window.getContentPane().add(btnNewButton_1, "cell 15 0,alignx center,aligny bottom");
 		
 		JButton btnNewButton_2 = new JButton("Exit this virtual demonstration");
 		btnNewButton_2.setFont(new Font("Agency FB", Font.PLAIN, 19));
@@ -83,9 +85,36 @@ public class Menu_Window {
 				System.exit(0);
 			}
 		});
-		Menu_Window.getContentPane().add(btnNewButton_2, "cell 11 10,alignx center,aligny center");
-		Menu_Window.setBounds(100, 100, 653, 330);
-		Menu_Window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		GroupLayout groupLayout = new GroupLayout(menu_window.getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addContainerGap(467, Short.MAX_VALUE)
+					.addComponent(btnNewButton_1)
+					.addGap(77))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(373)
+					.addComponent(btnNewButton_2)
+					.addContainerGap(59, Short.MAX_VALUE))
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addContainerGap(284, Short.MAX_VALUE)
+					.addComponent(btnNewButton)
+					.addGap(242))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addGap(21)
+					.addComponent(btnNewButton)
+					.addPreferredGap(ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+					.addComponent(btnNewButton_2)
+					.addGap(49)
+					.addComponent(btnNewButton_1)
+					.addGap(61))
+		);
+		menu_window.getContentPane().setLayout(groupLayout);
+		menu_window.setBounds(100, 100, 653, 330);
+		menu_window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 }
