@@ -1,26 +1,26 @@
 # LPOO1617_T2G1
 
-User Navigation Diagram:
+User Navigation Diagram: https://imgur.com/a/pIqMh
 
 ![](https://imgur.com/a/pIqMh)
 
 
-Packets Diagran:
+Packets Diagram: https://imgur.com/a/eDtRb
 
 ![](https://imgur.com/a/eDtRb)
 
 
-Sequence Diagram:
+Sequence Diagram: https://imgur.com/a/3MGTY
 
 ![](https://imgur.com/a/3MGTY)
 
 
-UML:
+UML: https://imgur.com/a/9bohw
 
 ![](https://imgur.com/a/9bohw)
 
 
-User Cases:
+User Cases: https://imgur.com/a/F61t2
 
 ![](https://imgur.com/a/F61t2)
 
