@@ -5,7 +5,7 @@ User Navigation Diagram: https://imgur.com/a/pIqMh
 ![](https://imgur.com/a/pIqMh)
 
 
-Packets Diagram: https://imgur.com/a/eDtRb
+Mockup: https://imgur.com/a/eDtRb
 
 ![](https://imgur.com/a/eDtRb)
 
