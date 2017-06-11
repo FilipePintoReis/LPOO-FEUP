@@ -1,3 +1,4 @@
+
 Design Patterns usados:
 
 SINGLETON
@@ -55,6 +56,14 @@ Parte da estrutura da lógica do jogo foi baseada no código fornecido por Brent
 https://github.com/BrentAureli/FlappyDemo
 
 
+
+TEMPO GASTO
+
+O trabalho foi desenvolvido na sua íntegra ao longo de uma semana (7 dias úteis) tendo sido gastas,
+por estimativa, 8/9 horas diárias, perfazendo o total de 56 a 63 horas.
+
+A distruibuição de tarefas foi feita de forma a que cada membro realiza-se cerca de metade do trabalho cada
+(50/50).
 
 
 
