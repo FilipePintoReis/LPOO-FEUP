@@ -1,13 +1,6 @@
+To use the app you need to open the file Pepsiman.jar and click on View Raw to download.
 
-
-
-
-
-
-
-
-
-
+After the download is complete, you click the Pepsiman.jar to run it.
 
 
 
