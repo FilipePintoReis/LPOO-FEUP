@@ -1,8 +1,71 @@
+Design Patterns usados:
+
+SINGLETON
+
+Assegura que uma dada classe só possui uma instância para o programa inteiro que vai ser acedida
+por várias classes alheias.
+
+Este padrão é uado para o manuseamento da classe do libdgx SpriteBatch, visto que esta é uma classe
+excessivamente pesada e que consome demasiados recursos. È criada uma SpriteBatch na classe principal do
+jogo que é passada a todos os States do jogo como argumento.
+
+
+STATE
+
+Recorre a uma máquina de estados para navegar entre a lógica do jogo.
+
+O programa possui várias classes derivadas de uma classe State, conforme cada etapa/menu do jogo. Para se efectuar a gestão
+de estados, recorre-se a uma classe GameStateManager.
+
+
+SUBCLASS SANDBOX
+
+Padrão que define uma classe mãe com vários métodos que serão overrided
+pelas suas classes derivadas.
+
+Este pattern é utilizado nas classes States e seus derivados, cada uma dando override
+aos métodos que existem na classe State, adaptando-os às suas funções específicas
+
+
+UPDATE METHOD
+
+Padrão que define um certo número de objectos para um dado programa, tendo cada um deles um método update() que 
+actualiza o respectivo objecto, em função de um delta t, simulando uma (ou várias) frames.
+
+Este padrão é utilizado para animações e para todos os renders de objectos no ecrã. É também utilizado para
+os updates da lógica do jogo.
+
+
+
+
+DIFICULDADES ENCONTRADAS
+
+
+
+O tema inicialmente escolhido mostrou-se não adequado às capacidades do grupo. Teria que ser efectuada demasiada pesquisa
+sem garantias que as soluções encontradas funcionariam, pelo menos dentro do prazo especificado para a entrega do trabalho.
+Foi então definido um tema mais simples e concreto. No entanto, devido à escolha tardia do tema, não foi possível efectuar um bom planeamento de estratégias
+de desenvolvimento, acabando o trabalho por ter sido desenvolvido não com as melhores práticas.
+Devido a esta falta de planeamento, não foi possível isolar a lógica do jogo e realizar testes unitários.
+
+
+CRÉDITOS
+
+Parte da estrutura da lógica do jogo foi baseada no código fornecido por Brent Aureli.
+https://github.com/BrentAureli/FlappyDemo
+
+
+
+
+
+
+
+Tutorial to download and run the game.
+
+
 To use the app you need to open the file Pepsiman.jar and click on View Raw to download.
 
 After the download is complete, you click the Pepsiman.jar to run it.
-
-
 
 To start the game click the run button on the center
 
